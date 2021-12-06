@@ -1,10 +1,12 @@
 version: '2'
 services:
+  container_name: zookeeper-for-kafka
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
   kafka:
+    container_name: kafka-local
     build: .
     ports:
       - "9092:9092"
@@ -14,3 +16,11 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+  jupyter:
+    container_name: jupyter2
+    image: jupyter/pyspark-notebook:latest
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./jupyter-work:/home/jovyan/work
+      - ./kernel.json:/opt/conda/share/jupyter/kernels/python3/kernel.json

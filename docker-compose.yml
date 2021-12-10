@@ -1,26 +1,49 @@
 version: '2'
+
 services:
-  container_name: zookeeper-for-kafka
-  zookeeper:
-    image: wurstmeister/zookeeper
-    ports:
-      - "2181:2181"
-  kafka:
-    container_name: kafka-local
-    build: .
-    ports:
-      - "9092:9092"
-    environment:
-      DOCKER_API_VERSION: 1.22
-      KAFKA_ADVERTISED_HOST_NAME: $HOST_IP
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+  # zookeeper:
+  #   container_name: zookeeper-for-kafka
+  #   image: wurstmeister/zookeeper
+  #   ports:
+  #     - "2181:2181"
+  # kafka:
+  #   container_name: kafka-local
+  #   image: kafka-docker_kafka:latest
+  #   ports:
+  #     - "9092:9092"
+  #   environment:
+  #     DOCKER_API_VERSION: 1.22
+  #     KAFKA_ADVERTISED_HOST_NAME: $HOST_IP
+  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
   jupyter:
     container_name: jupyter2
     image: jupyter/pyspark-notebook:latest
+    # links:
+    #   - "kafka:kafka"
+    # depends_on:
+    #   - db-postgres
+    environment:
+      - THIS_HOST_IP=$HOST_IP
+      - PASSWORD=ptang4312
+    #   - JUPYTER_ENABLE_LAB=yes
     ports:
       - "8888:8888"
     volumes:
       - ./jupyter-work:/home/jovyan/work
-      - ./kernel.json:/opt/conda/share/jupyter/kernels/python3/kernel.json
+      - ~/logs/sourcing-search:/home/jovyan/work/json
+      # - ./hive-site.xml:/usr/local/spark/conf/hive-site.xml
+      # - ./postgresql-42.2.24.jar:/usr/local/spark/jars/postgresql-42.2.24.jar
+      # - ./kernel.json:/opt/conda/share/jupyter/kernels/python3/kernel.json
+
+  # db-postgres:
+  #   container_name: db-postgres
+  #   image: postgres
+  #   ports: 
+  #     - "5432:5432"
+  #   volumes: 
+  #     - ./jupyter-pg-data:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_PASSWORD: spark-hive
+  #     POSTGRES_DB: hive_metastore

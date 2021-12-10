@@ -1,2 +1,4 @@
 .env
 jupyter-work/
+postgresql-42.2.24.jar
+jupyter-pg-data/

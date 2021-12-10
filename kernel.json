@@ -1,12 +1,18 @@
 {
     "display_name": "PySpark",
     "language": "python",
-    "argv": [ "/opt/conda/bin/python", "-m", "ipykernel", "-f", "  {connection_file}" ],
+    "argv": [
+        "/opt/conda/bin/python",
+        "-m",
+        "ipykernel",
+        "-f",
+        "  {connection_file}"
+    ],
     "env": {
         "SPARK_HOME": "/usr/local/spark",
         "PYSPARK_PYTHON": "/opt/conda/bin/python",
         "PYTHONPATH": "/usr/local/spark/python/:/usr/local/spark/python/lib/py4j-0.10.9.2-src.zip",
         "PYTHONSTARTUP": "/usr/local/spark/python/pyspark/shell.py",
-        "PYSPARK_SUBMIT_ARGS":  "--packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0 pyspark-shell"
+        "PYSPARK_SUBMIT_ARGS": "--packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0 pyspark-shell"
     }
 }

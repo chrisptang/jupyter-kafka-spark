@@ -27,6 +27,7 @@ services:
     environment:
       - THIS_HOST_IP=$HOST_IP
       - PASSWORD=ptang4312
+      - SPARK_OPTS=--master=local[2] --driver-memory=2g --executor-memory=2g
     #   - JUPYTER_ENABLE_LAB=yes
     ports:
       - "8888:8888"

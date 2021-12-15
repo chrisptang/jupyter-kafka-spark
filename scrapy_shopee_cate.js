@@ -1,11 +1,12 @@
 var oldTimeout = setTimeout;
-window.scheduledTimeouts = [];
-window.mySetTimeout = function (callback, timeout) {
+tasks = [];
+scheduledTimeouts = [];
+mySetTimeout = function (callback, timeout) {
     let id = oldTimeout(function () {
         callback();
-        console.log('timeout finished', window.scheduledTimeouts.shift());
+        console.log('timeout finished', scheduledTimeouts.shift());
     }, timeout);
-    window.scheduledTimeouts.push({
+    scheduledTimeouts.push({
         "id": id,
         "created_at": new Date().toLocaleString(),
         "timeout": timeout,
@@ -13,11 +14,33 @@ window.mySetTimeout = function (callback, timeout) {
     });
 }
 
-async function getShopeeData(url = '') {
+function getRandomTimeout() {
+    return 20 * (100 + 1 * parseInt(100 * Math.random()))
+}
+
+function executeTask() {
+    let cb = tasks.shift();
+    if (cb) {
+        cb();
+    } else {
+        console.warn("has no task");
+    }
+    mySetTimeout(executeTask, getRandomTimeout());
+}
+
+async function getShopeeData(url = '', retry = 1) {
+    if (retry < 0) {
+        console.log("try too many times:", url, retry);
+        return null;
+    }
     console.log("requesting:", url);
     // Default options are marked with *
-    const response = await fetch(url);
-    return response.json(); // parses JSON response into native JavaScript objects
+    try {
+        const response = await fetch(url);
+        return response.json(); // parses JSON response into native JavaScript objects
+    } catch {
+        return await getShopeeData(url, --retry);
+    }
 }
 
 async function sendResult(json = {}, url = '') {
@@ -39,14 +62,15 @@ async function sendResult(json = {}, url = '') {
 
 const page_size = 60;
 
-async function cate_callback(i, cate_id, by) {
+// Shopee Singapore
+// https://shopee.sg/api/v4/search/search_items?by=sales&limit=20&match_id=11027812&newest=0&order=desc&page_type=search&scenario=PAGE_OTHERS&version=2
+
+async function cate_callback(i = 0, cate_id = 11042921, by = "sales", site = "shopee.co.id") {
     if (i * page_size > 1000) {
         console.warn("stopped at:", i * 60, cate_id, by);
         return;
     }
-    by = by || "sales"
-    cate_id = cate_id || 11042921;
-    let url = `https://shopee.co.id/api/v4/search/search_items?by=${by}&limit=${page_size}&match_id=${cate_id}&newest=${i * 60}&order=desc&page_type=search&scenario=PAGE_OTHERS&version=2`;
+    let url = `https://${site}/api/v4/search/search_items?by=${by}&limit=${page_size}&match_id=${cate_id}&newest=${i * 60}&order=desc&page_type=search&scenario=PAGE_OTHERS&version=2`;
 
     let json = await getShopeeData(url);
     if (!json || !json.items || json.items.length <= 0) {
@@ -56,7 +80,6 @@ async function cate_callback(i, cate_id, by) {
     json.url = url;
     let response = await sendResult(json);
     console.log("sink resule:", response);
-    mySetTimeout(cate_callback.bind(this, ++i, cate_id, by), parseInt(6000 + 5000 * Math.random()));
 }
 
 async function collection_callback(i, collection_id, by) {
@@ -83,18 +106,26 @@ let accessories_cate = [11042921, 11042947, 11042938, 11042923, 11042922, 110429
 let home_cates = [11044346, 11044344, 11043849, 11043875, 11043886, 11043939, 11043779, 11043783, 11043797, 11043952, 11043951, 11043807]
 let cates = [...accessories_cate, ...home_cates];
 let collections = [889750, 889749, 889751, 889754, 889753, 960104, 960105, 960106];
+
+
+// singapore
+let cates = [11011433, 11011392, 11011381, 11011380, 11011364, 11011332, 11011311, 11011297, 11011273, 11011220, 11011195, 11011178, 11001566, 11027822, 11027812, 11027792, 11027777, 11013196, 11013171, 11013167, 11013157, 11013155, 11013142, 11013128, 11013109, 11013080]
+
 let by = ["sales", "pop"];
-// cates = [11043939]
 for (let k in by) {
     for (let j in cates) {
-        let cb = cate_callback.bind(this, 0, cates[j], by[k]);
-        mySetTimeout(cb, 200 * (k + j) * parseInt(50 * Math.random()));
+        for (let i = 0; i * 60 < 1000; i++) {
+            let cb = cate_callback.bind(this, i, cates[j], by[k], "shopee.sg");
+            tasks.push(cb);
+        }
     }
 }
 
-for (let k in by) {
-    for (let j in collections) {
-        let cb = collection_callback.bind(this, 0, collections[j], by[k]);
-        mySetTimeout(cb, 1000 * (k + j) * parseInt(5 * Math.random()));
-    }
-}
+executeTask();
+
+// for (let k in by) {
+//     for (let j in collections) {
+//         let cb = collection_callback.bind(this, 0, collections[j], by[k]);
+//         mySetTimeout(cb, 1000 * (k + j) * parseInt(5 * Math.random()));
+//     }
+// }

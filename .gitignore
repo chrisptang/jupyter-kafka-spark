@@ -2,3 +2,6 @@
 jupyter-work/
 postgresql-42.2.24.jar
 jupyter-pg-data/
+node_modules/
+package-lock.json
+.DS_Store

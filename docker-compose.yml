@@ -20,8 +20,8 @@ services:
   jupyter:
     container_name: jupyter2
     image: jupyter/pyspark-notebook:latest
-    # links:
-    #   - "kafka:kafka"
+    links:
+      - "db-postgres:db-postgres"
     # depends_on:
     #   - db-postgres
     environment:
@@ -38,13 +38,29 @@ services:
       # - ./postgresql-42.2.24.jar:/usr/local/spark/jars/postgresql-42.2.24.jar
       # - ./kernel.json:/opt/conda/share/jupyter/kernels/python3/kernel.json
 
-  # db-postgres:
-  #   container_name: db-postgres
-  #   image: postgres
-  #   ports: 
-  #     - "5432:5432"
-  #   volumes: 
-  #     - ./jupyter-pg-data:/var/lib/postgresql/data
-  #   environment:
-  #     POSTGRES_PASSWORD: spark-hive
-  #     POSTGRES_DB: hive_metastore
+  db-postgres:
+    container_name: db-postgres
+    image: postgres:10
+    ports: 
+      - "5432:5432"
+    volumes: 
+      - ./jupyter-pg-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres-local
+      POSTGRES_DB: warehouse
+  
+  superset:
+    container_name: superset
+    image: apache/superset:1.4.0rc1
+    links:
+      - "db-postgres:db-postgres"
+    ports:
+      - "8088:8088"
+
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    depends_on: 
+      - db-postgres
+    ports:
+      - 4088:8080

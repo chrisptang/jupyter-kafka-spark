@@ -1,26 +1,36 @@
 import fetch from "node-fetch";
 
-
-const tasks = [], scheduledTimeouts = [];
-// const oldTimeout = setTimeout;
-// const mySetTimeout = function (callback, timeout) {
-//     let id = oldTimeout(function () {
-//         callback();
-//         console.log('timeout finished', scheduledTimeouts.shift());
-//     }, timeout);
-//     scheduledTimeouts.push({
-//         "id": id,
-//         "created_at": new Date().toLocaleString(),
-//         "timeout": timeout,
-//         "callback": callback.name
-//     });
-// }
+const tasks = [], started_at = new Date();
 
 function getRandomTimeout() {
     return 30 * (100 + 1 * parseInt(100 * Math.random()))
 }
 
 let no_task_wait = 5;
+
+const agent_list = [
+    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
+    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Acoo Browser; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.0.04506)",
+    "Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.5; AOLBuild 4337.35; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
+    "Mozilla/5.0 (Windows; U; MSIE 9.0; Windows NT 9.0; en-US)",
+    "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET CLR 2.0.50727; Media Center PC 6.0)",
+    "Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET CLR 1.0.3705; .NET CLR 1.1.4322)",
+    "Mozilla/4.0 (compatible; MSIE 7.0b; Windows NT 5.2; .NET CLR 1.1.4322; .NET CLR 2.0.50727; InfoPath.2; .NET CLR 3.0.04506.30)",
+    "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN) AppleWebKit/523.15 (KHTML, like Gecko, Safari/419.3) Arora/0.3 (Change: 287 c9dfb30)",
+    "Mozilla/5.0 (X11; U; Linux; en-US) AppleWebKit/527+ (KHTML, like Gecko, Safari/419.3) Arora/0.6",
+    "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.2pre) Gecko/20070215 K-Ninja/2.1.1",
+    "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9) Gecko/20080705 Firefox/3.0 Kapiko/3.0",
+    "Mozilla/5.0 (X11; Linux i686; U;) Gecko/20070322 Kazehakase/0.4.5",
+    "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.8) Gecko Fedora/1.9.0.8-1.fc10 Kazehakase/0.5.6",
+    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.20 (KHTML, like Gecko) Chrome/19.0.1036.7 Safari/535.20",
+    "Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; fr) Presto/2.9.168 Version/11.52",
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'
+]
+
+function get_random_agent() {
+    return agent_list[Math.min(parseInt(agent_list.length * Math.random()), agent_list.length)];
+}
 
 function executeTask() {
     let cb = tasks.shift();
@@ -30,6 +40,7 @@ function executeTask() {
     } else {
         console.warn("has no task");
         if (no_task_wait-- <= 0) {
+            console.log("\n\nAll tasks finished at:", new Date, "started at:", started_at);
             return;
         }
     }
@@ -44,7 +55,14 @@ async function getShopeeData(url = '', retry = 1) {
     console.log("requesting:", url);
     // Default options are marked with *
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            headers: {
+                'user-agent': get_random_agent(),
+                "x-api-source": "rweb",
+                "x-requested-with": "XMLHttpRequest",
+                "x-shopee-language": "en"
+            }
+        });
         return response.json(); // parses JSON response into native JavaScript objects
     } catch (error) {
         console.error("error while calling:" + url, error);
@@ -121,8 +139,10 @@ let home_cates = [11044346, 11044344, 11043849, 11043875, 11043886, 11043939, 11
 
 
 // singapore
-const singapore_cates = [11011433, 11011392, 11011381, 11011380, 11011364, 11011332, 11011311, 11011297, 11011273, 11011220, 11011195, 11011178, 11001566, 11027822, 11027812, 11027792, 11027777, 11013196, 11013171, 11013167, 11013157, 11013155, 11013142, 11013128, 11013109, 11013080]
-const my_cates = [11000691, 11000692, 11000693, 11000699, 11000700, 11000701, 11000709, 11001156, 11001157, 11001165, 11001166, 11001177, 11001189, 11001213, 11001221, 11001229, 11001241, 11001246, 11001257, 11001261, 11001272]
+const singapore_cates = [11013080, 11027777, 11013109, 11013128, 11013142, 11013157, 11027792, 11013167, 11013171, 11027812, 11027822, 11013196]
+const my_cates = [11000691, 11000692, 11000693, 11000699, 11000700, 11000701, 11000709]
+const th_cates = [11045141, 11045142, 11045143, 11045144, 11045145, 11045146, 11045147, 11045149, 11045150, 11045151, 11045152, 11045153, 11045154, 11045155, 11045156, 11045157, 11045028, 11045175, 11045177]
+const br_cates = [22134, 22244, 22418, 22393, 22406, 22360, 22413, 27201, 27203, 22366]
 
 const id_cates = [...accessories_cate, ...home_cates];
 
@@ -134,8 +154,8 @@ by.forEach(sort => {
             tasks.push(cb);
         });
 
-        id_cates.forEach(cate => {
-            let cb = cate_callback.bind(this, i, cate, sort, "shopee.co.id");
+        br_cates.forEach(cate => {
+            let cb = cate_callback.bind(this, i, cate, sort, "shopee.com.br");
             tasks.push(cb);
         });
 
@@ -143,14 +163,12 @@ by.forEach(sort => {
             let cb = cate_callback.bind(this, i, cate, sort, "shopee.com.my");
             tasks.push(cb);
         });
+
+        th_cates.forEach(cate => {
+            let cb = cate_callback.bind(this, i, cate, sort, "shopee.co.th");
+            tasks.push(cb);
+        });
     }
 });
 
 executeTask();
-
-// for (let k in by) {
-//     for (let j in collections) {
-//         let cb = collection_callback.bind(this, 0, collections[j], by[k]);
-//         mySetTimeout(cb, 1000 * (k + j) * parseInt(5 * Math.random()));
-//     }
-// }

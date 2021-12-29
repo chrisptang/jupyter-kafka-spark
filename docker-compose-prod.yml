@@ -14,7 +14,7 @@ services:
       - "8888:8888"
     volumes:
       - ./jupyter-work:/home/jovyan/work
-      - ~/logs/sourcing-search:/home/jovyan/work/json
+      - ./raw-data:/home/jovyan/work/json
 
   db-postgres:
     container_name: db-postgres
@@ -42,3 +42,11 @@ services:
       - db-postgres
     ports:
       - 4088:8080
+
+  sourcing-search:
+    image: chrisptang/sourcing-search:1.0
+    container_name: sourcing-search
+    depends_on: 
+      - db-postgres
+    ports:
+      - 1688:1688

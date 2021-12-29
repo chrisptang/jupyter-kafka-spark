@@ -2,7 +2,7 @@ version: '2'
 
 services:
   jupyter:
-    container_name: jupyter2
+    container_name: jupyter-prod
     image: jupyter/pyspark-notebook:latest
     links:
       - "db-postgres:db-postgres"
@@ -14,10 +14,10 @@ services:
       - "8888:8888"
     volumes:
       - ./jupyter-work:/home/jovyan/work
-      - ./raw-data:/home/jovyan/work/json
+      - ./log-received:/home/jovyan/work/log-received
 
   db-postgres:
-    container_name: db-postgres
+    container_name: db-postgres-prod
     image: postgres:10
     ports: 
       - "5432:5432"
@@ -28,7 +28,7 @@ services:
       POSTGRES_DB: warehouse
   
   superset:
-    container_name: superset
+    container_name: superset-prod
     image: apache/superset:1.4.0rc1
     links:
       - "db-postgres:db-postgres"
@@ -37,7 +37,7 @@ services:
 
   adminer:
     image: adminer:latest
-    container_name: adminer
+    container_name: adminer-prod
     depends_on: 
       - db-postgres
     ports:
@@ -45,8 +45,16 @@ services:
 
   sourcing-search:
     image: chrisptang/sourcing-search:1.0
-    container_name: sourcing-search
+    container_name: sourcing-search-prod
+    volumes:
+      - ./log-received:/data/logs/received
     depends_on: 
       - db-postgres
     ports:
       - 1688:1688
+
+  scrapy:
+    image: chrisptang/scrapy-shopee-nodejs:1.0
+    container_name: scrapy-prod
+    depends_on:
+      - sourcing-search

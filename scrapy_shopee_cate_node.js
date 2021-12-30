@@ -1,5 +1,7 @@
 import fetch from "node-fetch";
 
+const result_sink_url = process.env.SINK_URL || 'http://localhost:1688/api/1688search/sink';
+
 const tasks = [], started_at = new Date();
 
 function getRandomTimeout() {
@@ -72,7 +74,7 @@ async function getShopeeData(url = '', retry = 1) {
 
 async function sendResult(json = {}, url = '') {
     console.log("sending json to sinker:", json.url);
-    url = url || 'http://localhost:1688/api/1688search/sink';
+    url = url || result_sink_url;
     const response = await fetch(url, {
         method: 'POST',
         mode: 'cors',

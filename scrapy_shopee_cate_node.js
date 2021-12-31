@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { Pool, Client } from 'pg';
+import { Pool} from 'node-postgres';
 
 const result_sink_url = process.env.SINK_URL || 'http://localhost:1688/api/1688search/sink';
 
@@ -161,31 +161,32 @@ const country_host_mapping = {
 
 
 const pg_connection = {
-    user: 'postgres',
-    host: 'db-postgres',
-    database: 'warehouse',
-    password: 'postgres-local',
-    port: 5432,
+    user: process.env.PG_USER || 'postgres',
+    host: process.env.PG_HOST || 'db-postgres',
+    database: process.env.PG_DB || 'warehouse',
+    password: process.env.PG_PASSWORD || 'postgres-local',
+    port: process.env.PG_PORT || 5432,
 };
 
-const pool = new Pool(pg_connection);
+async function addAllTasksFromPG() {
+    let pool = new Pool(pg_connection);
+    let response = await pool.query('select * FROM daily_task');
+    let rows = response.rows;
+    console.log(rows);
 
-function addAllTasksFromPG() {
-    pool.query('SELECT NOW()', (err, res) => {
-        console.log(err, res)
-        pool.end()
-    })
-    const client = new Client(pg_connection)
-    client.connect()
-    client.query('SELECT NOW()', (err, res) => {
-        console.log(err, res)
-        client.end()
-    })
+    by.forEach(sort => {
+        for (let i = 0; i * 60 < 1000; i++) {
+            rows.forEach(row => {
+                let cb = cate_callback.bind(this, i, row.catid, sort, country_host_mapping[row.country]);
+                tasks.push(cb);
+            });
+        }
+    });
 }
 
-function addAllTasks() {
+async function addAllTasks() {
     if (process.env.TASK_SOURCE === "database") {
-
+        addAllTasksFromPG();
     } else {
         by.forEach(sort => {
             for (let i = 0; i * 60 < 1000; i++) {

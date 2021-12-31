@@ -3,7 +3,8 @@ version: '2'
 services:
   jupyter:
     container_name: jupyter-prod
-    image: jupyter/pyspark-notebook:latest
+    # image: jupyter/pyspark-notebook:latest
+    build: ./custom-jupyter
     links:
       - "db-postgres:db-postgres"
     environment:
@@ -58,7 +59,8 @@ services:
     container_name: scrapy-prod
     environment:
       - SINK_URL=http://sourcing-search:1688/api/1688search/sink
+      - TASK_SOURCE=database
     depends_on:
       - sourcing-search
     ports:
-      - 5000:5000
+      - 5001:5000

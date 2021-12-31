@@ -11,6 +11,8 @@ RUN npm install
 
 ENV SINK_URL "http://10.118.53.79:1688/api/1688search/sink"
 
-EXPOSE 5000
+ENV PORT "5000"
+
+EXPOSE ${PORT}
 
 CMD [ "node","server.js"]

@@ -149,28 +149,36 @@ const br_cates = [22134, 22244, 22418, 22393, 22406, 22360, 22413, 27201, 27203,
 const id_cates = [...accessories_cate, ...home_cates];
 
 const by = ["sales", "pop"];
-by.forEach(sort => {
-    for (let i = 0; i * 60 < 1000; i++) {
-        singapore_cates.forEach(cate => {
-            let cb = cate_callback.bind(this, i, cate, sort, "shopee.sg");
-            tasks.push(cb);
-        });
 
-        br_cates.forEach(cate => {
-            let cb = cate_callback.bind(this, i, cate, sort, "shopee.com.br");
-            tasks.push(cb);
-        });
+function addAllTasks() {
+    by.forEach(sort => {
+        for (let i = 0; i * 60 < 1000; i++) {
+            singapore_cates.forEach(cate => {
+                let cb = cate_callback.bind(this, i, cate, sort, "shopee.sg");
+                tasks.push(cb);
+            });
 
-        my_cates.forEach(cate => {
-            let cb = cate_callback.bind(this, i, cate, sort, "shopee.com.my");
-            tasks.push(cb);
-        });
+            br_cates.forEach(cate => {
+                let cb = cate_callback.bind(this, i, cate, sort, "shopee.com.br");
+                tasks.push(cb);
+            });
 
-        th_cates.forEach(cate => {
-            let cb = cate_callback.bind(this, i, cate, sort, "shopee.co.th");
-            tasks.push(cb);
-        });
-    }
-});
+            my_cates.forEach(cate => {
+                let cb = cate_callback.bind(this, i, cate, sort, "shopee.com.my");
+                tasks.push(cb);
+            });
 
-executeTask();
+            th_cates.forEach(cate => {
+                let cb = cate_callback.bind(this, i, cate, sort, "shopee.co.th");
+                tasks.push(cb);
+            });
+
+            id_cates.forEach(cate => {
+                let cb = cate_callback.bind(this, i, cate, sort, "shopee.co.id");
+                tasks.push(cb);
+            });
+        }
+    });
+}
+
+export { addAllTasks, executeTask }

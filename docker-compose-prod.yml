@@ -60,3 +60,5 @@ services:
       - SINK_URL=http://sourcing-search:1688/api/1688search/sink
     depends_on:
       - sourcing-search
+    ports:
+      - 5000:5000

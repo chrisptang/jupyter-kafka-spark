@@ -10,8 +10,13 @@ WORKDIR /app
 RUN npm install
 
 ENV SINK_URL "http://10.118.53.79:1688/api/1688search/sink"
-
 ENV PORT "5000"
+
+# default: hard_coded categories for each country;
+# database: fetch categories from database;
+
+ENV TASK_SOURCE "default" 
+
 
 EXPOSE ${PORT}
 

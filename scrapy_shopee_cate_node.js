@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import { Pool, Client } from 'pg';
 
 const result_sink_url = process.env.SINK_URL || 'http://localhost:1688/api/1688search/sink';
 
@@ -150,35 +151,71 @@ const id_cates = [...accessories_cate, ...home_cates];
 
 const by = ["sales", "pop"];
 
+const country_host_mapping = {
+    "id": "shopee.co.id",
+    "th": "shopee.co.th",
+    "br": "shopee.com.br",
+    "sg": "shopee.sg",
+    "my": "shopee.com.my",
+}
+
+
+const pg_connection = {
+    user: 'postgres',
+    host: 'db-postgres',
+    database: 'warehouse',
+    password: 'postgres-local',
+    port: 5432,
+};
+
+const pool = new Pool(pg_connection);
+
+function addAllTasksFromPG() {
+    pool.query('SELECT NOW()', (err, res) => {
+        console.log(err, res)
+        pool.end()
+    })
+    const client = new Client(pg_connection)
+    client.connect()
+    client.query('SELECT NOW()', (err, res) => {
+        console.log(err, res)
+        client.end()
+    })
+}
+
 function addAllTasks() {
-    by.forEach(sort => {
-        for (let i = 0; i * 60 < 1000; i++) {
-            singapore_cates.forEach(cate => {
-                let cb = cate_callback.bind(this, i, cate, sort, "shopee.sg");
-                tasks.push(cb);
-            });
+    if (process.env.TASK_SOURCE === "database") {
 
-            br_cates.forEach(cate => {
-                let cb = cate_callback.bind(this, i, cate, sort, "shopee.com.br");
-                tasks.push(cb);
-            });
+    } else {
+        by.forEach(sort => {
+            for (let i = 0; i * 60 < 1000; i++) {
+                singapore_cates.forEach(cate => {
+                    let cb = cate_callback.bind(this, i, cate, sort, country_host_mapping.sg);
+                    tasks.push(cb);
+                });
 
-            my_cates.forEach(cate => {
-                let cb = cate_callback.bind(this, i, cate, sort, "shopee.com.my");
-                tasks.push(cb);
-            });
+                br_cates.forEach(cate => {
+                    let cb = cate_callback.bind(this, i, cate, sort, country_host_mapping.br);
+                    tasks.push(cb);
+                });
 
-            th_cates.forEach(cate => {
-                let cb = cate_callback.bind(this, i, cate, sort, "shopee.co.th");
-                tasks.push(cb);
-            });
+                my_cates.forEach(cate => {
+                    let cb = cate_callback.bind(this, i, cate, sort, country_host_mapping.my);
+                    tasks.push(cb);
+                });
 
-            id_cates.forEach(cate => {
-                let cb = cate_callback.bind(this, i, cate, sort, "shopee.co.id");
-                tasks.push(cb);
-            });
-        }
-    });
+                th_cates.forEach(cate => {
+                    let cb = cate_callback.bind(this, i, cate, sort, country_host_mapping.th);
+                    tasks.push(cb);
+                });
+
+                id_cates.forEach(cate => {
+                    let cb = cate_callback.bind(this, i, cate, sort, country_host_mapping.id);
+                    tasks.push(cb);
+                });
+            }
+        });
+    }
 }
 
 export { addAllTasks, executeTask }

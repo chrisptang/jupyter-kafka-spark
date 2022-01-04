@@ -4,6 +4,8 @@ COPY init_superset.sh /app/init_superset.sh
 
 WORKDIR /app
 
+USER root
+
 ENV USER_NAME "admin"
 ENV USER_EMAIL "admin@example.com"
 ENV USER_PASSWORD "admin@superset123"

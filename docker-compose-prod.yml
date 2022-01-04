@@ -32,6 +32,9 @@ services:
     container_name: superset-prod
     # image: apache/superset:1.4.0rc1
     build: ./custom-superset
+    environment:
+      - USER_NAME=admin
+      - USER_PASSWORD=ptang4312
     links:
       - "db-postgres:db-postgres"
     ports:

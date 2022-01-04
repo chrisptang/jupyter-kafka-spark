@@ -30,7 +30,8 @@ services:
   
   superset:
     container_name: superset-prod
-    image: apache/superset:1.4.0rc1
+    # image: apache/superset:1.4.0rc1
+    build: ./custom-superset
     links:
       - "db-postgres:db-postgres"
     ports:

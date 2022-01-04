@@ -1,14 +1,14 @@
 import { createServer } from 'http'; // Import Node.js core module
 import { scheduleJob } from 'node-schedule';
-import {addAllTasks, executeTask} from './scrapy_shopee_cate_node.js';
+import { addAllTasks, executeTask } from './scrapy_shopee_cate_node.js';
 
 const server = createServer(function (req, res) {   //create web server
     res.writeHead(200, { 'Content-Type': 'text/html' });
     if (req.url == "/trigger") {
         triggerScrapy();
-        res.write('OK, job started');
+        res.write('OK, tasks have been started.');
     } else {
-        res.write('OK, server is running');
+        res.write('<p>OK, server is running</p><p><a href="/trigger" target="_blank">Click here to trigger tasks</a></p>');
     }
     res.end();
 });

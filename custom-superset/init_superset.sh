@@ -1,13 +1,16 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-/usr/bin/run-server.sh
+export USER_NAME="admin"
+export USER_FIRST_NAME="Admin"
+export USER_LAST_NAME="Superset"
+export USER_EMAIL="admin@fruits.co"
+export USER_PASSWORD="ptang@220104"
 
-superset fab create-admin \
+docker exec -it superset-prod superset fab create-admin \
                --username ${USER_NAME} \
                --firstname ${USER_FIRST_NAME} \
                --lastname ${USER_LAST_NAME} \
                --email ${USER_EMAIL} \
                --password ${USER_PASSWORD} \
-&& superset db upgrade \
-&& superset load_examples \
-&& superset init
+&& docker exec -it superset-prod superset db upgrade \
+&& docker exec -it superset-prod superset init

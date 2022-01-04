@@ -30,8 +30,8 @@ services:
   
   superset:
     container_name: superset-prod
-    # image: apache/superset:1.4.0rc1
-    build: ./custom-superset
+    image: apache/superset:1.4.0rc1
+    # build: ./custom-superset
     environment:
       - USER_NAME=admin
       - USER_PASSWORD=ptang4312

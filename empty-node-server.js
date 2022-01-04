@@ -7,8 +7,12 @@ const server = createServer(function (req, res) {   //create web server
     if (req.url == "/trigger") {
         triggerScrapy();
         res.write('OK, tasks have been started.');
+    } if (req.url == "/trigger_default") {
+        triggerScrapy("default");
+        res.write('OK, tasks have been started. from default.');
     } else {
-        res.write('<p>OK, server is running</p><p><a href="/trigger" target="_blank">Click here to trigger tasks</a></p>');
+        res.write('<p>OK, server is running</p><p><a href="/trigger" target="_blank">Click here to trigger tasks</a></p>' +
+            '<p><a href="/trigger_default" target="_blank">Trigger default tasks</a></p>');
     }
     res.end();
 });

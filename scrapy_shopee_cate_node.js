@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { Pool} from 'node-postgres';
+import { Pool } from 'node-postgres';
 
 const result_sink_url = process.env.SINK_URL || 'http://localhost:1688/api/1688search/sink';
 
@@ -184,8 +184,9 @@ async function addAllTasksFromPG() {
     });
 }
 
-async function addAllTasks() {
-    if (process.env.TASK_SOURCE === "database") {
+async function addAllTasks(task_source) {
+    let taskSource = task_source || process.env.TASK_SOURCE;
+    if (taskSource === "database") {
         addAllTasksFromPG();
     } else {
         by.forEach(sort => {

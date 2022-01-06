@@ -21,9 +21,9 @@ const pg_user = process.env.PG_USER || 'postgres'
     , pg_password = process.env.PG_USER || 'postgres-local'
     , pg_host = process.env.PG_USER || 'db-postgres';
 
-const pg_host = `postgres://${pg_user}:${pg_password}@${pg_host}:5432/warehouse`
+const pd_url = `postgres://${pg_user}:${pg_password}@${pg_host}:5432/warehouse`
 
-const database = new Sequelize(pg_host);
+const database = new Sequelize(pd_url);
 
 let DailyTasks = database.define('daily_task', {
     country: Sequelize.STRING,

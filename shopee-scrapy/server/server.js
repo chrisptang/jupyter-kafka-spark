@@ -2,24 +2,28 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import finale from 'finale-rest';
-import { Sequelize, Op } from 'sequelize';
+import { Sequelize } from 'sequelize';
 import { createServer } from 'http';
 import { addAllTasks, executeTask } from "./scrapy-service.js";
-import {scheduleJob} from "node-schedule";
+import { scheduleJob } from "node-schedule";
 
 let app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static('../dist'))
+
+const static_path = process.env.SERVER_STATIC_PATH || '../dist';
+app.use(express.static(static_path))
 
 const server = createServer(app);
 
-const pg_host = "postgres://postgres:postgres-local@10.118.52.23:5432/warehouse"
+const pg_user = process.env.PG_USER || 'postgres'
+    , pg_password = process.env.PG_USER || 'postgres-local'
+    , pg_host = process.env.PG_USER || 'db-postgres';
 
+const pg_host = `postgres://${pg_user}:${pg_password}@${pg_host}:5432/warehouse`
 
 const database = new Sequelize(pg_host);
-
 
 let DailyTasks = database.define('daily_task', {
     country: Sequelize.STRING,

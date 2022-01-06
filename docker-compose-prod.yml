@@ -59,7 +59,7 @@ services:
       - 1688:1688
 
   scrapy:
-    image: chrisptang/scrapy-shopee-nodejs:1.0
+    image: chrisptang/scrapy-shopee-nodejs:1.1
     container_name: scrapy-prod
     environment:
       - SINK_URL=http://sourcing-search:1688/api/1688search/sink

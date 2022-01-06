@@ -9,11 +9,13 @@
           v-model="model.country"
           @change="refresh()"
         >
-          <option value="ID">ID</option>
-          <option value="SG">SG</option>
-          <option value="MY">MY</option>
-          <option value="BR">BR</option>
-          <option value="TH">TH</option>
+          <option
+            v-for="country in countryList"
+            :key="country.contry"
+            :value="country.country"
+          >
+            {{ country.country }}
+          </option>
         </select>
       </b-col>
       <b-col>
@@ -71,12 +73,14 @@ export default {
     return {
       msg: "This is Task list",
       cates: [],
+      countryList: [],
       model: { country: "ID", q: null },
       loading: false,
     };
   },
   async created() {
     this.refresh();
+    this.listCountrys();
   },
   methods: {
     async refresh() {
@@ -98,6 +102,9 @@ export default {
       });
       alert("add task successfully:" + result.cat_name_en);
       this.loading = false;
+    },
+    async listCountrys() {
+      this.countryList = await api.getAllCountry();
     },
   },
 };

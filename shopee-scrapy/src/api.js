@@ -31,4 +31,7 @@ export default {
     triggerScrapyTasks(data) {
         return this.execute('post', '/schedule', data)
     },
+    getAllCountry() {
+        return this.execute('get', '/country/list')
+    }
 }

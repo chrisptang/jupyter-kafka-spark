@@ -18,8 +18,8 @@ app.use(express.static(static_path))
 const server = createServer(app);
 
 const pg_user = process.env.PG_USER || 'postgres'
-    , pg_password = process.env.PG_USER || 'postgres-local'
-    , pg_host = process.env.PG_USER || 'db-postgres';
+    , pg_password = process.env.PG_PASSWORD || 'postgres-local'
+    , pg_host = process.env.PG_HOST || 'db-postgres';
 
 const pd_url = `postgres://${pg_user}:${pg_password}@${pg_host}:5432/warehouse`
 
@@ -71,9 +71,19 @@ let shopeeCateResource = finale.resource({
     endpoints: ['/api/shopee-cates', '/api/shopee-cates/:id']
 })
 
-app.post('/api/schedule', (req, res) => {
+app.post('/api/schedule', async (req, res) => {
     addAllTasks();
     executeTask();
+});
+
+app.get('/api/country/list', async (req, res) => {
+    let conutryList = await ShopeeCates.findAll({
+        attributes: [
+            [Sequelize.fn('DISTINCT', Sequelize.col('country')), 'country'],
+        ]
+    })
+    res.write(JSON.stringify(conutryList));
+    res.end();
 });
 
 async function triggerScrapy() {
@@ -86,11 +96,12 @@ const crontab_expression = process.env.JOB_SCHEDULE || '5 0 1/1 * *'
 
 const job = scheduleJob(crontab_expression, triggerScrapy);
 
-// Resets the database and launches the express app on :8081
+const port = parseInt(process.env.PORT || "8081")
+
 database
     .sync({ force: false })
     .then(() => {
-        app.listen(8081, () => {
-            console.log('listening to port localhost:8081')
+        app.listen(port, () => {
+            console.log(`listening to port localhost:${port}`)
         })
     })

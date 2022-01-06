@@ -17,6 +17,10 @@
           <option value="TH">TH</option>
         </select>
       </b-col>
+      <b-col>
+        <label for="cateQuerry">Category filter:</label>
+        <input type="text" v-model="model.q" @change="refresh()" />
+      </b-col>
     </b-row>
     <b-row>
       <b-col>

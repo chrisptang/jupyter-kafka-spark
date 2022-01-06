@@ -15,11 +15,11 @@ let router = new Router({
       component: Home
     },
     {
-      path: '/task-list',
+      path: '/tasks',
       component: TaskList
     },
     {
-      path: '/cate-list',
+      path: '/cates',
       name: 'ShopeeCateList',
       component: ShopeeCateList,
       meta: {

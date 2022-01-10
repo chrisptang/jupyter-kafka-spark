@@ -1,13 +1,13 @@
 <template>
   <div class="container-fluid mt-4">
-    <b-row>
+    <b-row class="control-head">
       <b-col><h1 class="h1">Shopee Cat List</h1></b-col>
       <b-col>
         <label for="countrySelector">Country:</label>
         <select
           id="countrySelector"
           v-model="model.country"
-          @change="refresh()"
+          @change="refreshAll()"
         >
           <option
             v-for="country in countryList"
@@ -15,6 +15,14 @@
             :value="country.country"
           >
             {{ country.country }}
+          </option>
+        </select>
+      </b-col>
+      <b-col>
+        <label for="rootCateSelector">Root Category:</label>
+        <select id="rootCateSelector" v-model="model.root" @change="refresh()">
+          <option v-for="root in rootList" :key="root.root" :value="root.root">
+            {{ root.root }}
           </option>
         </select>
       </b-col>
@@ -38,7 +46,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="cat in cates" :key="cat.id">
+            <tr v-for="cat in cates.rows" :key="cat.id" class="table-row">
               <td>{{ cat.id }}</td>
               <td>{{ cat.country }}</td>
               <td>{{ cat.catid }}</td>
@@ -49,7 +57,7 @@
                   :src="`https://cf.shopee.sg/file/${cat.image}`"
                   class="cat-image"
                   loading="lazy"
-                  :alt="`NO IMAGE FOR ${cat.cat_path}`"
+                  :alt="`No image for ${cat.catid}`"
                 />
               </td>
               <td class="text-right">
@@ -62,6 +70,41 @@
         </table>
       </b-col>
     </b-row>
+    <b-row class="pagination">
+      <b-col
+        ><span>Total items: &nbsp;{{ cates.count }}</span></b-col
+      >
+      <b-col
+        ><span>Per page size: &nbsp;{{ model.pageSize }}</span></b-col
+      >
+      <b-col
+        ><span
+          >showing result from: &nbsp;{{
+            (model.page - 1) * model.pageSize + 1
+          }}
+          to: {{ Math.min(model.page * model.pageSize, cates.count) }}</span
+        ></b-col
+      >
+      <b-col>
+        <span>Go to: </span>
+        <button
+          type="button"
+          class="btn btn-sm btn-primary"
+          :disabled="!paging.previousAvailable"
+          @click="tagglePaging(-1)"
+        >
+          Previous
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm btn-primary"
+          :disabled="!paging.nextAvailable"
+          @click="tagglePaging(1)"
+        >
+          Next
+        </button>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -72,21 +115,34 @@ export default {
   data() {
     return {
       msg: "This is Task list",
-      cates: [],
+      cates: { count: 0, rows: [] },
       countryList: [],
-      model: { country: "ID", q: null },
+      rootList: [],
+      model: { country: "ID", q: null, root: null, page: 1, pageSize: 20 },
+      paging: { nextAvailable: true, previousAvailable: false },
       loading: false,
     };
   },
   async created() {
-    this.refresh();
     this.listCountrys();
+    this.listRootCates();
+    this.refresh();
   },
   methods: {
+    async refreshAll() {
+      this.listRootCates();
+      this.refresh();
+    },
     async refresh() {
       this.loading = true;
-      this.cates = await api.getCates(this.model.country, this.model.q);
+      let options = {
+        root: this.model.root,
+        offset: (this.model.page - 1) * this.model.pageSize,
+        limit: this.model.pageSize,
+      };
+      this.cates = await api.getCatesPage(this.model.country, options);
       this.loading = false;
+      this.isPagingAvailable();
     },
 
     async addToDailyTask(cat) {
@@ -105,6 +161,20 @@ export default {
     },
     async listCountrys() {
       this.countryList = await api.getAllCountry();
+    },
+    async listRootCates() {
+      this.rootList = await api.listRootCates(this.model.country);
+    },
+    async tagglePaging(page) {
+      this.model.page += page;
+      this.paging.nextAvailable =
+        this.model.page * this.model.pageSize < this.cates.count;
+      this.refresh();
+    },
+    isPagingAvailable() {
+      this.paging.previousAvailable = this.model.page > 1;
+      this.paging.nextAvailable =
+        this.model.page * this.model.pageSize < this.cates.count;
     },
   },
 };
@@ -134,5 +204,34 @@ a {
 .cat-image {
   width: 100px;
   height: 100px;
+}
+
+.text-right a {
+  font-weight: bolder;
+  color: deepskyblue;
+}
+
+.table-row:hover {
+  background-color: #cfcfcf;
+}
+
+.control-head {
+  position: sticky;
+  top: 0px;
+  background-color: white;
+  align-items: center;
+}
+
+td {
+  max-width: 200px;
+}
+
+.pagination {
+  padding: 10px 0;
+  position: sticky;
+  bottom: 0px;
+  background-color: #121212;
+  color: #fff;
+  align-items: center;
 }
 </style>

@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import finale from 'finale-rest';
-import { Sequelize } from 'sequelize';
+import { Sequelize, Op } from 'sequelize';
 import { createServer } from 'http';
 import { addAllTasks, executeTask } from "./scrapy-service.js";
 import { scheduleJob } from "node-schedule";
@@ -83,6 +83,42 @@ app.get('/api/country/list', async (req, res) => {
         ]
     })
     res.write(JSON.stringify(conutryList));
+    res.end();
+});
+
+app.get('/api/cates/root', async (req, res) => {
+    let country = req.query.country || "SG";
+    let option = {
+        attributes: [
+            [Sequelize.literal('DISTINCT(split_part(cat_path,\' > \',1))'), 'root']
+        ],
+        where: {
+            country: country
+        }
+    };
+    console.log(option);
+    let rootList = await ShopeeCates.findAll(option);
+    res.write(JSON.stringify(rootList));
+    res.end();
+});
+
+app.get('/api/cates/page', async (req, res) => {
+    let country = req.query.country || "SG",
+        root = req.query.root || req.query.q || "";
+    let offset = req.query.offset || 0, limit = req.query.limit || 20;
+    let option = {
+        where: {
+            country: country,
+            cat_path: {
+                [Op.like]: `${root}%`,
+            }
+        },
+        limit: limit,
+        offset: offset
+    };
+    console.log(option);
+    let rootList = await ShopeeCates.findAndCountAll(option);
+    res.write(JSON.stringify(rootList));
     res.end();
 });
 

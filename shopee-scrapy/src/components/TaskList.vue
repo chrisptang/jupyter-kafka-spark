@@ -7,6 +7,7 @@
         <label for="countrySelector">Country:</label>
         <select
           id="countrySelector"
+          class="country-selector"
           v-model="model.country"
           @change="refresh()"
         >
@@ -95,6 +96,10 @@ export default {
 h1,
 h2 {
   font-weight: normal;
+}
+
+.country-selector {
+  padding: 0 20px;
 }
 
 ul {

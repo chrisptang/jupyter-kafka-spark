@@ -5,7 +5,8 @@ import finale from 'finale-rest';
 import { Sequelize, Op } from 'sequelize';
 import { createServer } from 'http';
 import { addAllTasks, executeTask } from "./scrapy-service.js";
-import { scheduleJob } from "node-schedule";
+import { scheduleJob, scheduledJobs, rescheduleJob, Job } from "node-schedule";
+import { stringify } from "stringy";
 
 let app = express();
 app.use(cors());
@@ -19,9 +20,11 @@ const server = createServer(app);
 
 const pg_user = process.env.PG_USER || 'postgres'
     , pg_password = process.env.PG_PASSWORD || 'postgres-local'
-    , pg_host = process.env.PG_HOST || 'db-postgres';
+    , pg_host = process.env.PG_HOST || 'db-postgres'
+    , pg_port = process.env.PG_PORT || 5432
+    , pg_db = process.env.PG_DB || 'warehouse';
 
-const pd_url = `postgres://${pg_user}:${pg_password}@${pg_host}:5432/warehouse`
+const pd_url = `postgres://${pg_user}:${pg_password}@${pg_host}:${pg_port}/${pg_db}`
 
 const database = new Sequelize(pd_url);
 
@@ -128,9 +131,25 @@ async function triggerScrapy() {
     executeTask();
 }
 
-const crontab_expression = process.env.JOB_SCHEDULE || '5 0 1/1 * *'
+const crontab_expression = process.env.JOB_SCHEDULE || '5 0 * * *'
 
-const job = scheduleJob(crontab_expression, triggerScrapy);
+let job = scheduleJob(crontab_expression, triggerScrapy);
+
+app.get('/api/schedule/current', async (req, res) => {
+    res.write(stringify(job));
+    res.end();
+});
+
+app.post('/api/schedule/reschedule', async (req, res) => {
+    let { cron } = req.body;
+    let jobRescheduled = rescheduleJob(job, cron);
+    if (!!jobRescheduled) {
+        job = jobRescheduled;
+    }
+    console.log("rescheduled with:", cron, job, "result:", jobRescheduled);
+    res.write(stringify(jobRescheduled));
+    res.end();
+});
 
 const port = parseInt(process.env.PORT || "8081")
 

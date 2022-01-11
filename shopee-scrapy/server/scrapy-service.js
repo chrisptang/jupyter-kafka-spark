@@ -170,7 +170,7 @@ const pg_connection = {
 
 async function addAllTasksFromPG() {
     let pool = new Pool(pg_connection);
-    let response = await pool.query('select * FROM daily_tasks');
+    let response = await pool.query('select * FROM daily_tasks where "deletedAt" is null');
     let rows = response.rows;
     console.log(rows);
 

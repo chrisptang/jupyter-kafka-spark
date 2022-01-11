@@ -6,6 +6,7 @@
         <label for="countrySelector">Country:</label>
         <select
           id="countrySelector"
+          class="country-selector"
           v-model="model.country"
           @change="refreshAll()"
         >
@@ -204,6 +205,10 @@ a {
 .cat-image {
   width: 100px;
   height: 100px;
+}
+
+.country-selector {
+  padding: 0 20px;
 }
 
 .text-right a {

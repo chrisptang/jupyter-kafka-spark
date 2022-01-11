@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {stringify} from 'querystring';
+import { stringify } from 'querystring';
 
 const client = axios.create({
     baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:8081/api',
@@ -42,5 +42,11 @@ export default {
     },
     listRootCates(country) {
         return this.execute('get', `/cates/root?country=${country}`)
-    }
+    },
+    getCurrentSchedule() {
+        return this.execute('get', '/schedule/current')
+    },
+    reschedule(cron) {
+        return this.execute('post', `/schedule/reschedule`, { cron: cron });
+    },
 }

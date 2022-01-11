@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style>
-.actions {
+#app .actions {
   align-items: center;
   border-top: 1px solid #cecece;
   margin-top: 15px;

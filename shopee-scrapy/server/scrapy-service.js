@@ -177,7 +177,7 @@ async function addAllTasksFromPG() {
     by.forEach(sort => {
         for (let i = 0; i * 60 < 1000; i++) {
             rows.forEach(row => {
-                let cb = cate_callback.bind(this, i, row.catid, sort, country_host_mapping[row.country]);
+                let cb = cate_callback.bind(this, i, row.catid, sort, country_host_mapping[row.country.toLowerCase()]);
                 tasks.push(cb);
             });
         }

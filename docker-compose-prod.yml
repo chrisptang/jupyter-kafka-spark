@@ -11,6 +11,7 @@ services:
       - PASSWORD=ptang4312
       - TZ=Asia/Shanghai
       - SPARK_OPTS=--master=local[2] --driver-memory=2g --executor-memory=2g
+      - GRANT_SUDO=yes
     ports:
       - "8888:8888"
     volumes:

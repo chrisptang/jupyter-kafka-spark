@@ -140,6 +140,7 @@ export default {
         root: this.model.root,
         offset: (this.model.page - 1) * this.model.pageSize,
         limit: this.model.pageSize,
+        q: this.model.q,
       };
       this.cates = await api.getCatesPage(this.model.country, options);
       this.loading = false;

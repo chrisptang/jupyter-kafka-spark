@@ -113,7 +113,7 @@ app.get('/api/cates/page', async (req, res) => {
         where: {
             country: country,
             cat_path: {
-                [Op.like]: `${root}%`,
+                [Op.like]: `%${root}%`,
             }
         },
         limit: limit,

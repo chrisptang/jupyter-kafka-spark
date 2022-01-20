@@ -1,18 +1,18 @@
 FROM jupyter/pyspark-notebook
+
 USER root
 
-RUN apt update && apt install --yes cron
+RUN apt update && apt install --yes cron \
+    && echo "Asia/Shanghai" > /etc/timezone
 
 USER $NB_USER
 
-RUN pip install jupyterlab_scheduler \
-    && jupyter labextension install jupyterlab_scheduler \
-    && conda install psycopg2 \
-    && pip install papermill
+RUN conda install psycopg2 && pip install papermill
 
-USER root
-RUN echo "Asia/Shanghai" > /etc/timezone
+ADD run_notebook.sh /home/$NB_USER/work
 
-USER $NB_USER
+WORKDIR /home/$NB_USER/work
+
+RUN chmod +x run_notebook.sh
 
 ENV USER=jovyan

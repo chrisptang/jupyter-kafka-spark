@@ -36,11 +36,11 @@ fi
 
 echo "running notebook:${NOTEBOOK_PATH}"
 
-CRON_OUT_PATH="/home/jovyan/work/out/cron.log"
-
 user=`whoami`
 start_time=`date`
 start_day=`date --iso`
+
+CRON_OUT_PATH="/home/jovyan/work/out/cron.${start_day}.log"
 
 if [ $user != 'jovyan' ]; then
 	echo "this is ${user}, switching to jovyan"
@@ -49,7 +49,7 @@ fi
 
 mkdir -p /home/jovyan/work/out
 
-echo "running cron task at:${start_time} with user:`whoami`" >> ${CRON_OUT_PATH}
+echo "running cron task at:${start_time} with user:`whoami`" > ${CRON_OUT_PATH}
 
 papermill --cwd /home/jovyan/work --stdout-file ${CRON_OUT_PATH} ${NOTEBOOK_PATH} ${NOTEBOOK_PATH}_out_${start_day}.ipynb
 

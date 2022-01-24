@@ -3,6 +3,8 @@
 # ./compose.sh docker-compose args, e.g:
 # ./compose.sh start cat
 
+random_password=`openssl rand -base64 5`
+
 if [ -e ./.env ]
 then 
     echo "---- please check current .env file:"
@@ -20,6 +22,7 @@ else
 
     cat /dev/null > ./.env
     echo "HOST_IP=$HOST_IP" >> ./.env
+    echo "RANDOM_PASSWORD=${random_password}" >> ./.env
     echo "HOST_IP_PUBLIC=$HOST_IP_PUBLIC" >> ./.env
     echo "WEIXIN_BOT=https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=f9743577-b399-4989-acd8-516400860292"  >> ./.env
 

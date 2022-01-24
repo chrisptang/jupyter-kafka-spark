@@ -15,4 +15,4 @@ docker exec -it ${container_name} superset fab create-admin \
                --email ${USER_EMAIL} \
                --password ${USER_PASSWORD} \
 && docker exec -it ${container_name} superset db upgrade \
-&& docker exec -it ${container_name} superset init
+&& docker exec -it ${container_name} superset initw

@@ -14,6 +14,4 @@ USER $NB_USER
 
 RUN conda install psycopg2 && pip install papermill
 
-
-
 ENV USER=jovyan

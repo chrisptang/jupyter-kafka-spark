@@ -32,10 +32,11 @@ services:
   
   superset:
     container_name: superset-prod
-    image: apache/superset:1.4.0rc1
+    # image: apache/superset:1.4.0rc1
+    build: ./custom-jupyter
     environment:
       - USER_NAME=admin
-      - USER_PASSWORD=ptang4312
+      - USER_PASSWORD=admin@superset1342
       - TZ=Asia/Shanghai
     links:
       - "db-postgres:db-postgres"

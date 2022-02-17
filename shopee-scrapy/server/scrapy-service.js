@@ -35,7 +35,10 @@ function get_random_agent() {
     return agent_list[Math.min(parseInt(agent_list.length * Math.random()), agent_list.length)];
 }
 
-function executeTask() {
+function executeTask(is_new_start = true) {
+    if (is_new_start) {
+        started_at = new Date();
+    }
     let cb = tasks.shift();
     if (cb) {
         console.log("task size:", tasks.length);
@@ -48,7 +51,7 @@ function executeTask() {
             return;
         }
     }
-    setTimeout(executeTask, getRandomTimeout());
+    setTimeout(executeTask.bind(this, false), getRandomTimeout());
 }
 
 async function getShopeeData(url = '', retry = 1) {

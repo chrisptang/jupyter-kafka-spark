@@ -41,9 +41,10 @@ function executeTask() {
         console.log("task size:", tasks.length);
         cb();
     } else {
-        console.warn("has no task");
+        console.warn("has no task, no_task_wait:", no_task_wait);
         if (no_task_wait-- <= 0) {
             console.log("\n\nAll tasks finished at:", new Date, "started at:", started_at);
+            no_task_wait = 5;
             return;
         }
     }
@@ -182,12 +183,14 @@ async function addAllTasksFromPG() {
             });
         }
     });
+
+    return "PG";
 }
 
 async function addAllTasks(task_source) {
     let taskSource = task_source || process.env.TASK_SOURCE;
     if (taskSource === "database") {
-        addAllTasksFromPG();
+        return addAllTasksFromPG();
     } else {
         by.forEach(sort => {
             for (let i = 0; i * 60 < 1000; i++) {
@@ -217,6 +220,8 @@ async function addAllTasks(task_source) {
                 });
             }
         });
+
+        return "default";
     }
 }
 

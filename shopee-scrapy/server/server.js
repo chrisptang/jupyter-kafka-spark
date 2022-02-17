@@ -127,7 +127,8 @@ app.get('/api/cates/page', async (req, res) => {
 
 async function triggerScrapy() {
     console.log("about to start job.", new Date());
-    addAllTasks();
+    let source = await addAllTasks();
+    console.log("added tasks from:" + source)
     executeTask();
 }
 

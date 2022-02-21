@@ -3,13 +3,12 @@ import { Pool } from 'node-postgres';
 
 const result_sink_url = process.env.SINK_URL || 'http://localhost:1688/api/1688search/sink';
 
-const tasks = [], started_at = new Date();
+const tasks = [];
+let started_at = new Date(), no_task_wait = 5;
 
 function getRandomTimeout() {
     return 30 * (100 + 1 * parseInt(100 * Math.random()))
 }
-
-let no_task_wait = 5;
 
 const agent_list = [
     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",

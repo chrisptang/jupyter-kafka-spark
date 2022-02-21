@@ -1,0 +1,128 @@
+version: '2'
+
+services:
+  jupyter:
+    container_name: jupyter-prod
+    build: ./custom-jupyter
+    links:
+      - "db-postgres:db-postgres"
+    environment:
+      - THIS_HOST_IP=$HOST_IP
+      - PASSWORD=ptang4312
+      - TZ=Asia/Shanghai
+      - SPARK_OPTS=--master=local[2] --driver-memory=2g --executor-memory=2g
+      - GRANT_SUDO=yes
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./jupyter-work:/home/jovyan/work
+      - ./log-received:/home/jovyan/work/log-received
+
+  db-postgres:
+    container_name: db-postgres-prod
+    image: postgres:10
+    ports: 
+      - "5432:5432"
+    volumes: 
+      - ./jupyter-pg-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres-local
+      POSTGRES_DB: warehouse
+      TZ: Asia/Shanghai
+  
+  superset:
+    container_name: superset-prod
+    # image: apache/superset:1.4.0rc1
+    build: ./custom-superset
+    environment:
+      - USER_NAME=admin
+      - USER_PASSWORD=$RANDOM_PASSWORD
+      - TZ=Asia/Shanghai
+    links:
+      - "db-postgres:db-postgres"
+    ports:
+      - "8088:8088"
+
+  adminer:
+    image: adminer:latest
+    container_name: adminer-prod
+    environment:
+      - TZ=Asia/Shanghai
+    depends_on: 
+      - db-postgres
+    ports:
+      - 4088:8080
+
+  sourcing-search:
+    image: chrisptang/sourcing-search:1.0
+    container_name: sourcing-search-prod
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./log-received:/data/logs/received
+    depends_on: 
+      - db-postgres
+    ports:
+      - 1688:1688
+
+  scrapy:
+    image: chrisptang/scrapy-shopee-nodejs:1.1
+    container_name: scrapy-prod
+    environment:
+      - SINK_URL=http://sourcing-search:1688/api/1688search/sink
+      - TASK_SOURCE=database
+      - JOB_SCHEDULE=5 0 * * *
+      - TZ=Asia/Shanghai
+    depends_on:
+      - sourcing-search
+      - db-postgres
+    ports:
+      - 5001:5000
+
+  spark-master:
+    image: cluster-apache-spark:3.2.1
+    ports:
+      - "9090:8080"
+      - "7077:7077"
+    volumes:
+       - ./spark-apps:/opt/spark-apps
+       - ./spark-data:/opt/spark-data
+    environment:
+      - SPARK_LOCAL_IP=spark-master
+      - SPARK_WORKLOAD=master
+  spark-worker-a:
+    image: cluster-apache-spark:3.2.1
+    ports:
+      - "9091:8080"
+      - "7000:7000"
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_DRIVER_MEMORY=1G
+      - SPARK_EXECUTOR_MEMORY=1G
+      - SPARK_WORKLOAD=worker
+      - SPARK_LOCAL_IP=spark-worker-a
+    volumes:
+       - ./spark-apps:/opt/spark-apps
+       - ./spark-data:/opt/spark-data
+  spark-worker-b:
+    image: cluster-apache-spark:3.2.1
+    ports:
+      - "9092:8080"
+      - "7001:7000"
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_DRIVER_MEMORY=1G
+      - SPARK_EXECUTOR_MEMORY=1G
+      - SPARK_WORKLOAD=worker
+      - SPARK_LOCAL_IP=spark-worker-b
+    volumes:
+        - ./spark-apps:/opt/spark-apps
+        - ./spark-data:/opt/spark-data

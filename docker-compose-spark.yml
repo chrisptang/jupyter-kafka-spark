@@ -21,22 +21,21 @@ services:
   db-postgres:
     container_name: db-postgres-prod
     image: postgres:10
-    ports: 
+    ports:
       - "5432:5432"
-    volumes: 
+    volumes:
       - ./jupyter-pg-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgres-local
       POSTGRES_DB: warehouse
       TZ: Asia/Shanghai
-  
+
   superset:
     container_name: superset-prod
-    # image: apache/superset:1.4.0rc1
-    build: ./custom-superset
+    image: apache/superset:1.4.0rc1
     environment:
       - USER_NAME=admin
-      - USER_PASSWORD=$RANDOM_PASSWORD
+      - USER_PASSWORD=ptang4312
       - TZ=Asia/Shanghai
     links:
       - "db-postgres:db-postgres"
@@ -48,7 +47,7 @@ services:
     container_name: adminer-prod
     environment:
       - TZ=Asia/Shanghai
-    depends_on: 
+    depends_on:
       - db-postgres
     ports:
       - 4088:8080
@@ -60,7 +59,7 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - ./log-received:/data/logs/received
-    depends_on: 
+    depends_on:
       - db-postgres
     ports:
       - 1688:1688

@@ -1,22 +1,22 @@
 version: '2'
 
 services:
-  jupyter:
-    container_name: jupyter-prod
-    build: ./custom-jupyter
-    links:
-      - "db-postgres:db-postgres"
-    environment:
-      - THIS_HOST_IP=$HOST_IP
-      - PASSWORD=ptang4312
-      - TZ=Asia/Shanghai
-      - SPARK_OPTS=--master=local[2] --driver-memory=2g --executor-memory=2g
-      - GRANT_SUDO=yes
-    ports:
-      - "8888:8888"
-    volumes:
-      - ./jupyter-work:/home/jovyan/work
-      - ./log-received:/home/jovyan/work/log-received
+  # jupyter:
+  #   container_name: jupyter-prod
+  #   build: ./custom-jupyter
+  #   links:
+  #     - "db-postgres:db-postgres"
+  #   environment:
+  #     - THIS_HOST_IP=$HOST_IP
+  #     - PASSWORD=ptang4312
+  #     - TZ=Asia/Shanghai
+  #     - SPARK_OPTS=--master=local[2] --driver-memory=2g --executor-memory=2g
+  #     - GRANT_SUDO=yes
+  #   ports:
+  #     - "8888:8888"
+  #   volumes:
+  #     - ./jupyter-work:/home/jovyan/work
+  #     - ./log-received:/home/jovyan/work/log-received
 
   db-postgres:
     container_name: db-postgres-prod
@@ -78,9 +78,22 @@ services:
     ports:
       - 5001:5000
 
+  zeppelin:
+    build: ./custom-zeppelin
+    image: chrisptang/zeppelin-spark:0.10.0
+    # image: apache/zeppelin:0.10.0
+    container_name: zepplin
+    environment:
+      - ZEPPELIN_ADDR=0.0.0.0
+    ports:
+      - 9001:8080
+    links:
+      - spark-master
+
   spark-master:
     build: ./custom-spark-standalone
     image: chrisptang/cluster-apache-spark:3.2.1
+    container_name: spark-master
     ports:
       - "9090:8080"
       - "7077:7077"
@@ -90,11 +103,13 @@ services:
     environment:
       - SPARK_LOCAL_IP=spark-master
       - SPARK_WORKLOAD=master
+
   spark-worker-a:
     image: chrisptang/cluster-apache-spark:3.2.1
+    container_name: spark-worker-a
     ports:
       - "9091:8080"
-      - "7000:7000"
+      - "17000:7000"
     depends_on:
       - spark-master
     environment:
@@ -110,9 +125,10 @@ services:
        - ./spark-data:/opt/spark-data
   spark-worker-b:
     image: chrisptang/cluster-apache-spark:3.2.1
+    container_name: spark-worker-b
     ports:
       - "9092:8080"
-      - "7001:7000"
+      - "17001:7000"
     depends_on:
       - spark-master
     environment:

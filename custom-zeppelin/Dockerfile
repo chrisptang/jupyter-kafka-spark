@@ -1,4 +1,4 @@
-FROM apache/zeppelin:0.10.0
+FROM apache/zeppelin:0.9.0
 
 ENV SPARK_DOWNLOAD_URL=https://dlcdn.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
 

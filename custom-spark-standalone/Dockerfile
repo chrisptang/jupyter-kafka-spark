@@ -11,7 +11,7 @@ ENV SPARK_VERSION=3.2.1 \
 HADOOP_VERSION=3.2 \
 SPARK_HOME=/opt/spark \
 PYTHONHASHSEED=1 \
-SPARK_DOWNLOAD_URL=https://dlcdn.apache.org/spark/spark-3.2.1/spark-3.2.1-bin-hadoop3.2.tgz
+SPARK_DOWNLOAD_URL=https://dlcdn.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
 
 # RUN wget --no-verbose -O apache-spark.tgz "https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz"
 

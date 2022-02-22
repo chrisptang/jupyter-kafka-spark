@@ -82,7 +82,7 @@ services:
     build: ./custom-zeppelin
     image: chrisptang/zeppelin-spark:0.10.0
     # image: apache/zeppelin:0.10.0
-    container_name: zepplin
+    container_name: zeppelin
     environment:
       - ZEPPELIN_ADDR=0.0.0.0
     ports:
@@ -92,7 +92,7 @@ services:
 
   spark-master:
     build: ./custom-spark-standalone
-    image: chrisptang/cluster-apache-spark:3.2.1
+    image: chrisptang/cluster-apache-spark:3.1.2
     container_name: spark-master
     ports:
       - "9090:8080"
@@ -100,12 +100,13 @@ services:
     volumes:
        - ./spark-apps:/opt/spark-apps
        - ./spark-data:/opt/spark-data
+       - ./log-received:/opt/spark-data/log-received
     environment:
       - SPARK_LOCAL_IP=spark-master
       - SPARK_WORKLOAD=master
 
   spark-worker-a:
-    image: chrisptang/cluster-apache-spark:3.2.1
+    image: chrisptang/cluster-apache-spark:3.1.2
     container_name: spark-worker-a
     ports:
       - "9091:8080"
@@ -114,7 +115,7 @@ services:
       - spark-master
     environment:
       - SPARK_MASTER=spark://spark-master:7077
-      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_CORES=4
       - SPARK_WORKER_MEMORY=1G
       - SPARK_DRIVER_MEMORY=1G
       - SPARK_EXECUTOR_MEMORY=1G
@@ -123,8 +124,9 @@ services:
     volumes:
        - ./spark-apps:/opt/spark-apps
        - ./spark-data:/opt/spark-data
+       - ./log-received:/opt/spark-data/log-received
   spark-worker-b:
-    image: chrisptang/cluster-apache-spark:3.2.1
+    image: chrisptang/cluster-apache-spark:3.1.2
     container_name: spark-worker-b
     ports:
       - "9092:8080"
@@ -133,7 +135,7 @@ services:
       - spark-master
     environment:
       - SPARK_MASTER=spark://spark-master:7077
-      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_CORES=4
       - SPARK_WORKER_MEMORY=1G
       - SPARK_DRIVER_MEMORY=1G
       - SPARK_EXECUTOR_MEMORY=1G
@@ -142,3 +144,4 @@ services:
     volumes:
         - ./spark-apps:/opt/spark-apps
         - ./spark-data:/opt/spark-data
+        - ./log-received:/opt/spark-data/log-received

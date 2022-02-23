@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  zeppelin:
+    build: ./custom-zeppelin
+    image: chrisptang/zeppelin-spark:0.10.0
+    container_name: zeppelin
+    environment:
+      - ZEPPELIN_ADDR=0.0.0.0
+      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_HOME=/opt/spark
+      - ZEPPELIN_PORT=8280
+      - ZEPPELIN_NOTEBOOK_DIR=/notebook
+      - ZEPPELIN_LOG_DIR=/logs
+    volumes:
+      - ./zeppelin-notebook:/notebook
+      - ./log-received:/opt/log-received
+      - ./zeppelin-logs:/logs
+    ports:
+      - 8280:8280

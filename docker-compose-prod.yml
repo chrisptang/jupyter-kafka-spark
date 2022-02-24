@@ -1,6 +1,27 @@
 version: '2'
 
 services:
+# you'd have to download spark-bin first, command you can refer:
+# wget -v -O apache-spark.tgz "${SPARK_DOWNLOAD_URL}" && mkdir -p ${SPARK_HOME} && tar -xf apache-spark.tgz \
+# -C ${SPARK_HOME} --strip-components=1 && rm apache-spark.tgz
+  zeppelin:
+    image: apache/zeppelin:0.10.0
+    container_name: zeppelin
+    user: $(id -u)
+    environment:
+      - ZEPPELIN_ADDR=0.0.0.0
+      - SPARK_HOME=/opt/spark
+      - ZEPPELIN_PORT=8280
+      - ZEPPELIN_NOTEBOOK_DIR=/notebook
+      - ZEPPELIN_LOG_DIR=/logs
+    volumes:
+      - ./zeppelin-notebook:/notebook
+      - ./log-received:/opt/log-received
+      - ./zeppelin-logs:/logs
+      - ./spark:/opt/spark
+    ports:
+      - 8280:8280
+
   jupyter:
     container_name: jupyter-prod
     build: ./custom-jupyter

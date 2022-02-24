@@ -21,6 +21,8 @@ else
     fi
 
     cat /dev/null > ./.env
+    echo "UID=$(id -u)" >> ./.env
+    echo "GID=$(id -g)" >> ./.env
     echo "HOST_IP=$HOST_IP" >> ./.env
     echo "RANDOM_PASSWORD=${random_password}" >> ./.env
     echo "HOST_IP_PUBLIC=$HOST_IP_PUBLIC" >> ./.env

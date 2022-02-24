@@ -7,7 +7,7 @@ services:
   zeppelin:
     image: apache/zeppelin:0.10.0
     container_name: zeppelin
-    user: $(id -u)
+    user: "${UID}:${GID}"
     environment:
       - ZEPPELIN_ADDR=0.0.0.0
       - SPARK_HOME=/opt/spark

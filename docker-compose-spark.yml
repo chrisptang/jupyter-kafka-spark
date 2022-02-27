@@ -1,23 +1,6 @@
 version: '2'
 
 services:
-  # jupyter:
-  #   container_name: jupyter-prod
-  #   build: ./custom-jupyter
-  #   links:
-  #     - "db-postgres:db-postgres"
-  #   environment:
-  #     - THIS_HOST_IP=$HOST_IP
-  #     - PASSWORD=ptang4312
-  #     - TZ=Asia/Shanghai
-  #     - SPARK_OPTS=--master=local[2] --driver-memory=2g --executor-memory=2g
-  #     - GRANT_SUDO=yes
-  #   ports:
-  #     - "8888:8888"
-  #   volumes:
-  #     - ./jupyter-work:/home/jovyan/work
-  #     - ./log-received:/home/jovyan/work/log-received
-
   db-postgres:
     container_name: db-postgres-prod
     image: postgres:10
@@ -30,17 +13,17 @@ services:
       POSTGRES_DB: warehouse
       TZ: Asia/Shanghai
 
-  superset:
-    container_name: superset-prod
-    image: apache/superset:1.4.0rc1
-    environment:
-      - USER_NAME=admin
-      - USER_PASSWORD=ptang4312
-      - TZ=Asia/Shanghai
-    links:
-      - "db-postgres:db-postgres"
-    ports:
-      - "8088:8088"
+  # superset:
+  #   container_name: superset-prod
+  #   image: apache/superset:1.4.0rc1
+  #   environment:
+  #     - USER_NAME=admin
+  #     - USER_PASSWORD=ptang4312
+  #     - TZ=Asia/Shanghai
+  #   links:
+  #     - "db-postgres:db-postgres"
+  #   ports:
+  #     - "8088:8088"
 
   adminer:
     image: adminer:latest
@@ -81,14 +64,14 @@ services:
   zeppelin:
     build: ./custom-zeppelin
     image: chrisptang/zeppelin-spark:0.10.0
-    # image: apache/zeppelin:0.10.0
     container_name: zeppelin
     environment:
       - ZEPPELIN_ADDR=0.0.0.0
       - SPARK_MASTER=spark://spark-master:7077
       - SPARK_HOME=/opt/spark
     volumes:
-      - ./zeppelin-notebooks:/opt/zeppelin/notebook/production-notebooks
+      - ./zeppelin-notebooks:/opt/zeppelin/notebook
+      - ./zeppelin-logs:/logs
     ports:
       - 8280:8280
     links:

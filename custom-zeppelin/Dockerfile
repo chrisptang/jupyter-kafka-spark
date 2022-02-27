@@ -13,6 +13,7 @@ RUN wget --no-verbose -O apache-spark.tgz "${SPARK_DOWNLOAD_URL}" \
 && rm apache-spark.tgz
 
 ADD ./zeppelin-env.sh ${ZEPPELIN_HOME}/conf/zeppelin-env.sh
+ADD ./zeppelin-site.xml ${ZEPPELIN_HOME}/conf/zeppelin-site.xml
 
 WORKDIR /opt/zeppelin
 

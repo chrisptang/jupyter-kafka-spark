@@ -1,0 +1,1323 @@
+﻿{
+  "paragraphs": [
+    {
+      "text": "%md\n\n# 将原始数据进行聚合\n- item级别：api_search_item_normalized_data_df\n- shop级别：api_search_item_shop_data_df\n- 类目级别：api_search_item_cat_data_df\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-02-25T07:33:59+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h1>将原始数据进行聚合</h1>\n<ul>\n<li>item级别：api_search_item_normalized_data_df</li>\n<li>shop级别：api_search_item_shop_data_df</li>\n<li>类目级别：api_search_item_cat_data_df</li>\n</ul>\n\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1645700611080_937861716",
+      "id": "paragraph_1645700611080_937861716",
+      "dateCreated": "2022-02-24T11:03:31+0000",
+      "dateStarted": "2022-02-27T00:50:00+0000",
+      "dateFinished": "2022-02-27T00:50:02+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:4729"
+    },
+    {
+      "text": "%sh\n\necho \"running at:`date`\"\nls /warehouse/delta/shopee_data/",
+      "user": "anonymous",
+      "dateUpdated": "2022-02-25T05:08:14+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sh",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "running at:Sun 27 Feb 2022 12:50:04 AM UTC\napi_category_fulllist_df\napi_category_path_fulllist_df\napi_search_item_cat_data_df\napi_search_item_normalized_data_df\napi_search_item_raw_data_da\napi_search_item_shop_data_df\ntest_user\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1645681912069_266844619",
+      "id": "paragraph_1645681912069_266844619",
+      "dateCreated": "2022-02-24T05:51:52+0000",
+      "dateStarted": "2022-02-27T00:50:02+0000",
+      "dateFinished": "2022-02-27T00:50:04+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:4730"
+    },
+    {
+      "title": "必须要先设置delta lake",
+      "text": "%spark.conf\n\nspark.jars.packages io.delta:delta-core_2.12:1.0.0\nspark.sql.extensions io.delta.sql.DeltaSparkSessionExtension\nspark.sql.catalog.spark_catalog org.apache.spark.sql.delta.catalog.DeltaCatalog\nspark.sql.warehouse.dir /opt/delta-warehouse\nzeppelin.interpreter.connect.timeout 600000",
+      "user": "anonymous",
+      "dateUpdated": "2022-02-25T07:29:41+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/text",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1645765653823_357355571",
+      "id": "paragraph_1645765653823_357355571",
+      "dateCreated": "2022-02-25T05:07:33+0000",
+      "dateStarted": "2022-02-27T00:50:04+0000",
+      "dateFinished": "2022-02-27T00:50:04+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:4731"
+    },
+    {
+      "text": "%pyspark\n\nfrom os import walk\nimport re\nfrom datetime import datetime\nfrom datetime import timedelta\nfrom delta.tables import *\nimport pytz\nimport delta.tables\nimport pyspark.sql.functions as F\nfrom pyspark.sql.types import MapType,StringType,ArrayType\n\nspark.conf.set(\"spark.databricks.delta.schema.autoMerge.enabled\",\"true\")\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-02-25T08:03:28+0000",
+      "progress": 98,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1645682467488_340920473",
+      "id": "paragraph_1645682467488_340920473",
+      "dateCreated": "2022-02-24T06:01:07+0000",
+      "dateStarted": "2022-02-27T00:50:04+0000",
+      "dateFinished": "2022-02-27T00:50:23+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:4732"
+    },
+    {
+      "title": "提取item级别数据，店铺和类目均依赖item级别数据",
+      "text": "%pyspark\n\nsql=\"\"\"\nselect\n    i.*,c.cat_path,\n    current_date as date_writen\nfrom\n(select \n split(replace(url,'https://',''),'/')[0] as site,\n itemid,\n shopid,\n item_basic_brand as brand,\n split(split(url,'match_id=')[1],'&')[0] as catid,\n item_basic_cmt_count as comments_count,\n to_timestamp(item_basic_ctime*1) as create_time,\n item_basic_currency as currency,\n replace(item_basic_discount,'%',\"\")/100 as discount,\n item_basic_has_lowest_price_guarantee as has_lowest_price_guarantee,\n item_basic_historical_sold as historical_sold,\n 'https://cf.shopee.co.id/file/' || item_basic_image as image,\n item_basic_is_official_shop as is_official_shop,\n round(get_json_object(item_basic_item_rating,'$.rating_star'),2) as rating_star,\n get_json_object(item_basic_item_rating,'$.rcount_with_image') as rating_with_image,\n item_basic_item_status as item_status,\n item_basic_item_type as item_type,\n item_basic_liked as liked,\n item_basic_liked_count as liked_count,\n item_basic_name as name,\n item_basic_price/100000 as price,\n item_basic_price_before_discount/100000 as price_before_discount,\n item_basic_price_max/100000 as price_max,\n item_basic_price_max_before_discount/100000 as price_max_before_discount,\n item_basic_price_min/100000 as price_min,\n item_basic_price_min_before_discount/100000 as price_min_before_discount,\n item_basic_reference_item_id as reference_item_id,\n item_basic_shop_location as shop_location,\n item_basic_sold as sold_14d,\n item_basic_status as status,\n item_basic_stock as stock,\n 'https://cf.shopee.co.id/file/' || case when length(item_basic_transparent_background_image)<5 then item_basic_image else item_basic_transparent_background_image end as transparent_background_image,\n item_basic_view_count as view_count,\n row_number() over(partition by shopid,itemid,day order by sink_time desc) as rnk,\n day\nfrom delta.`/warehouse/delta/shopee_data/api_search_item_raw_data_da`) i\nleft join delta.`/warehouse/delta/shopee_data/api_category_path_fulllist_df` c on i.catid=c.catid and i.site=c.site\nwhere rnk=1\"\"\"\n\ndf=spark.sql(sql)\ndf=df.drop(\"rnk\")\n\napi_search_item_normalized_data_df = DeltaTable.forPath(spark, \"/warehouse/delta/shopee_data/api_search_item_normalized_data_df\")\napi_search_item_normalized_data_df.alias(\"t\").merge(df.alias(\"s\"),\"t.shopid=s.shopid and t.itemid=s.itemid and t.day=s.day\").whenNotMatchedInsertAll().whenMatchedUpdateAll().execute()",
+      "user": "anonymous",
+      "dateUpdated": "2022-02-25T05:08:16+0000",
+      "progress": 98,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "site": "string",
+                      "itemid": "string",
+                      "shopid": "string",
+                      "brand": "string",
+                      "catid": "string",
+                      "comments_count": "string",
+                      "create_time": "string",
+                      "currency": "string",
+                      "discount": "string",
+                      "has_lowest_price_guarantee": "string",
+                      "historical_sold": "string",
+                      "image": "string",
+                      "is_official_shop": "string",
+                      "rating_star": "string",
+                      "rating_with_image": "string",
+                      "item_status": "string",
+                      "item_type": "string",
+                      "liked": "string",
+                      "liked_count": "string",
+                      "name": "string",
+                      "price": "string",
+                      "price_before_discount": "string",
+                      "price_max": "string",
+                      "price_max_before_discount": "string",
+                      "price_min": "string",
+                      "price_min_before_discount": "string",
+                      "reference_item_id": "string",
+                      "shop_location": "string",
+                      "sold_14d": "string",
+                      "status": "string",
+                      "stock": "string",
+                      "transparent_background_image": "string",
+                      "view_count": "string",
+                      "rnk": "string",
+                      "day": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "ANTLR Tool version 4.7 used for code generation does not match the current runtime version 4.8ANTLR Tool version 4.7 used for code generation does not match the current runtime version 4.8"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=0",
+              "$$hashKey": "object:5359"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=1",
+              "$$hashKey": "object:5360"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=2",
+              "$$hashKey": "object:5361"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=3",
+              "$$hashKey": "object:5362"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=7",
+              "$$hashKey": "object:5363"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=8",
+              "$$hashKey": "object:5364"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=11",
+              "$$hashKey": "object:5365"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=12",
+              "$$hashKey": "object:5366"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=13",
+              "$$hashKey": "object:5367"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1645681926541_250684976",
+      "id": "paragraph_1645681926541_250684976",
+      "dateCreated": "2022-02-24T05:52:06+0000",
+      "dateStarted": "2022-02-27T00:50:23+0000",
+      "dateFinished": "2022-02-27T00:51:13+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:4733"
+    },
+    {
+      "title": "提取店铺数据",
+      "text": "%pyspark\n\nshop_sql=\"\"\"\nselect day,site,shopid,shop_location,currency,count(0) item_num,sum(sold_14d) sold_14d,sum(historical_sold) historical_sold,sum(view_count) view_count,sum(liked_count) liked_count,\n    round(sum(price_min*sold_14d),2) gmv_min_14d,\n    round(sum(price_max*sold_14d),2) gmv_max_historical,\n    round(sum(price_min*sold_14d*0.00044),2) gmv_min_14d_cny,\n    round(sum(price_max*sold_14d*0.00044),2) gmv_max_historical_cny,\n    round(avg(price_min),2) avg_price_min,\n    round(avg(price_max),2) avg_price_max,\n    round(avg(price_min*0.00044),2) avg_price_min_cny,\n    round(avg(price_max*0.00044),2) avg_price_max_cny,\n    current_date as date_writen\nfrom delta.`/warehouse/delta/shopee_data/api_search_item_normalized_data_df`\ngroup by day,shopid,shop_location,currency,site\n\"\"\"\nshop_df=spark.sql(shop_sql)\nshop_df.write.mode(\"overwrite\").format(\"delta\").partitionBy(\"date_writen\").save(\"/warehouse/delta/shopee_data/api_search_item_shop_data_df\")",
+      "user": "anonymous",
+      "dateUpdated": "2022-02-25T05:08:41+0000",
+      "progress": 30,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {
+                    "columns": [
+                      {
+                        "name": "item_num0",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {
+                          "priority": 0,
+                          "direction": "desc"
+                        },
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "day1",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "shopid2",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "currency3",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "sold_14d4",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "historical_sold5",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "view_count6",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "liked_count7",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "gmv_min8",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "gmv_max9",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      }
+                    ],
+                    "scrollFocus": {},
+                    "selection": [],
+                    "grouping": {
+                      "grouping": [],
+                      "aggregations": [],
+                      "rowExpandedStates": {}
+                    },
+                    "treeView": {},
+                    "pagination": {
+                      "paginationCurrentPage": 1,
+                      "paginationPageSize": 250
+                    }
+                  },
+                  "tableColumnTypeState": {
+                    "names": {
+                      "item_num": "string",
+                      "day": "string",
+                      "shopid": "string",
+                      "currency": "string",
+                      "sold_14d": "string",
+                      "historical_sold": "string",
+                      "view_count": "string",
+                      "liked_count": "string",
+                      "gmv_min_14d": "string",
+                      "gmv_max_historical": "string",
+                      "gmv_min_14d_cny": "string",
+                      "gmv_max_historical_cny": "string",
+                      "avg_price_min": "string",
+                      "avg_price_max": "string",
+                      "avg_price_min_cny": "string",
+                      "avg_price_max_cny": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=14",
+              "$$hashKey": "object:5447"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=15",
+              "$$hashKey": "object:5448"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=16",
+              "$$hashKey": "object:5449"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=17",
+              "$$hashKey": "object:5450"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=18",
+              "$$hashKey": "object:5451"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1645682364975_1735703272",
+      "id": "paragraph_1645682364975_1735703272",
+      "dateCreated": "2022-02-24T05:59:24+0000",
+      "dateStarted": "2022-02-27T00:51:13+0000",
+      "dateFinished": "2022-02-27T00:51:21+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:4734"
+    },
+    {
+      "title": "提取类目级别数据",
+      "text": "%pyspark\n\nshop_sql=\"\"\"\nselect day,i.site,i.catid,currency,count(0) item_num,count(distinct shopid) as shop_num,sum(sold_14d) sold_14d,sum(historical_sold) historical_sold,sum(view_count) view_count,sum(liked_count) liked_count,\n    round(sum(price_min*sold_14d),2) gmv_min_14d,\n    round(sum(price_max*sold_14d),2) gmv_max_historical,\n    round(sum(price_min*sold_14d*0.00044),2) gmv_min_14d_cny,\n    round(sum(price_max*sold_14d*0.00044),2) gmv_max_historical_cny,\n    round(avg(price_min),2) avg_price_min,\n    round(avg(price_max),2) avg_price_max,\n    round(avg(price_min*0.00044),2) avg_price_min_cny,\n    round(avg(price_max*0.00044),2) avg_price_max_cny,\n    round(percentile(price_min*0.00044,0.5),2) p50_price_min_cny,\n    round(percentile(price_max*0.00044,0.5),2) p50_price_max_cny,\n    c.cat_path,\n    current_date as date_writen\nfrom delta.`/warehouse/delta/shopee_data/api_search_item_normalized_data_df` i\nleft join delta.`/warehouse/delta/shopee_data/api_category_path_fulllist_df` c on i.catid=c.catid and i.site=c.site\ngroup by day,i.catid,currency,i.site,c.cat_path\n\"\"\"\ncat_df=spark.sql(shop_sql)\napi_search_item_cat_data_df = DeltaTable.forPath(spark, \"/warehouse/delta/shopee_data/api_search_item_cat_data_df\")\napi_search_item_cat_data_df.alias(\"t\").merge(cat_df.alias(\"s\"),\"t.catid=s.catid and t.day=s.day\").whenNotMatchedInsertAll().whenMatchedUpdateAll().execute()",
+      "user": "anonymous",
+      "dateUpdated": "2022-02-25T05:08:48+0000",
+      "progress": 48,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "count(0)": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=19",
+              "$$hashKey": "object:5515"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=20",
+              "$$hashKey": "object:5516"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=24",
+              "$$hashKey": "object:5517"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=25",
+              "$$hashKey": "object:5518"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=28",
+              "$$hashKey": "object:5519"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=29",
+              "$$hashKey": "object:5520"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=30",
+              "$$hashKey": "object:5521"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1645685740211_802479778",
+      "id": "paragraph_1645685740211_802479778",
+      "dateCreated": "2022-02-24T06:55:40+0000",
+      "dateStarted": "2022-02-27T00:51:21+0000",
+      "dateFinished": "2022-02-27T00:52:05+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:4735"
+    },
+    {
+      "title": "数据统计",
+      "text": "%sql\n\nselect day,site,cat_path,catid,item_num,shop_num,sold_14d,gmv_min_14d_cny,p50_price_max_cny\nfrom delta.`/warehouse/delta/shopee_data/api_search_item_cat_data_df`\norder by day desc,site,catid\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-02-25T05:14:05+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {
+                    "columns": [
+                      {
+                        "name": "day0",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {
+                          "priority": 0,
+                          "direction": "asc"
+                        },
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "site1",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "catid2",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "currency3",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "item_num4",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "shop_num5",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "sold_14d6",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "historical_sold7",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "view_count8",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "liked_count9",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "gmv_min_14d10",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "gmv_max_historical11",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "gmv_min_14d_cny12",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "gmv_max_historical_cny13",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "avg_price_min14",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "avg_price_max15",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "avg_price_min_cny16",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "avg_price_max_cny17",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "p50_price_min_cny18",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "p50_price_max_cny19",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "date_writen20",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "cat_path21",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      }
+                    ],
+                    "scrollFocus": {},
+                    "selection": [],
+                    "grouping": {
+                      "grouping": [],
+                      "aggregations": [],
+                      "rowExpandedStates": {}
+                    },
+                    "treeView": {},
+                    "pagination": {
+                      "paginationCurrentPage": 1,
+                      "paginationPageSize": 250
+                    }
+                  },
+                  "tableColumnTypeState": {
+                    "names": {
+                      "day": "string",
+                      "site": "string",
+                      "cat_path": "string",
+                      "catid": "string",
+                      "item_num": "string",
+                      "shop_num": "string",
+                      "sold_14d": "string",
+                      "gmv_min_14d_cny": "string",
+                      "p50_price_max_cny": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "day\tsite\tcat_path\tcatid\titem_num\tshop_num\tsold_14d\tgmv_min_14d_cny\tp50_price_max_cny\n2022-02-27\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t1366\t417\t826065\t1.53900024E7\t19.59\n2022-02-27\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t1371\t617\t2074857\t1.399550102E7\t6.05\n2022-02-27\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t1462\t688\t3012192\t7630544.07\t2.53\n2022-02-27\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t1156\t424\t1010316\t1.027893315E7\t4.37\n2022-02-26\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t1381\t425\t840252\t1.545587054E7\t19.36\n2022-02-26\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t1413\t644\t2166648\t1.477775934E7\t5.95\n2022-02-26\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t1481\t703\t3100725\t7500587.28\t2.37\n2022-02-26\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t1168\t433\t1027638\t1.034504499E7\t4.25\n2022-02-25\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t1376\t421\t880442\t1.605735577E7\t19.76\n2022-02-25\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t1407\t646\t2270391\t1.497061107E7\t5.92\n2022-02-25\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t1476\t706\t3165653\t8024106.79\t2.38\n2022-02-25\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t1167\t429\t1054978\t1.087521452E7\t4.4\n2022-02-24\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t1371\t422\t897421\t1.63823784E7\t19.8\n2022-02-24\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t1412\t648\t2326685\t1.544737962E7\t5.94\n2022-02-24\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t1472\t705\t3259449\t8052561.42\t2.37\n2022-02-24\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t1159\t438\t1086142\t1.12502654E7\t4.4\n2022-02-23\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t1361\t424\t875980\t1.594948761E7\t19.69\n2022-02-23\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t1412\t652\t2293044\t1.5795374E7\t5.94\n2022-02-23\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t1470\t708\t3166839\t7820523.74\t2.32\n2022-02-23\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t1159\t432\t1044060\t1.069242156E7\t4.36\n2022-02-22\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t1345\t412\t879103\t1.61852849E7\t19.76\n2022-02-22\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t1359\t621\t2209676\t1.464049033E7\t6.38\n2022-02-22\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t1452\t691\t3110740\t7914802.27\t2.54\n2022-02-22\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t1146\t425\t1048009\t1.077116071E7\t4.4\n2022-02-21\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t2040\t1022\t815859\t1.419256786E7\t24.29\n2022-02-21\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t2037\t1197\t2082711\t1.281479089E7\t8.58\n2022-02-21\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t2040\t1389\t2909891\t6809605.54\t3.92\n2022-02-21\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t2039\t1092\t1014508\t1.018294798E7\t6.95\n2022-02-20\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t2040\t763\t816879\t1.428611785E7\t19.01\n2022-02-20\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t2038\t1066\t2097158\t1.317283038E7\t6.6\n2022-02-20\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t2040\t1203\t2990219\t7097258.82\t2.38\n2022-02-20\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t2040\t853\t1036190\t1.040663218E7\t5.28\n2022-02-19\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t2037\t651\t827121\t1.432046878E7\t16.23\n2022-02-19\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t2037\t986\t2137170\t1.403383369E7\t5.94\n2022-02-19\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t2036\t1136\t3073906\t7120512.42\t2.2\n2022-02-19\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t2024\t679\t1063503\t1.048098982E7\t4.36\n2022-02-18\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t2038\t618\t838265\t1.459217394E7\t17.18\n2022-02-18\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t2037\t996\t2151668\t1.461178244E7\t6.16\n2022-02-18\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t2031\t1094\t3153303\t7200056.05\t1.8\n2022-02-18\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t2007\t670\t1068684\t1.063558713E7\t4.29\n2022-02-17\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t2552\t695\t949105\t1.770010274E7\t21.56\n2022-02-17\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t2511\t1073\t2388805\t1.553456342E7\t5.63\n2022-02-17\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t2456\t1196\t3464852\t8109666.67\t1.87\n2022-02-17\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t2243\t740\t1115982\t1.139179663E7\t4.84\n2022-02-16\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t2040\t658\t851130\t1.472249644E7\t16.94\n2022-02-16\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t2032\t982\t2144470\t1.333582102E7\t5.72\n2022-02-16\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t2013\t1104\t3142185\t7046839.86\t1.9\n2022-02-16\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t2018\t698\t1084239\t1.067845127E7\t4.29\n2022-01-31\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t2039\t639\t901471\t1.510630413E7\t17.58\n2022-01-31\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t2031\t1020\t1862454\t1.131333952E7\t5.72\n2022-01-31\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t2025\t1110\t2931975\t6310597.1\t2.42\n2022-01-31\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t2014\t705\t1042900\t1.073094601E7\t4.4\n2022-01-29\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t2039\t680\t905996\t1.517628151E7\t17.56\n2022-01-29\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t2037\t1003\t1842471\t1.246550919E7\t5.94\n2022-01-29\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t2021\t1140\t2861191\t6089830.45\t2.4\n2022-01-29\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t2028\t726\t1024392\t1.06220544E7\t4.4\n2022-01-27\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t2039\t676\t903196\t1.509604181E7\t17.16\n2022-01-27\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t2033\t1021\t1774892\t1.259970679E7\t6.27\n2022-01-27\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t2020\t1135\t2846473\t5839460.67\t2.4\n2022-01-27\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t2031\t699\t1001980\t1.035118752E7\t4.29\n2022-01-25\tshopee.co.id\tWomen Bags > Crossbody & Shoulder Bags\t11042656\t2039\t683\t965703\t1.577595765E7\t16.72\n2022-01-25\tshopee.co.id\tBeauty & Care > Perfumes & Fragrances\t11043198\t2035\t986\t1863455\t1.330333598E7\t6.16\n2022-01-25\tshopee.co.id\tHome & Living > Home Organizers\t11043939\t2018\t1139\t2979149\t6364043.86\t2.33\n2022-01-25\tshopee.co.id\tMobile & Accessories > Mobile Audio > Earphone, Headphone & Headset\t11044545\t2023\t697\t1059034\t1.124545469E7\t4.31\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=31",
+              "$$hashKey": "object:5643"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=32",
+              "$$hashKey": "object:5644"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1645765812191_508695117",
+      "id": "paragraph_1645765812191_508695117",
+      "dateCreated": "2022-02-25T05:10:12+0000",
+      "dateStarted": "2022-02-27T00:52:05+0000",
+      "dateFinished": "2022-02-27T00:52:06+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:4736"
+    },
+    {
+      "text": "%sh\n\n# rm -fr /warehouse/delta/shopee_data/api_search_item_cat_data_df\n# rm -fr /warehouse/delta/shopee_data/api_search_item_shop_data_df",
+      "user": "anonymous",
+      "dateUpdated": "2022-02-25T05:09:32+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sh",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1645687772993_254409404",
+      "id": "paragraph_1645687772993_254409404",
+      "dateCreated": "2022-02-24T07:29:32+0000",
+      "dateStarted": "2022-02-27T00:52:06+0000",
+      "dateFinished": "2022-02-27T00:52:06+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:4737"
+    },
+    {
+      "text": "%md\n\n## 以下代码用于同步数据到Postgre SQL数据库",
+      "user": "anonymous",
+      "dateUpdated": "2022-02-25T05:09:33+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h2>以下代码用于同步数据到Postgre SQL数据库</h2>\n\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1645700685739_1293469706",
+      "id": "paragraph_1645700685739_1293469706",
+      "dateCreated": "2022-02-24T11:04:45+0000",
+      "dateStarted": "2022-02-27T00:52:06+0000",
+      "dateFinished": "2022-02-27T00:52:06+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:4738"
+    },
+    {
+      "title": "数据库连接和数据写入",
+      "text": "%pyspark\n\nimport psycopg2\n\nitem_insert_sql_tpl=\"\"\"\ninsert into shopee_item_stats(site,itemid,shopid,brand,catid,comments_count,create_time,currency,discount,has_lowest_price_guarantee,historical_sold,image,is_official_shop,rating_star,rating_with_image,item_status,item_type,liked,liked_count,name,price,price_before_discount,price_max,price_max_before_discount,price_min,price_min_before_discount,reference_item_id,shop_location,sold_14d,status,stock,transparent_background_image,view_count,day,date_writen,cat_path)\nvalues {values}\nON CONFLICT (day,site,itemid) DO NOTHING;\n\"\"\"\n\nitem_value_tpl=\"\"\"('{site}','{itemid}','{shopid}','{brand}','{catid}','{comments_count}','{create_time}','{currency}','{discount}','{has_lowest_price_guarantee}','{historical_sold}','{image}','{is_official_shop}','{rating_star}','{rating_with_image}','{item_status}','{item_type}','{liked}','{liked_count}','{name}','{price}','{price_before_discount}','{price_max}','{price_max_before_discount}','{price_min}','{price_min_before_discount}','{reference_item_id}','{shop_location}','{sold_14d}','{status}','{stock}','{transparent_background_image}','{view_count}','{day}','{date_writen}','{cat_path}')\"\"\"\n\nshop_insert_sql_tpl=\"\"\"\ninsert into shopee_shop_stats(day, site, shopid, shop_location, currency, item_num, sold_14d, historical_sold, view_count, liked_count, gmv_min_14d, gmv_max_historical, gmv_min_14d_cny, gmv_max_historical_cny, avg_price_min, avg_price_max, avg_price_min_cny, avg_price_max_cny, date_writen)\nvalues {values}\nON CONFLICT (day,site,shopid) DO NOTHING;\"\"\"\n\nshop_value_tpl=\"\"\"('{day}', '{site}', '{shopid}', '{shop_location}', '{currency}', '{item_num}', '{sold_14d}', '{historical_sold}', '{view_count}', '{liked_count}', '{gmv_min_14d}', '{gmv_max_historical}', '{gmv_min_14d_cny}', '{gmv_max_historical_cny}', '{avg_price_min}', '{avg_price_max}', '{avg_price_min_cny}', '{avg_price_max_cny}', '{date_writen}')\"\"\"\n\n\ncat_insert_sql_tpl=\"\"\"\ninsert into shopee_cat_stats(day, site, catid, currency, item_num, shop_num, sold_14d, historical_sold, view_count, liked_count, gmv_min_14d, gmv_max_historical, gmv_min_14d_cny, gmv_max_historical_cny, avg_price_min, avg_price_max, avg_price_min_cny, avg_price_max_cny, p50_price_min_cny, p50_price_max_cny, date_writen, cat_path)\nvalues {values}\nON CONFLICT (day,site,catid) DO NOTHING;\"\"\"\n\ncat_value_tpl=\"\"\"('{day}', '{site}', '{catid}', '{currency}', '{item_num}', '{shop_num}', '{sold_14d}', '{historical_sold}', '{view_count}', '{liked_count}', '{gmv_min_14d}', '{gmv_max_historical}', '{gmv_min_14d_cny}', '{gmv_max_historical_cny}', '{avg_price_min}', '{avg_price_max}', '{avg_price_min_cny}', '{avg_price_max_cny}', '{p50_price_min_cny}', '{p50_price_max_cny}', '{date_writen}', '{cat_path}')\"\"\"\n\ndef insert_batch(insert_sql):\n    conn = psycopg2.connect(database=\"warehouse\", user='postgres', \\\n                            password='postgres-local', host='172.16.38.180', port= '5432')\n    cursor = conn.cursor()\n    cursor.execute(insert_sql)\n    conn.commit()\n    conn.close()\n\ndef remove_quote_from_dic_batch(dic, col_names=[\"item_name\"]):\n    if dic is None:\n        return dic\n    for col in col_names:\n        try:\n            dic=remove_quote_from_dic(dic,col)\n        except:\n            print(dic, col)\n    return dic\n    \ndef to_int_field(dic,fields=[\"catid\",'view_count','liked_count']):\n    for field in fields:\n        if field in dic:\n            if dic[field] is None:\n                dic[field]=0\n            else:\n                dic[field]=int(dic[field])\n    return dic\n    \n    \ndef remove_quote_from_dic(dic, col_name=\"item_name\"):\n    if dic is None:\n        return dic\n    if col_name in dic and dic[col_name] is not None and \"'\" in dic[col_name]:\n        dic[col_name]=dic[col_name].replace(\"'\",\"''\")\n    return dic\n\ndef insert_for_df(df,insert_sql_tpl=item_insert_sql_tpl,value_tpl=item_value_tpl):\n    values_list=[]\n    for index,row in df.iterrows():\n        dic=row.to_dict()\n        dic=to_int_field(dic)\n        dic=remove_quote_from_dic_batch(dic,['item_name','cat_path','name','brand'])\n\n        values_list.append(value_tpl.format(**dic))\n        if len(values_list) >=2000:\n            print(\"about to insert 2000 rows...\")\n            insert_batch(insert_sql_tpl.format(values=\",\".join(values_list)))\n            values_list=[]\n\n    if len(values_list)>0:\n        print(\"about to insert final batch rows:\", len(values_list))\n        insert_batch(insert_sql_tpl.format(values=\",\".join(values_list)))\n        values_list=[]\n\n    print(\"done\")\n\ndef insert_all_for_day(day='2022-02-24'):\n    where_condition=\"day='%s'\" % day\n    cat_df=spark.table(\"delta.`/warehouse/delta/shopee_data/api_search_item_cat_data_df`\").where(where_condition).toPandas().fillna(0)\n    insert_for_df(cat_df,cat_insert_sql_tpl,cat_value_tpl)\n    \n    shop_df=spark.table(\"delta.`/warehouse/delta/shopee_data/api_search_item_shop_data_df`\").where(where_condition).toPandas().fillna(0)\n    insert_for_df(shop_df,shop_insert_sql_tpl,shop_value_tpl)\n    \n    item_df=spark.table(\"delta.`/warehouse/delta/shopee_data/api_search_item_normalized_data_df`\").where(where_condition).withColumn('brand',F.coalesce(F.col(\"brand\"),F.lit(\"-\"))).toPandas().fillna(0)\n    insert_for_df(item_df,item_insert_sql_tpl,item_value_tpl)\n    \n    print(\"done with day:\", day)\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-02-25T08:02:58+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1645769579408_1233337171",
+      "id": "paragraph_1645769579408_1233337171",
+      "dateCreated": "2022-02-25T06:12:59+0000",
+      "dateStarted": "2022-02-27T00:52:06+0000",
+      "dateFinished": "2022-02-27T00:52:06+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:4739"
+    },
+    {
+      "title": "将过去3天的数据都写入Postgre SQL数据库",
+      "text": "%pyspark\n\nfrom datetime import datetime,timedelta\nimport pyspark.sql.functions as F\n\nfor day in range(0,3):\n    day_str=(datetime.now()-timedelta(days=day)).strftime(\"%Y-%m-%d\")\n    insert_all_for_day(day_str)",
+      "user": "anonymous",
+      "dateUpdated": "2022-02-25T08:09:33+0000",
+      "progress": 100,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "col_name": "string",
+                      "data_type": "string",
+                      "comment": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "about to insert final batch rows: 4\ndone\nabout to insert 2000 rows...\nabout to insert final batch rows: 99\ndone\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert final batch rows: 1355\ndone\ndone with day: 2022-02-27\nabout to insert final batch rows: 4\ndone\nabout to insert 2000 rows...\nabout to insert final batch rows: 157\ndone\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert final batch rows: 1443\ndone\ndone with day: 2022-02-26\nabout to insert final batch rows: 4\ndone\nabout to insert 2000 rows...\nabout to insert final batch rows: 155\ndone\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert final batch rows: 1426\ndone\ndone with day: 2022-02-25\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=33",
+              "$$hashKey": "object:5836"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=34",
+              "$$hashKey": "object:5837"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=35",
+              "$$hashKey": "object:5838"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=36",
+              "$$hashKey": "object:5839"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=37",
+              "$$hashKey": "object:5840"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=38",
+              "$$hashKey": "object:5841"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=39",
+              "$$hashKey": "object:5842"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=40",
+              "$$hashKey": "object:5843"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=41",
+              "$$hashKey": "object:5844"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=42",
+              "$$hashKey": "object:5845"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=43",
+              "$$hashKey": "object:5846"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=44",
+              "$$hashKey": "object:5847"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=45",
+              "$$hashKey": "object:5848"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=46",
+              "$$hashKey": "object:5849"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=47",
+              "$$hashKey": "object:5850"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=48",
+              "$$hashKey": "object:5851"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=49",
+              "$$hashKey": "object:5852"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=50",
+              "$$hashKey": "object:5853"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1645692670135_124655478",
+      "id": "paragraph_1645692670135_124655478",
+      "dateCreated": "2022-02-24T08:51:10+0000",
+      "dateStarted": "2022-02-27T00:52:06+0000",
+      "dateFinished": "2022-02-27T00:52:21+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:4740"
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-02-25T06:38:50+0000",
+      "progress": 0,
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1645771130797_1520740827",
+      "id": "paragraph_1645771130797_1520740827",
+      "dateCreated": "2022-02-25T06:38:50+0000",
+      "dateStarted": "2022-02-27T00:52:21+0000",
+      "dateFinished": "2022-02-27T00:52:22+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:4741"
+    }
+  ],
+  "name": "normalizing_task",
+  "id": "2GV9YTGV3",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.10.0",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": true,
+    "looknfeel": "default",
+    "personalizedMode": "false",
+    "cronExecutingUser": "anonymous",
+    "cronExecutingRoles": "[]",
+    "cron": "0 50 0 * * ?"
+  },
+  "info": {
+    "inIsolatedMode": false,
+    "isRunning": false
+  },
+  "path": "/spark/normalizing_task"
+}

@@ -1,3 +1,11 @@
+# 需要先下载spark 二进制文件，参考：
+# SPARK_DOWNLOAD_URL=https://dlcdn.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
+# SPARK_HOME=$PWD/spark
+# wget --no-verbose -O apache-spark.tgz "${SPARK_DOWNLOAD_URL}" \
+# && mkdir -p ${SPARK_HOME} \
+# && tar -xf apache-spark.tgz -C ${SPARK_HOME} --strip-components=1 \
+# && rm apache-spark.tgz
+
 docker run -d -u $(id -u) -p 8280:8080 -v $PWD/zeppelin-notebook:/notebook \
 -v $PWD/zeppelin-logs:/logs -v $PWD/log-received:/log-received -v $PWD/spark/:/opt/spark \
 -e SPARK_HOME=/opt/spark -e ZEPPELIN_NOTEBOOK_DIR='/notebook' -e ZEPPELIN_LOG_DIR='/logs' \

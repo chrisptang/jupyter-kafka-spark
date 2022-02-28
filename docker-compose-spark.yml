@@ -5,6 +5,7 @@ services:
     build: ./custom-spark-standalone
     image: chrisptang/cluster-apache-spark:3.1.2
     container_name: spark-master
+    hostname: spark-master
     ports:
       - "9090:8080"
       - "7077:7077"
@@ -13,25 +14,29 @@ services:
        - ./spark-data:/opt/spark-data
        - ./log-received:/opt/spark-data/log-received
     environment:
-      - SPARK_LOCAL_IP=spark-master
       - SPARK_WORKLOAD=master
+      - SPARK_LOCAL_IP=spark-master
+      - SPARK_MASTER_WEBUI_PORT=8080
 
   spark-worker-a:
     image: chrisptang/cluster-apache-spark:3.1.2
     container_name: spark-worker-a
     ports:
-      - "9091:8080"
-      - "17000:7000"
+      - "9091:9091"
+      - "17000:17000"
+    hostname: spark-worker-a
     depends_on:
       - spark-master
     environment:
-      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_MASTER=spark://$HOST_IP:7077
       - SPARK_WORKER_CORES=4
       - SPARK_WORKER_MEMORY=1G
       - SPARK_DRIVER_MEMORY=1G
       - SPARK_EXECUTOR_MEMORY=1G
       - SPARK_WORKLOAD=worker
       - SPARK_LOCAL_IP=spark-worker-a
+      - SPARK_WORKER_PORT=17000
+      - SPARK_WORKER_WEBUI_PORT=9091
     volumes:
        - ./spark-apps:/opt/spark-apps
        - ./spark-data:/opt/spark-data
@@ -39,19 +44,22 @@ services:
   spark-worker-b:
     image: chrisptang/cluster-apache-spark:3.1.2
     container_name: spark-worker-b
+    hostname: spark-worker-a
     ports:
-      - "9092:8080"
-      - "17001:7000"
+      - "9092:9092"
+      - "17001:17001"
     depends_on:
       - spark-master
     environment:
-      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_MASTER=spark://$HOST_IP:7077
       - SPARK_WORKER_CORES=4
       - SPARK_WORKER_MEMORY=1G
       - SPARK_DRIVER_MEMORY=1G
       - SPARK_EXECUTOR_MEMORY=1G
       - SPARK_WORKLOAD=worker
       - SPARK_LOCAL_IP=spark-worker-b
+      - SPARK_WORKER_PORT=17001
+      - SPARK_WORKER_WEBUI_PORT=9092
     volumes:
         - ./spark-apps:/opt/spark-apps
         - ./spark-data:/opt/spark-data

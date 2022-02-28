@@ -41,7 +41,8 @@ RUN mkdir -p $SPARK_LOG_DIR && \
 touch $SPARK_MASTER_LOG && \
 touch $SPARK_WORKER_LOG && \
 ln -sf /dev/stdout $SPARK_MASTER_LOG && \
-ln -sf /dev/stdout $SPARK_WORKER_LOG
+ln -sf /dev/stdout $SPARK_WORKER_LOG && \
+apt update && apt -y install telnet iputils-ping
 
 COPY start-spark.sh /
 

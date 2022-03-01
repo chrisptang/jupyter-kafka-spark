@@ -1,0 +1,359 @@
+﻿{
+  "paragraphs": [
+    {
+      "text": "%sh\n\nps aux|grep java",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-01T07:48:22+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sh",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root           7  1.0  4.8 6728044 376104 ?      Sl   02:28   3:27 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dfile.encoding=UTF-8 -Xmx1024m -Dlog4j.configuration=file:///opt/zeppelin/conf/log4j.properties -Dzeppelin.log.file=/logs/zeppelin--109bf718dfa6.log -cp ::/opt/zeppelin/lib/*:/opt/zeppelin/*::/opt/zeppelin/conf org.apache.zeppelin.server.ZeppelinServer\nroot         368  0.1  1.2 5189908 94796 ?       Sl   02:57   0:31 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dfile.encoding=UTF-8 -Dlog4j.configuration=file:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile=file:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file=/logs/zeppelin-interpreter-sh-shared_process--109bf718dfa6.log -Xmx1024m -cp :/opt/zeppelin/local-repo/sh/*:/opt/zeppelin/interpreter/sh/*:::/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer 172.17.0.2 35695 sh-shared_process :\nroot        1414  102  9.4 6950172 730812 ?      Sl   07:47   0:46 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -cp /opt/zeppelin/local-repo/spark/*:/opt/zeppelin/interpreter/spark/*:/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar:/opt/spark/conf/:/opt/spark/jars/* -Xmx1g -Dfile.encoding=UTF-8 -Dlog4j.configuration=file:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile=file:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file=/logs/zeppelin-interpreter-spark-shared_process--109bf718dfa6.log org.apache.spark.deploy.SparkSubmit --conf spark.executor.memory=1g --conf spark.driver.port=47077 --conf spark.master=spark://10.118.52.134:7077 --conf spark.driver.memory=1g --conf spark.driver.cores=1 --conf spark.driver.extraClassPath=:/opt/zeppelin/local-repo/spark/*:/opt/zeppelin/interpreter/spark/*:::/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar --conf spark.app.name=spark-shared_process --conf spark.executor.cores=1 --conf spark.driver.bindAddress=0.0.0.0 --conf spark.driver.host=10.118.53.39 --conf spark.executor.instances=2 --conf spark.webui.yarn.useProxy=false --conf spark.blockManager.port=39191 --conf spark.driver.extraJavaOptions= -Dfile.encoding=UTF-8 -Dlog4j.configuration=file:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile=file:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file=/logs/zeppelin-interpreter-spark-shared_process--109bf718dfa6.log --conf spark.sql.warehouse.dir=/warehouse --class org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer /opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar 172.17.0.2 35695 spark-shared_process :\nroot        1679  0.0  0.0   9572  3456 ?        S    07:48   0:00 bash -c ps aux|grep java\nroot        1685  0.0  0.0   8900   672 ?        S    07:48   0:00 grep java\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646026623088_1785783138",
+      "id": "paragraph_1646026623088_1785783138",
+      "dateCreated": "2022-02-28T05:37:03+0000",
+      "dateStarted": "2022-03-01T07:48:22+0000",
+      "dateFinished": "2022-03-01T07:48:22+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:5163"
+    },
+    {
+      "text": "%sh\n# 有的时候连接不上maven仓库；\n# 可以想办法把jar 包事先下载到本地\n#spark.jars.packages io.delta:delta-core_2.12:1.0.0\n#spark.sql.extensions io.delta.sql.DeltaSparkSessionExtension\n#spark.sql.catalog.spark_catalog org.apache.spark.sql.delta.catalog.DeltaCatalog",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-01T07:51:48+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sh",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646120832229_267130433",
+      "id": "paragraph_1646120832229_267130433",
+      "dateCreated": "2022-03-01T07:47:12+0000",
+      "status": "READY",
+      "focus": true,
+      "$$hashKey": "object:5839"
+    },
+    {
+      "text": "%spark.conf\n\n\nspark.sql.warehouse.dir /warehouse\nspark.master spark://10.118.52.134:7077\nzeppelin.interpreter.connect.timeout 600000\nspark.driver.bindAddress 0.0.0.0\nspark.driver.host 10.118.53.39\nspark.driver.port 47077\nspark.blockManager.port 39191",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-01T07:47:31+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/text",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646026680533_1360288098",
+      "id": "paragraph_1646026680533_1360288098",
+      "dateCreated": "2022-02-28T05:38:00+0000",
+      "dateStarted": "2022-03-01T07:47:31+0000",
+      "dateFinished": "2022-03-01T07:47:31+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:5164"
+    },
+    {
+      "text": "%pyspark\n\nprint(spark.sparkContext.getConf().getAll())",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-01T07:47:36+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "[('zeppelin.pyspark.useIPython', 'true'), ('spark.app.id', 'app-20220301074745-0000'), ('spark.repl.class.uri', 'spark://10.118.53.39:47077/classes'), ('zeppelin.spark.concurrentSQL', 'true'), ('zeppelin.R.cmd', 'R'), ('spark.driver.memory', '1g'), ('zeppelin.spark.run.asLoginUser', 'true'), ('zeppelin.interpreter.connection.poolsize', '100'), ('zeppelin.interpreter.output.limit', '102400'), ('PYSPARK_PYTHON', 'python'), ('spark.app.initial.jar.urls', 'spark://10.118.53.39:47077/jars/spark-interpreter-0.10.0.jar'), ('spark.sql.warehouse.dir', '/warehouse'), ('spark.driver.extraClassPath', ':/opt/zeppelin/local-repo/spark/*:/opt/zeppelin/interpreter/spark/*:::/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar'), ('spark.driver.extraJavaOptions', ' -Dfile.encoding=UTF-8 -Dlog4j.configuration=file:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile=file:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file=/logs/zeppelin-interpreter-spark-shared_process--109bf718dfa6.log'), ('spark.webui.yarn.useProxy', 'false'), ('spark.executor.memory', '1g'), ('spark.executor.instances', '2'), ('PYSPARK_DRIVER_PYTHON', 'python'), ('spark.useHiveContext', 'true'), ('spark.jars', 'file:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar'), ('spark.driver.host', '10.118.53.39'), ('SPARK_HOME', '/opt/spark'), ('zeppelin.R.knitr', 'true'), ('zeppelin.kotlin.shortenTypes', 'true'), ('spark.submit.deployMode', 'client'), ('zeppelin.interpreter.localRepo', '/opt/zeppelin/local-repo/spark'), ('spark.driver.cores', '1'), ('zeppelin.spark.useHiveContext', 'true'), ('zeppelin.R.shiny.portRange', ':'), ('spark.master', 'spark://10.118.52.134:7077'), ('spark.blockManager.port', '39191'), ('spark.repl.class.outputDir', '/tmp/spark8104574707449368205'), ('zeppelin.spark.enableSupportedVersionCheck', 'true'), ('spark.app.startTime', '1646120864387'), ('zeppelin.spark.printREPLOutput', 'true'), ('spark.executor.id', 'driver'), ('zeppelin.spark.maxResult', '1000'), ('spark.scheduler.mode', 'FAIR'), ('zeppelin.R.render.options', \"out.format = 'html', comment = NA, echo = FALSE, results = 'asis', message = F, warning = F, fig.retina = 2\"), ('zeppelin.R.image.width', '100%'), ('spark.app.name', 'spark-shared_process'), ('zeppelin.spark.ui.hidden', 'false'), ('spark.driver.port', '47077'), ('zeppelin.spark.deprecatedMsg.show', 'true'), ('spark.driver.bindAddress', '0.0.0.0'), ('zeppelin.interpreter.connect.timeout', '600000'), ('spark.submit.pyFiles', ''), ('zeppelin.spark.concurrentSQL.max', '10'), ('spark.executor.cores', '1'), ('zeppelin.spark.sql.interpolation', 'false'), ('zeppelin.spark.sql.stacktrace', 'true'), ('zeppelin.spark.scala.color', 'true')]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646026748786_930123663",
+      "id": "paragraph_1646026748786_930123663",
+      "dateCreated": "2022-02-28T05:39:08+0000",
+      "dateStarted": "2022-03-01T07:47:36+0000",
+      "dateFinished": "2022-03-01T07:47:53+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:5165"
+    },
+    {
+      "text": "%pyspark\n\n\ndata=[{\"name\":\"derrick\",\"age\":33},{\"name\":\"james\",\"age\":37}]\ndf=spark.sparkContext.parallelize(data).toDF()\ndf.show(truncate=False)\n\ndf.createOrReplaceTempView(\"v_test_user\")",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-01T07:47:58+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+---+-------+\n|age|name   |\n+---+-------+\n|33 |derrick|\n|37 |james  |\n+---+-------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.118.53.39:4040/jobs/job?id=0",
+              "$$hashKey": "object:6244"
+            },
+            {
+              "jobUrl": "http://10.118.53.39:4040/jobs/job?id=1",
+              "$$hashKey": "object:6245"
+            },
+            {
+              "jobUrl": "http://10.118.53.39:4040/jobs/job?id=2",
+              "$$hashKey": "object:6246"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646026807786_1026636964",
+      "id": "paragraph_1646026807786_1026636964",
+      "dateCreated": "2022-02-28T05:40:07+0000",
+      "dateStarted": "2022-03-01T07:47:58+0000",
+      "dateFinished": "2022-03-01T07:48:26+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:5166"
+    },
+    {
+      "text": "%sql\n\nselect * from v_test_user",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-01T07:49:12+0000",
+      "progress": 0,
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "age": "string",
+                      "name": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://10.118.53.39:4040/jobs/job?id=3",
+              "$$hashKey": "object:6746"
+            },
+            {
+              "jobUrl": "http://10.118.53.39:4040/jobs/job?id=4",
+              "$$hashKey": "object:6747"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646027003501_1869483234",
+      "id": "paragraph_1646027003501_1869483234",
+      "dateCreated": "2022-02-28T05:43:23+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:5167",
+      "dateFinished": "2022-03-01T07:49:12+0000",
+      "dateStarted": "2022-03-01T07:49:11+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "age\tname\n33\tderrick\n37\tjames\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%sql\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-01T07:49:11+0000",
+      "progress": 0,
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646120951802_168264208",
+      "id": "paragraph_1646120951802_168264208",
+      "dateCreated": "2022-03-01T07:49:11+0000",
+      "status": "READY",
+      "focus": true,
+      "$$hashKey": "object:6259"
+    }
+  ],
+  "name": "init_spark",
+  "id": "2GYYUNCJF",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.10.0",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {
+    "isRunning": false
+  },
+  "path": "/spark/init_spark"
+}

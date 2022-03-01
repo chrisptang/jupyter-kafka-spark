@@ -20,7 +20,7 @@ services:
       - SPARK_DRIVER_BINDADDR=0.0.0.0
       - SPARK_DRIVER_HOST=$HOST_IP
     volumes:
-      - ./zeppelin-notebook:/notebook
+      - ./zeppelin-notebooks:/notebook
       - ./log-received:/opt/log-received
       - ./zeppelin-logs:/logs
       - ./spark:/opt/spark

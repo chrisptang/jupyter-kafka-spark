@@ -9,6 +9,7 @@ services:
     ports:
       - "9090:8080"
       - "7077:7077"
+      - "39191:39191"
     volumes:
        - ./spark-apps:/opt/spark-apps
        - ./spark-data:/opt/spark-data
@@ -18,6 +19,7 @@ services:
       - SPARK_WORKLOAD=master
       - SPARK_LOCAL_IP=spark-master
       - SPARK_MASTER_WEBUI_PORT=8080
+      - SPARK_BLOCK_MANAGER_PORT=39191
 
   spark-worker-a:
     image: chrisptang/cluster-apache-spark:3.1.2
@@ -25,6 +27,7 @@ services:
     ports:
       - "9091:9091"
       - "17000:17000"
+      - "39192:39192"
     hostname: spark-worker-a
     depends_on:
       - spark-master
@@ -38,6 +41,7 @@ services:
       - SPARK_LOCAL_IP=spark-worker-a
       - SPARK_WORKER_PORT=17000
       - SPARK_WORKER_WEBUI_PORT=9091
+      - SPARK_BLOCK_MANAGER_PORT=39192
     volumes:
        - ./spark-apps:/opt/spark-apps
        - ./spark-data:/opt/spark-data
@@ -51,6 +55,7 @@ services:
     ports:
       - "9092:9092"
       - "17001:17001"
+      - "39193:39193"
     depends_on:
       - spark-master
     environment:
@@ -63,6 +68,7 @@ services:
       - SPARK_LOCAL_IP=spark-worker-b
       - SPARK_WORKER_PORT=17001
       - SPARK_WORKER_WEBUI_PORT=9092
+      - SPARK_BLOCK_MANAGER_PORT=39193
     volumes:
         - ./spark-apps:/opt/spark-apps
         - ./spark-data:/opt/spark-data

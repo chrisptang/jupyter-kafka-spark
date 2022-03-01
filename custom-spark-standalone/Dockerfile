@@ -27,9 +27,9 @@ WORKDIR /opt/spark
 
 ENV SPARK_MASTER_PORT=7077 \
 SPARK_MASTER_WEBUI_PORT=8080 \
-SPARK_LOG_DIR=/opt/spark/logs \
-SPARK_MASTER_LOG=/opt/spark/logs/spark-master.out \
-SPARK_WORKER_LOG=/opt/spark/logs/spark-worker.out \
+SPARK_LOG_DIR=/spark-logs \
+SPARK_MASTER_LOG=/spark-logs/spark-master.out \
+SPARK_WORKER_LOG=/spark-logs/spark-worker.out \
 SPARK_WORKER_WEBUI_PORT=8080 \
 SPARK_WORKER_PORT=7000 \
 SPARK_MASTER="spark://spark-master:7077" \
@@ -40,8 +40,6 @@ EXPOSE 8080 7077 7000
 RUN mkdir -p $SPARK_LOG_DIR && \
 touch $SPARK_MASTER_LOG && \
 touch $SPARK_WORKER_LOG && \
-ln -sf /dev/stdout $SPARK_MASTER_LOG && \
-ln -sf /dev/stdout $SPARK_WORKER_LOG && \
 apt update && apt -y install telnet iputils-ping
 
 COPY start-spark.sh /

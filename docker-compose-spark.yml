@@ -12,6 +12,7 @@ services:
     volumes:
        - ./spark-apps:/opt/spark-apps
        - ./spark-data:/opt/spark-data
+       - ./spark-logs:/spark-logs
        - ./log-received:/opt/spark-data/log-received
     environment:
       - SPARK_WORKLOAD=master
@@ -41,6 +42,8 @@ services:
        - ./spark-apps:/opt/spark-apps
        - ./spark-data:/opt/spark-data
        - ./log-received:/opt/spark-data/log-received
+       - ./spark-logs:/spark-logs
+       
   spark-worker-b:
     image: chrisptang/cluster-apache-spark:3.1.2
     container_name: spark-worker-b
@@ -64,3 +67,4 @@ services:
         - ./spark-apps:/opt/spark-apps
         - ./spark-data:/opt/spark-data
         - ./log-received:/opt/spark-data/log-received
+        - ./spark-logs:/spark-logs

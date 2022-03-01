@@ -7,7 +7,8 @@ services:
   zeppelin:
     image: apache/zeppelin:0.10.0
     container_name: zeppelin
-    user: "${UID}:${GID}"
+    # user: "${UID}:${GID}"
+    user: "root"
     environment:
       - TZ=Asia/Shanghai
       - ZEPPELIN_ADDR=0.0.0.0

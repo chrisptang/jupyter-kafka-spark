@@ -26,23 +26,7 @@ services:
     ports:
       - 8280:8280
       - 47077:47077
-
-  # jupyter:
-  #   container_name: jupyter-prod
-  #   build: ./custom-jupyter
-  #   links:
-  #     - "db-postgres:db-postgres"
-  #   environment:
-  #     - THIS_HOST_IP=$HOST_IP
-  #     - PASSWORD=ptang4312
-  #     - TZ=Asia/Shanghai
-  #     - SPARK_OPTS=--master=local[2] --driver-memory=2g --executor-memory=2g
-  #     - GRANT_SUDO=yes
-  #   ports:
-  #     - "8888:8888"
-  #   volumes:
-  #     - ./jupyter-work:/home/jovyan/work
-  #     - ./log-received:/home/jovyan/work/log-received
+      - 39194:39194
 
   db-postgres:
     container_name: db-postgres-prod

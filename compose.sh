@@ -41,10 +41,17 @@ else
     sudo usermod -aG docker $USER
 fi
 
-start () {
+fullstart () {
     echo "starting:${1} ......"
 
     docker-compose -f ${1} up -d --remove-orphans
+    docker ps
+}
+
+start () {
+    echo "starting:${1} ......"
+
+    docker-compose -f ${1} up -d
     docker ps
 }
 

@@ -1,9 +1,9 @@
-﻿{
+{
   "paragraphs": [
     {
-      "text": "%sh\n\nps aux|grep java",
+      "text": "%sh\n\necho $SPARK_DRIVER_HOST\n\n# ps aux|grep \"spark-shared_process\"\n\nls /log-received\n\n# export SPARK_DOWNLOAD_URL\u003dhttps://dlcdn.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz\n# export SPARK_HOME\u003d/opt/spark\n\n# wget --no-verbose -O apache-spark.tgz ${SPARK_DOWNLOAD_URL} \\\n# \u0026\u0026 mkdir -p ${SPARK_HOME} \\\n# \u0026\u0026 tar -xf apache-spark.tgz -C ${SPARK_HOME} --strip-components\u003d1 \\\n# \u0026\u0026 rm apache-spark.tgz \\\n# \u0026\u0026 apt update \u0026\u0026 apt -y install telnet net-tools iputils-ping",
       "user": "anonymous",
-      "dateUpdated": "2022-03-01T07:48:22+0000",
+      "dateUpdated": "2022-03-02 09:25:43.050",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -12,22 +12,42 @@
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/sh",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
       "settings": {
-        "params": {},
-        "forms": {}
+        "params": {
+          "SPARK_DOWNLOAD_URL": "https://dlcdn.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz",
+          "SPARK_HOME": "/opt/spark"
+        },
+        "forms": {
+          "SPARK_DOWNLOAD_URL": {
+            "type": "TextBox",
+            "name": "SPARK_DOWNLOAD_URL",
+            "displayName": "SPARK_DOWNLOAD_URL",
+            "hidden": false
+          },
+          "SPARK_HOME": {
+            "type": "TextBox",
+            "name": "SPARK_HOME",
+            "displayName": "SPARK_HOME",
+            "hidden": false
+          }
+        }
       },
       "results": {
-        "code": "SUCCESS",
+        "code": "ERROR",
         "msg": [
           {
             "type": "TEXT",
-            "data": "root           7  1.0  4.8 6728044 376104 ?      Sl   02:28   3:27 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dfile.encoding=UTF-8 -Xmx1024m -Dlog4j.configuration=file:///opt/zeppelin/conf/log4j.properties -Dzeppelin.log.file=/logs/zeppelin--109bf718dfa6.log -cp ::/opt/zeppelin/lib/*:/opt/zeppelin/*::/opt/zeppelin/conf org.apache.zeppelin.server.ZeppelinServer\nroot         368  0.1  1.2 5189908 94796 ?       Sl   02:57   0:31 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dfile.encoding=UTF-8 -Dlog4j.configuration=file:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile=file:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file=/logs/zeppelin-interpreter-sh-shared_process--109bf718dfa6.log -Xmx1024m -cp :/opt/zeppelin/local-repo/sh/*:/opt/zeppelin/interpreter/sh/*:::/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer 172.17.0.2 35695 sh-shared_process :\nroot        1414  102  9.4 6950172 730812 ?      Sl   07:47   0:46 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -cp /opt/zeppelin/local-repo/spark/*:/opt/zeppelin/interpreter/spark/*:/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar:/opt/spark/conf/:/opt/spark/jars/* -Xmx1g -Dfile.encoding=UTF-8 -Dlog4j.configuration=file:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile=file:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file=/logs/zeppelin-interpreter-spark-shared_process--109bf718dfa6.log org.apache.spark.deploy.SparkSubmit --conf spark.executor.memory=1g --conf spark.driver.port=47077 --conf spark.master=spark://10.118.52.134:7077 --conf spark.driver.memory=1g --conf spark.driver.cores=1 --conf spark.driver.extraClassPath=:/opt/zeppelin/local-repo/spark/*:/opt/zeppelin/interpreter/spark/*:::/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar --conf spark.app.name=spark-shared_process --conf spark.executor.cores=1 --conf spark.driver.bindAddress=0.0.0.0 --conf spark.driver.host=10.118.53.39 --conf spark.executor.instances=2 --conf spark.webui.yarn.useProxy=false --conf spark.blockManager.port=39191 --conf spark.driver.extraJavaOptions= -Dfile.encoding=UTF-8 -Dlog4j.configuration=file:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile=file:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file=/logs/zeppelin-interpreter-spark-shared_process--109bf718dfa6.log --conf spark.sql.warehouse.dir=/warehouse --class org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer /opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar 172.17.0.2 35695 spark-shared_process :\nroot        1679  0.0  0.0   9572  3456 ?        S    07:48   0:00 bash -c ps aux|grep java\nroot        1685  0.0  0.0   8900   672 ?        S    07:48   0:00 grep java\n"
+            "data": "10.118.52.134\n/usr/bin/ls: cannot access \u0027/log-received\u0027: No such file or directory\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "ExitValue: 2"
           }
         ]
       },
@@ -36,17 +56,15 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1646026623088_1785783138",
       "id": "paragraph_1646026623088_1785783138",
-      "dateCreated": "2022-02-28T05:37:03+0000",
-      "dateStarted": "2022-03-01T07:48:22+0000",
-      "dateFinished": "2022-03-01T07:48:22+0000",
-      "status": "FINISHED",
-      "focus": true,
-      "$$hashKey": "object:5163"
+      "dateCreated": "2022-02-28 13:37:03.000",
+      "dateStarted": "2022-03-02 09:25:43.276",
+      "dateFinished": "2022-03-02 09:25:43.915",
+      "status": "ERROR"
     },
     {
-      "text": "%sh\n# 有的时候连接不上maven仓库；\n# 可以想办法把jar 包事先下载到本地\n#spark.jars.packages io.delta:delta-core_2.12:1.0.0\n#spark.sql.extensions io.delta.sql.DeltaSparkSessionExtension\n#spark.sql.catalog.spark_catalog org.apache.spark.sql.delta.catalog.DeltaCatalog",
+      "text": "%sh\n# 有的时候连接不上maven仓库；\n# 可以想办法把jar 包事先下载到本地\n# spark.jars.packages io.delta:delta-core_2.12:1.0.0\n# spark.sql.extensions io.delta.sql.DeltaSparkSessionExtension\n# spark.sql.catalog.spark_catalog org.apache.spark.sql.delta.catalog.DeltaCatalog",
       "user": "anonymous",
-      "dateUpdated": "2022-03-01T07:51:48+0000",
+      "dateUpdated": "2022-03-01 17:51:52.895",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -55,9 +73,9 @@
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/sh",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -70,15 +88,13 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1646120832229_267130433",
       "id": "paragraph_1646120832229_267130433",
-      "dateCreated": "2022-03-01T07:47:12+0000",
-      "status": "READY",
-      "focus": true,
-      "$$hashKey": "object:5839"
+      "dateCreated": "2022-03-01 15:47:12.000",
+      "status": "READY"
     },
     {
-      "text": "%spark.conf\n\n\nspark.sql.warehouse.dir /warehouse\nspark.master spark://10.118.52.134:7077\nzeppelin.interpreter.connect.timeout 600000\nspark.driver.bindAddress 0.0.0.0\nspark.driver.host 10.118.53.39\nspark.driver.port 47077\nspark.blockManager.port 39191",
+      "text": "%spark.conf\n\nspark.jars.packages io.delta:delta-core_2.12:1.0.0\nspark.sql.extensions io.delta.sql.DeltaSparkSessionExtension\nspark.sql.catalog.spark_catalog org.apache.spark.sql.delta.catalog.DeltaCatalog\nspark.sql.warehouse.dir /warehouse\nzeppelin.interpreter.connect.timeout 600000\nspark.master spark://10.118.52.134:7077\nspark.driver.bindAddress 0.0.0.0\nspark.driver.host 10.118.52.134\nspark.driver.port 47077\nspark.blockManager.port 39194",
       "user": "anonymous",
-      "dateUpdated": "2022-03-01T07:47:31+0000",
+      "dateUpdated": "2022-03-01 18:17:24.427",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -87,9 +103,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/text",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -106,16 +122,15 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1646026680533_1360288098",
       "id": "paragraph_1646026680533_1360288098",
-      "dateCreated": "2022-02-28T05:38:00+0000",
-      "dateStarted": "2022-03-01T07:47:31+0000",
-      "dateFinished": "2022-03-01T07:47:31+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:5164"
+      "dateCreated": "2022-02-28 13:38:00.000",
+      "dateStarted": "2022-03-01 18:05:39.203",
+      "dateFinished": "2022-03-01 18:05:39.256",
+      "status": "FINISHED"
     },
     {
       "text": "%pyspark\n\nprint(spark.sparkContext.getConf().getAll())",
       "user": "anonymous",
-      "dateUpdated": "2022-03-01T07:47:36+0000",
+      "dateUpdated": "2022-03-01 18:05:44.130",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -124,9 +139,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/python",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -139,7 +154,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "[('zeppelin.pyspark.useIPython', 'true'), ('spark.app.id', 'app-20220301074745-0000'), ('spark.repl.class.uri', 'spark://10.118.53.39:47077/classes'), ('zeppelin.spark.concurrentSQL', 'true'), ('zeppelin.R.cmd', 'R'), ('spark.driver.memory', '1g'), ('zeppelin.spark.run.asLoginUser', 'true'), ('zeppelin.interpreter.connection.poolsize', '100'), ('zeppelin.interpreter.output.limit', '102400'), ('PYSPARK_PYTHON', 'python'), ('spark.app.initial.jar.urls', 'spark://10.118.53.39:47077/jars/spark-interpreter-0.10.0.jar'), ('spark.sql.warehouse.dir', '/warehouse'), ('spark.driver.extraClassPath', ':/opt/zeppelin/local-repo/spark/*:/opt/zeppelin/interpreter/spark/*:::/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar'), ('spark.driver.extraJavaOptions', ' -Dfile.encoding=UTF-8 -Dlog4j.configuration=file:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile=file:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file=/logs/zeppelin-interpreter-spark-shared_process--109bf718dfa6.log'), ('spark.webui.yarn.useProxy', 'false'), ('spark.executor.memory', '1g'), ('spark.executor.instances', '2'), ('PYSPARK_DRIVER_PYTHON', 'python'), ('spark.useHiveContext', 'true'), ('spark.jars', 'file:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar'), ('spark.driver.host', '10.118.53.39'), ('SPARK_HOME', '/opt/spark'), ('zeppelin.R.knitr', 'true'), ('zeppelin.kotlin.shortenTypes', 'true'), ('spark.submit.deployMode', 'client'), ('zeppelin.interpreter.localRepo', '/opt/zeppelin/local-repo/spark'), ('spark.driver.cores', '1'), ('zeppelin.spark.useHiveContext', 'true'), ('zeppelin.R.shiny.portRange', ':'), ('spark.master', 'spark://10.118.52.134:7077'), ('spark.blockManager.port', '39191'), ('spark.repl.class.outputDir', '/tmp/spark8104574707449368205'), ('zeppelin.spark.enableSupportedVersionCheck', 'true'), ('spark.app.startTime', '1646120864387'), ('zeppelin.spark.printREPLOutput', 'true'), ('spark.executor.id', 'driver'), ('zeppelin.spark.maxResult', '1000'), ('spark.scheduler.mode', 'FAIR'), ('zeppelin.R.render.options', \"out.format = 'html', comment = NA, echo = FALSE, results = 'asis', message = F, warning = F, fig.retina = 2\"), ('zeppelin.R.image.width', '100%'), ('spark.app.name', 'spark-shared_process'), ('zeppelin.spark.ui.hidden', 'false'), ('spark.driver.port', '47077'), ('zeppelin.spark.deprecatedMsg.show', 'true'), ('spark.driver.bindAddress', '0.0.0.0'), ('zeppelin.interpreter.connect.timeout', '600000'), ('spark.submit.pyFiles', ''), ('zeppelin.spark.concurrentSQL.max', '10'), ('spark.executor.cores', '1'), ('zeppelin.spark.sql.interpolation', 'false'), ('zeppelin.spark.sql.stacktrace', 'true'), ('zeppelin.spark.scala.color', 'true')]\n"
+            "data": "[(\u0027spark.repl.class.uri\u0027, \u0027spark://10.118.52.134:47077/classes\u0027), (\u0027zeppelin.pyspark.useIPython\u0027, \u0027true\u0027), (\u0027spark.jars\u0027, \u0027file:///root/.ivy2/jars/io.delta_delta-core_2.12-1.0.0.jar,file:///root/.ivy2/jars/org.antlr_antlr4-4.7.jar,file:///root/.ivy2/jars/org.antlr_antlr4-runtime-4.7.jar,file:///root/.ivy2/jars/org.antlr_antlr-runtime-3.5.2.jar,file:///root/.ivy2/jars/org.antlr_ST4-4.0.8.jar,file:///root/.ivy2/jars/org.abego.treelayout_org.abego.treelayout.core-1.0.3.jar,file:///root/.ivy2/jars/org.glassfish_javax.json-1.0.4.jar,file:///root/.ivy2/jars/com.ibm.icu_icu4j-58.2.jar,file:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar\u0027), (\u0027zeppelin.spark.concurrentSQL\u0027, \u0027true\u0027), (\u0027zeppelin.R.cmd\u0027, \u0027R\u0027), (\u0027spark.driver.memory\u0027, \u00271g\u0027), (\u0027spark.driver.extraJavaOptions\u0027, \u0027 -Dfile.encoding\u003dUTF-8 -Dlog4j.configuration\u003dfile:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile\u003dfile:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file\u003d/logs/zeppelin-interpreter-spark-shared_process--dc27e42029f3.log\u0027), (\u0027zeppelin.spark.run.asLoginUser\u0027, \u0027true\u0027), (\u0027zeppelin.interpreter.connection.poolsize\u0027, \u0027100\u0027), (\u0027zeppelin.interpreter.output.limit\u0027, \u0027102400\u0027), (\u0027PYSPARK_PYTHON\u0027, \u0027python\u0027), (\u0027spark.sql.warehouse.dir\u0027, \u0027/warehouse\u0027), (\u0027spark.driver.extraClassPath\u0027, \u0027:/opt/zeppelin/local-repo/spark/*:/opt/zeppelin/interpreter/spark/*:::/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar\u0027), (\u0027spark.webui.yarn.useProxy\u0027, \u0027false\u0027), (\u0027spark.executor.memory\u0027, \u00271g\u0027), (\u0027spark.executor.instances\u0027, \u00272\u0027), (\u0027PYSPARK_DRIVER_PYTHON\u0027, \u0027python\u0027), (\u0027spark.useHiveContext\u0027, \u0027true\u0027), (\u0027spark.driver.host\u0027, \u002710.118.52.134\u0027), (\u0027spark.repl.local.jars\u0027, \u0027file:///root/.ivy2/jars/io.delta_delta-core_2.12-1.0.0.jar,file:///root/.ivy2/jars/org.antlr_antlr4-4.7.jar,file:///root/.ivy2/jars/org.antlr_antlr4-runtime-4.7.jar,file:///root/.ivy2/jars/org.antlr_antlr-runtime-3.5.2.jar,file:///root/.ivy2/jars/org.antlr_ST4-4.0.8.jar,file:///root/.ivy2/jars/org.abego.treelayout_org.abego.treelayout.core-1.0.3.jar,file:///root/.ivy2/jars/org.glassfish_javax.json-1.0.4.jar,file:///root/.ivy2/jars/com.ibm.icu_icu4j-58.2.jar\u0027), (\u0027SPARK_HOME\u0027, \u0027/opt/spark\u0027), (\u0027zeppelin.R.knitr\u0027, \u0027true\u0027), (\u0027spark.app.startTime\u0027, \u00271646129214222\u0027), (\u0027zeppelin.kotlin.shortenTypes\u0027, \u0027true\u0027), (\u0027spark.submit.deployMode\u0027, \u0027client\u0027), (\u0027zeppelin.interpreter.localRepo\u0027, \u0027/opt/zeppelin/local-repo/spark\u0027), (\u0027spark.jars.packages\u0027, \u0027io.delta:delta-core_2.12:1.0.0\u0027), (\u0027spark.driver.cores\u0027, \u00271\u0027), (\u0027zeppelin.spark.useHiveContext\u0027, \u0027true\u0027), (\u0027zeppelin.R.shiny.portRange\u0027, \u0027:\u0027), (\u0027spark.repl.class.outputDir\u0027, \u0027/tmp/spark3241869837839158961\u0027), (\u0027spark.master\u0027, \u0027spark://10.118.52.134:7077\u0027), (\u0027zeppelin.spark.printREPLOutput\u0027, \u0027true\u0027), (\u0027zeppelin.spark.enableSupportedVersionCheck\u0027, \u0027true\u0027), (\u0027zeppelin.spark.maxResult\u0027, \u00271000\u0027), (\u0027spark.scheduler.mode\u0027, \u0027FAIR\u0027), (\u0027spark.executor.id\u0027, \u0027driver\u0027), (\u0027zeppelin.R.render.options\u0027, \"out.format \u003d \u0027html\u0027, comment \u003d NA, echo \u003d FALSE, results \u003d \u0027asis\u0027, message \u003d F, warning \u003d F, fig.retina \u003d 2\"), (\u0027zeppelin.R.image.width\u0027, \u0027100%\u0027), (\u0027spark.app.name\u0027, \u0027spark-shared_process\u0027), (\u0027zeppelin.spark.ui.hidden\u0027, \u0027false\u0027), (\u0027spark.driver.port\u0027, \u002747077\u0027), (\u0027zeppelin.spark.deprecatedMsg.show\u0027, \u0027true\u0027), (\u0027spark.driver.bindAddress\u0027, \u00270.0.0.0\u0027), (\u0027spark.sql.extensions\u0027, \u0027io.delta.sql.DeltaSparkSessionExtension\u0027), (\u0027zeppelin.interpreter.connect.timeout\u0027, \u0027600000\u0027), (\u0027spark.app.initial.jar.urls\u0027, \u0027spark://10.118.52.134:47077/jars/org.antlr_antlr4-runtime-4.7.jar,spark://10.118.52.134:47077/jars/com.ibm.icu_icu4j-58.2.jar,spark://10.118.52.134:47077/jars/io.delta_delta-core_2.12-1.0.0.jar,spark://10.118.52.134:47077/jars/org.antlr_antlr4-4.7.jar,spark://10.118.52.134:47077/jars/org.antlr_antlr-runtime-3.5.2.jar,spark://10.118.52.134:47077/jars/spark-interpreter-0.10.0.jar,spark://10.118.52.134:47077/jars/org.antlr_ST4-4.0.8.jar,spark://10.118.52.134:47077/jars/org.abego.treelayout_org.abego.treelayout.core-1.0.3.jar,spark://10.118.52.134:47077/jars/org.glassfish_javax.json-1.0.4.jar\u0027), (\u0027spark.submit.pyFiles\u0027, \u0027\u0027), (\u0027zeppelin.spark.concurrentSQL.max\u0027, \u002710\u0027), (\u0027spark.executor.cores\u0027, \u00271\u0027), (\u0027zeppelin.spark.sql.interpolation\u0027, \u0027false\u0027), (\u0027zeppelin.spark.sql.stacktrace\u0027, \u0027true\u0027), (\u0027zeppelin.spark.scala.color\u0027, \u0027true\u0027), (\u0027spark.blockManager.port\u0027, \u002739194\u0027), (\u0027spark.sql.catalog.spark_catalog\u0027, \u0027org.apache.spark.sql.delta.catalog.DeltaCatalog\u0027), (\u0027spark.app.id\u0027, \u0027app-20220301100708-0001\u0027)]\n"
           }
         ]
       },
@@ -148,16 +163,15 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1646026748786_930123663",
       "id": "paragraph_1646026748786_930123663",
-      "dateCreated": "2022-02-28T05:39:08+0000",
-      "dateStarted": "2022-03-01T07:47:36+0000",
-      "dateFinished": "2022-03-01T07:47:53+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:5165"
+      "dateCreated": "2022-02-28 13:39:08.000",
+      "dateStarted": "2022-03-01 18:05:44.192",
+      "dateFinished": "2022-03-01 18:08:19.676",
+      "status": "FINISHED"
     },
     {
-      "text": "%pyspark\n\n\ndata=[{\"name\":\"derrick\",\"age\":33},{\"name\":\"james\",\"age\":37}]\ndf=spark.sparkContext.parallelize(data).toDF()\ndf.show(truncate=False)\n\ndf.createOrReplaceTempView(\"v_test_user\")",
+      "text": "%pyspark\n\n\ndata\u003d[{\"name\":\"derrick\",\"age\":33},{\"name\":\"james\",\"age\":37}]\ndf\u003dspark.sparkContext.parallelize(data).toDF()\ndf.show(truncate\u003dFalse)\n\ndf.createOrReplaceTempView(\"v_test_user\")",
       "user": "anonymous",
-      "dateUpdated": "2022-03-01T07:47:58+0000",
+      "dateUpdated": "2022-03-01 18:13:34.622",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -166,9 +180,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/python",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -177,11 +191,15 @@
         "forms": {}
       },
       "results": {
-        "code": "SUCCESS",
+        "code": "ERROR",
         "msg": [
           {
             "type": "TEXT",
             "data": "+---+-------+\n|age|name   |\n+---+-------+\n|33 |derrick|\n|37 |james  |\n+---+-------+\n\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Py4JJavaError: An error occurred while calling o353.save.\n: org.apache.spark.SparkException: Job aborted due to stage failure: Task 0 in stage 12.0 failed 4 times, most recent failure: Lost task 0.3 in stage 12.0 (TID 16) (spark-worker-a executor 2): java.io.FileNotFoundException: File file:/warehouse/test/test_user/_delta_log/00000000000000000000.json does not exist\nIt is possible the underlying files have been updated. You can explicitly invalidate the cache in Spark by running \u0027REFRESH TABLE tableName\u0027 command in SQL or by recreating the Dataset/DataFrame involved.\n\tat org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.org$apache$spark$sql$execution$datasources$FileScanRDD$$anon$$readCurrentFile(FileScanRDD.scala:124)\n\tat org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.nextIterator(FileScanRDD.scala:169)\n\tat org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.hasNext(FileScanRDD.scala:93)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:489)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.processNext(Unknown Source)\n\tat org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)\n\tat org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:755)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:132)\n\tat org.apache.spark.shuffle.ShuffleWriteProcessor.write(ShuffleWriteProcessor.scala:59)\n\tat org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:99)\n\tat org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:52)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:131)\n\tat org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$3(Executor.scala:497)\n\tat org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1439)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:500)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)\n\tat java.base/java.lang.Thread.run(Unknown Source)\n\nDriver stacktrace:\n\tat org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2258)\n\tat org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2(DAGScheduler.scala:2207)\n\tat org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2$adapted(DAGScheduler.scala:2206)\n\tat scala.collection.mutable.ResizableArray.foreach(ResizableArray.scala:62)\n\tat scala.collection.mutable.ResizableArray.foreach$(ResizableArray.scala:55)\n\tat scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:49)\n\tat org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2206)\n\tat org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1(DAGScheduler.scala:1079)\n\tat org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1$adapted(DAGScheduler.scala:1079)\n\tat scala.Option.foreach(Option.scala:407)\n\tat org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:1079)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:2445)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2387)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2376)\n\tat org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)\n\tat org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:868)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2196)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2217)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2236)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2261)\n\tat org.apache.spark.rdd.RDD.$anonfun$collect$1(RDD.scala:1030)\n\tat org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n\tat org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)\n\tat org.apache.spark.rdd.RDD.withScope(RDD.scala:414)\n\tat org.apache.spark.rdd.RDD.collect(RDD.scala:1029)\n\tat org.apache.spark.sql.execution.SparkPlan.executeCollect(SparkPlan.scala:390)\n\tat org.apache.spark.sql.Dataset.collectFromPlan(Dataset.scala:3696)\n\tat org.apache.spark.sql.Dataset.$anonfun$head$1(Dataset.scala:2722)\n\tat org.apache.spark.sql.Dataset.$anonfun$withAction$1(Dataset.scala:3687)\n\tat org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$5(SQLExecution.scala:103)\n\tat org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:163)\n\tat org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$1(SQLExecution.scala:90)\n\tat org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:775)\n\tat org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:64)\n\tat org.apache.spark.sql.Dataset.withAction(Dataset.scala:3685)\n\tat org.apache.spark.sql.Dataset.head(Dataset.scala:2722)\n\tat org.apache.spark.sql.Dataset.head(Dataset.scala:2729)\n\tat org.apache.spark.sql.Dataset.first(Dataset.scala:2736)\n\tat org.apache.spark.sql.delta.Snapshot.$anonfun$computedState$1(Snapshot.scala:151)\n\tat org.apache.spark.sql.delta.util.DeltaProgressReporter.withJobDescription(DeltaProgressReporter.scala:53)\n\tat org.apache.spark.sql.delta.util.DeltaProgressReporter.withStatusCode(DeltaProgressReporter.scala:32)\n\tat org.apache.spark.sql.delta.util.DeltaProgressReporter.withStatusCode$(DeltaProgressReporter.scala:27)\n\tat org.apache.spark.sql.delta.Snapshot.withStatusCode(Snapshot.scala:55)\n\tat org.apache.spark.sql.delta.Snapshot.computedState$lzycompute(Snapshot.scala:137)\n\tat org.apache.spark.sql.delta.Snapshot.computedState(Snapshot.scala:136)\n\tat org.apache.spark.sql.delta.Snapshot.metadata(Snapshot.scala:179)\n\tat org.apache.spark.sql.delta.Snapshot.toString(Snapshot.scala:290)\n\tat java.lang.String.valueOf(String.java:2994)\n\tat java.lang.StringBuilder.append(StringBuilder.java:131)\n\tat org.apache.spark.sql.delta.Snapshot.$anonfun$new$1(Snapshot.scala:293)\n\tat org.apache.spark.sql.delta.Snapshot.$anonfun$logInfo$1(Snapshot.scala:270)\n\tat org.apache.spark.internal.Logging.logInfo(Logging.scala:57)\n\tat org.apache.spark.internal.Logging.logInfo$(Logging.scala:56)\n\tat org.apache.spark.sql.delta.Snapshot.logInfo(Snapshot.scala:270)\n\tat org.apache.spark.sql.delta.Snapshot.\u003cinit\u003e(Snapshot.scala:293)\n\tat org.apache.spark.sql.delta.SnapshotManagement.createSnapshot(SnapshotManagement.scala:223)\n\tat org.apache.spark.sql.delta.SnapshotManagement.createSnapshot$(SnapshotManagement.scala:211)\n\tat org.apache.spark.sql.delta.DeltaLog.createSnapshot(DeltaLog.scala:59)\n\tat org.apache.spark.sql.delta.SnapshotManagement.$anonfun$updateInternal$1(SnapshotManagement.scala:303)\n\tat com.databricks.spark.util.DatabricksLogging.recordOperation(DatabricksLogging.scala:77)\n\tat com.databricks.spark.util.DatabricksLogging.recordOperation$(DatabricksLogging.scala:67)\n\tat org.apache.spark.sql.delta.DeltaLog.recordOperation(DeltaLog.scala:59)\n\tat org.apache.spark.sql.delta.metering.DeltaLogging.recordDeltaOperation(DeltaLogging.scala:106)\n\tat org.apache.spark.sql.delta.metering.DeltaLogging.recordDeltaOperation$(DeltaLogging.scala:91)\n\tat org.apache.spark.sql.delta.DeltaLog.recordDeltaOperation(DeltaLog.scala:59)\n\tat org.apache.spark.sql.delta.SnapshotManagement.updateInternal(SnapshotManagement.scala:287)\n\tat org.apache.spark.sql.delta.SnapshotManagement.updateInternal$(SnapshotManagement.scala:286)\n\tat org.apache.spark.sql.delta.DeltaLog.updateInternal(DeltaLog.scala:59)\n\tat org.apache.spark.sql.delta.SnapshotManagement.$anonfun$update$1(SnapshotManagement.scala:248)\n\tat org.apache.spark.sql.delta.DeltaLog.lockInterruptibly(DeltaLog.scala:152)\n\tat org.apache.spark.sql.delta.SnapshotManagement.update(SnapshotManagement.scala:248)\n\tat org.apache.spark.sql.delta.SnapshotManagement.update$(SnapshotManagement.scala:244)\n\tat org.apache.spark.sql.delta.DeltaLog.update(DeltaLog.scala:59)\n\tat org.apache.spark.sql.delta.OptimisticTransactionImpl.doCommit(OptimisticTransaction.scala:691)\n\tat org.apache.spark.sql.delta.OptimisticTransactionImpl.doCommit$(OptimisticTransaction.scala:660)\n\tat org.apache.spark.sql.delta.OptimisticTransaction.doCommit(OptimisticTransaction.scala:84)\n\tat org.apache.spark.sql.delta.OptimisticTransactionImpl.$anonfun$doCommitRetryIteratively$2(OptimisticTransaction.scala:632)\n\tat scala.runtime.java8.JFunction0$mcJ$sp.apply(JFunction0$mcJ$sp.java:23)\n\tat com.databricks.spark.util.DatabricksLogging.recordOperation(DatabricksLogging.scala:77)\n\tat com.databricks.spark.util.DatabricksLogging.recordOperation$(DatabricksLogging.scala:67)\n\tat org.apache.spark.sql.delta.OptimisticTransaction.recordOperation(OptimisticTransaction.scala:84)\n\tat org.apache.spark.sql.delta.metering.DeltaLogging.recordDeltaOperation(DeltaLogging.scala:106)\n\tat org.apache.spark.sql.delta.metering.DeltaLogging.recordDeltaOperation$(DeltaLogging.scala:91)\n\tat org.apache.spark.sql.delta.OptimisticTransaction.recordDeltaOperation(OptimisticTransaction.scala:84)\n\tat org.apache.spark.sql.delta.OptimisticTransactionImpl.$anonfun$doCommitRetryIteratively$1(OptimisticTransaction.scala:628)\n\tat scala.runtime.java8.JFunction0$mcJ$sp.apply(JFunction0$mcJ$sp.java:23)\n\tat org.apache.spark.sql.delta.OptimisticTransactionImpl.lockCommitIfEnabled(OptimisticTransaction.scala:610)\n\tat org.apache.spark.sql.delta.OptimisticTransactionImpl.doCommitRetryIteratively(OptimisticTransaction.scala:623)\n\tat org.apache.spark.sql.delta.OptimisticTransactionImpl.doCommitRetryIteratively$(OptimisticTransaction.scala:620)\n\tat org.apache.spark.sql.delta.OptimisticTransaction.doCommitRetryIteratively(OptimisticTransaction.scala:84)\n\tat org.apache.spark.sql.delta.OptimisticTransactionImpl.$anonfun$commit$1(OptimisticTransaction.scala:476)\n\tat scala.runtime.java8.JFunction0$mcJ$sp.apply(JFunction0$mcJ$sp.java:23)\n\tat com.databricks.spark.util.DatabricksLogging.recordOperation(DatabricksLogging.scala:77)\n\tat com.databricks.spark.util.DatabricksLogging.recordOperation$(DatabricksLogging.scala:67)\n\tat org.apache.spark.sql.delta.OptimisticTransaction.recordOperation(OptimisticTransaction.scala:84)\n\tat org.apache.spark.sql.delta.metering.DeltaLogging.recordDeltaOperation(DeltaLogging.scala:106)\n\tat org.apache.spark.sql.delta.metering.DeltaLogging.recordDeltaOperation$(DeltaLogging.scala:91)\n\tat org.apache.spark.sql.delta.OptimisticTransaction.recordDeltaOperation(OptimisticTransaction.scala:84)\n\tat org.apache.spark.sql.delta.OptimisticTransactionImpl.commit(OptimisticTransaction.scala:427)\n\tat org.apache.spark.sql.delta.OptimisticTransactionImpl.commit$(OptimisticTransaction.scala:425)\n\tat org.apache.spark.sql.delta.OptimisticTransaction.commit(OptimisticTransaction.scala:84)\n\tat org.apache.spark.sql.delta.commands.WriteIntoDelta.$anonfun$run$1(WriteIntoDelta.scala:69)\n\tat org.apache.spark.sql.delta.commands.WriteIntoDelta.$anonfun$run$1$adapted(WriteIntoDelta.scala:65)\n\tat org.apache.spark.sql.delta.DeltaLog.withNewTransaction(DeltaLog.scala:187)\n\tat org.apache.spark.sql.delta.commands.WriteIntoDelta.run(WriteIntoDelta.scala:65)\n\tat org.apache.spark.sql.delta.sources.DeltaDataSource.createRelation(DeltaDataSource.scala:154)\n\tat org.apache.spark.sql.execution.datasources.SaveIntoDataSourceCommand.run(SaveIntoDataSourceCommand.scala:46)\n\tat org.apache.spark.sql.execution.command.ExecutedCommandExec.sideEffectResult$lzycompute(commands.scala:70)\n\tat org.apache.spark.sql.execution.command.ExecutedCommandExec.sideEffectResult(commands.scala:68)\n\tat org.apache.spark.sql.execution.command.ExecutedCommandExec.doExecute(commands.scala:90)\n\tat org.apache.spark.sql.execution.SparkPlan.$anonfun$execute$1(SparkPlan.scala:180)\n\tat org.apache.spark.sql.execution.SparkPlan.$anonfun$executeQuery$1(SparkPlan.scala:218)\n\tat org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n\tat org.apache.spark.sql.execution.SparkPlan.executeQuery(SparkPlan.scala:215)\n\tat org.apache.spark.sql.execution.SparkPlan.execute(SparkPlan.scala:176)\n\tat org.apache.spark.sql.execution.QueryExecution.toRdd$lzycompute(QueryExecution.scala:132)\n\tat org.apache.spark.sql.execution.QueryExecution.toRdd(QueryExecution.scala:131)\n\tat org.apache.spark.sql.DataFrameWriter.$anonfun$runCommand$1(DataFrameWriter.scala:989)\n\tat org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$5(SQLExecution.scala:103)\n\tat org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:163)\n\tat org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$1(SQLExecution.scala:90)\n\tat org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:775)\n\tat org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:64)\n\tat org.apache.spark.sql.DataFrameWriter.runCommand(DataFrameWriter.scala:989)\n\tat org.apache.spark.sql.DataFrameWriter.saveToV1Source(DataFrameWriter.scala:438)\n\tat org.apache.spark.sql.DataFrameWriter.saveInternal(DataFrameWriter.scala:409)\n\tat org.apache.spark.sql.DataFrameWriter.save(DataFrameWriter.scala:293)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)\n\tat py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)\n\tat py4j.Gateway.invoke(Gateway.java:282)\n\tat py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)\n\tat py4j.commands.CallCommand.execute(CallCommand.java:79)\n\tat py4j.GatewayConnection.run(GatewayConnection.java:238)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: java.io.FileNotFoundException: File file:/warehouse/test/test_user/_delta_log/00000000000000000000.json does not exist\nIt is possible the underlying files have been updated. You can explicitly invalidate the cache in Spark by running \u0027REFRESH TABLE tableName\u0027 command in SQL or by recreating the Dataset/DataFrame involved.\n\tat org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.org$apache$spark$sql$execution$datasources$FileScanRDD$$anon$$readCurrentFile(FileScanRDD.scala:124)\n\tat org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.nextIterator(FileScanRDD.scala:169)\n\tat org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.hasNext(FileScanRDD.scala:93)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:489)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.processNext(Unknown Source)\n\tat org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)\n\tat org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:755)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:132)\n\tat org.apache.spark.shuffle.ShuffleWriteProcessor.write(ShuffleWriteProcessor.scala:59)\n\tat org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:99)\n\tat org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:52)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:131)\n\tat org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$3(Executor.scala:497)\n\tat org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1439)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:500)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)\n\tat java.lang.Thread.run(Unknown Source)\n\n(\u003cclass \u0027py4j.protocol.Py4JJavaError\u0027\u003e, Py4JJavaError(\u0027An error occurred while calling o353.save.\\n\u0027, JavaObject id\u003do354), \u003ctraceback object at 0x405edcd910\u003e)"
           }
         ]
       },
@@ -194,16 +212,19 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://10.118.53.39:4040/jobs/job?id=0",
-              "$$hashKey": "object:6244"
+              "jobUrl": "http://10.118.52.134:4040/jobs/job?id\u003d8"
             },
             {
-              "jobUrl": "http://10.118.53.39:4040/jobs/job?id=1",
-              "$$hashKey": "object:6245"
+              "jobUrl": "http://10.118.52.134:4040/jobs/job?id\u003d9"
             },
             {
-              "jobUrl": "http://10.118.53.39:4040/jobs/job?id=2",
-              "$$hashKey": "object:6246"
+              "jobUrl": "http://10.118.52.134:4040/jobs/job?id\u003d10"
+            },
+            {
+              "jobUrl": "http://10.118.52.134:4040/jobs/job?id\u003d11"
+            },
+            {
+              "jobUrl": "http://10.118.52.134:4040/jobs/job?id\u003d12"
             }
           ],
           "interpreterSettingId": "spark"
@@ -212,26 +233,66 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1646026807786_1026636964",
       "id": "paragraph_1646026807786_1026636964",
-      "dateCreated": "2022-02-28T05:40:07+0000",
-      "dateStarted": "2022-03-01T07:47:58+0000",
-      "dateFinished": "2022-03-01T07:48:26+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:5166"
+      "dateCreated": "2022-02-28 13:40:07.000",
+      "dateStarted": "2022-03-01 18:11:51.805",
+      "dateFinished": "2022-03-01 18:12:52.652",
+      "status": "ERROR"
     },
     {
-      "text": "%sql\n\nselect * from v_test_user",
+      "text": "%pyspark\n\ndf.write.format(\"parquet\").save(\"/warehouse/test/test_user\")",
       "user": "anonymous",
-      "dateUpdated": "2022-03-01T07:49:12+0000",
+      "dateUpdated": "2022-03-01 18:24:02.414",
       "progress": 0,
       "config": {
-        "colWidth": 12,
-        "fontSize": 9,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Fail to execute line 3: df.write.format(\"parquet\").save(\"/warehouse/test/test_user\")\nTraceback (most recent call last):\n  File \"/tmp/1646129291564-0/zeppelin_python.py\", line 158, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 3, in \u003cmodule\u003e\n  File \"/opt/spark/python/pyspark/sql/readwriter.py\", line 1109, in save\n    self._jwrite.save(path)\n  File \"/opt/spark/python/lib/py4j-0.10.9-src.zip/py4j/java_gateway.py\", line 1305, in __call__\n    answer, self.gateway_client, self.target_id, self.name)\n  File \"/opt/spark/python/pyspark/sql/utils.py\", line 117, in deco\n    raise converted from None\npyspark.sql.utils.AnalysisException: path file:/warehouse/test/test_user already exists.\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646129618490_491454146",
+      "id": "paragraph_1646129618490_491454146",
+      "dateCreated": "2022-03-01 18:13:38.493",
+      "dateStarted": "2022-03-01 18:24:02.475",
+      "dateFinished": "2022-03-01 18:24:03.341",
+      "status": "ERROR"
+    },
+    {
+      "text": "%sql\n\nselect * from delta.`/warehouse/test/test_user`;",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-01 18:12:31.092",
+      "progress": 0,
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
         "enabled": true,
         "results": {
           "0": {
             "graph": {
               "mode": "table",
-              "height": 300,
+              "height": 144.0,
               "optionOpen": false,
               "setting": {
                 "table": {
@@ -269,6 +330,15 @@
         "params": {},
         "forms": {}
       },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nError happens in sql: \n\nselect * from delta.`/warehouse/test/test_user`\norg.apache.spark.SparkException: Job aborted due to stage failure: Task 0 in stage 15.0 failed 4 times, most recent failure: Lost task 0.3 in stage 15.0 (TID 20) (spark-worker-a executor 2): java.io.FileNotFoundException: File file:/warehouse/test/test_user/_delta_log/00000000000000000000.json does not exist\nIt is possible the underlying files have been updated. You can explicitly invalidate the cache in Spark by running \u0027REFRESH TABLE tableName\u0027 command in SQL or by recreating the Dataset/DataFrame involved.\n\tat org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.org$apache$spark$sql$execution$datasources$FileScanRDD$$anon$$readCurrentFile(FileScanRDD.scala:124)\n\tat org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.nextIterator(FileScanRDD.scala:169)\n\tat org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.hasNext(FileScanRDD.scala:93)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:489)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.processNext(Unknown Source)\n\tat org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)\n\tat org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:755)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:132)\n\tat org.apache.spark.shuffle.ShuffleWriteProcessor.write(ShuffleWriteProcessor.scala:59)\n\tat org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:99)\n\tat org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:52)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:131)\n\tat org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$3(Executor.scala:497)\n\tat org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1439)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:500)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)\n\tat java.base/java.lang.Thread.run(Unknown Source)\n\nDriver stacktrace:\n\tat org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2258)\n\tat org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2(DAGScheduler.scala:2207)\n\tat org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2$adapted(DAGScheduler.scala:2206)\n\tat scala.collection.mutable.ResizableArray.foreach(ResizableArray.scala:62)\n\tat scala.collection.mutable.ResizableArray.foreach$(ResizableArray.scala:55)\n\tat scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:49)\n\tat org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2206)\n\tat org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1(DAGScheduler.scala:1079)\n\tat org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1$adapted(DAGScheduler.scala:1079)\n\tat scala.Option.foreach(Option.scala:407)\n\tat org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:1079)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:2445)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2387)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2376)\n\tat org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)\n\tat org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:868)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2196)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2217)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2236)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2261)\n\tat org.apache.spark.rdd.RDD.$anonfun$collect$1(RDD.scala:1030)\n\tat org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n\tat org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)\n\tat org.apache.spark.rdd.RDD.withScope(RDD.scala:414)\n\tat org.apache.spark.rdd.RDD.collect(RDD.scala:1029)\n\tat org.apache.spark.sql.execution.SparkPlan.executeCollect(SparkPlan.scala:390)\n\tat org.apache.spark.sql.Dataset.collectFromPlan(Dataset.scala:3696)\n\tat org.apache.spark.sql.Dataset.$anonfun$head$1(Dataset.scala:2722)\n\tat org.apache.spark.sql.Dataset.$anonfun$withAction$1(Dataset.scala:3687)\n\tat org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$5(SQLExecution.scala:103)\n\tat org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:163)\n\tat org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$1(SQLExecution.scala:90)\n\tat org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:775)\n\tat org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:64)\n\tat org.apache.spark.sql.Dataset.withAction(Dataset.scala:3685)\n\tat org.apache.spark.sql.Dataset.head(Dataset.scala:2722)\n\tat org.apache.spark.sql.Dataset.head(Dataset.scala:2729)\n\tat org.apache.spark.sql.Dataset.first(Dataset.scala:2736)\n\tat org.apache.spark.sql.delta.Snapshot.$anonfun$computedState$1(Snapshot.scala:151)\n\tat org.apache.spark.sql.delta.util.DeltaProgressReporter.withJobDescription(DeltaProgressReporter.scala:53)\n\tat org.apache.spark.sql.delta.util.DeltaProgressReporter.withStatusCode(DeltaProgressReporter.scala:32)\n\tat org.apache.spark.sql.delta.util.DeltaProgressReporter.withStatusCode$(DeltaProgressReporter.scala:27)\n\tat org.apache.spark.sql.delta.Snapshot.withStatusCode(Snapshot.scala:55)\n\tat org.apache.spark.sql.delta.Snapshot.computedState$lzycompute(Snapshot.scala:137)\n\tat org.apache.spark.sql.delta.Snapshot.computedState(Snapshot.scala:136)\n\tat org.apache.spark.sql.delta.Snapshot.metadata(Snapshot.scala:179)\n\tat org.apache.spark.sql.delta.Snapshot.toString(Snapshot.scala:290)\n\tat java.lang.String.valueOf(String.java:2994)\n\tat java.lang.StringBuilder.append(StringBuilder.java:131)\n\tat org.apache.spark.sql.delta.Snapshot.$anonfun$new$1(Snapshot.scala:293)\n\tat org.apache.spark.sql.delta.Snapshot.$anonfun$logInfo$1(Snapshot.scala:270)\n\tat org.apache.spark.internal.Logging.logInfo(Logging.scala:57)\n\tat org.apache.spark.internal.Logging.logInfo$(Logging.scala:56)\n\tat org.apache.spark.sql.delta.Snapshot.logInfo(Snapshot.scala:270)\n\tat org.apache.spark.sql.delta.Snapshot.\u003cinit\u003e(Snapshot.scala:293)\n\tat org.apache.spark.sql.delta.SnapshotManagement.createSnapshot(SnapshotManagement.scala:223)\n\tat org.apache.spark.sql.delta.SnapshotManagement.createSnapshot$(SnapshotManagement.scala:211)\n\tat org.apache.spark.sql.delta.DeltaLog.createSnapshot(DeltaLog.scala:59)\n\tat org.apache.spark.sql.delta.SnapshotManagement.$anonfun$updateInternal$1(SnapshotManagement.scala:303)\n\tat com.databricks.spark.util.DatabricksLogging.recordOperation(DatabricksLogging.scala:77)\n\tat com.databricks.spark.util.DatabricksLogging.recordOperation$(DatabricksLogging.scala:67)\n\tat org.apache.spark.sql.delta.DeltaLog.recordOperation(DeltaLog.scala:59)\n\tat org.apache.spark.sql.delta.metering.DeltaLogging.recordDeltaOperation(DeltaLogging.scala:106)\n\tat org.apache.spark.sql.delta.metering.DeltaLogging.recordDeltaOperation$(DeltaLogging.scala:91)\n\tat org.apache.spark.sql.delta.DeltaLog.recordDeltaOperation(DeltaLog.scala:59)\n\tat org.apache.spark.sql.delta.SnapshotManagement.updateInternal(SnapshotManagement.scala:287)\n\tat org.apache.spark.sql.delta.SnapshotManagement.updateInternal$(SnapshotManagement.scala:286)\n\tat org.apache.spark.sql.delta.DeltaLog.updateInternal(DeltaLog.scala:59)\n\tat org.apache.spark.sql.delta.SnapshotManagement.$anonfun$update$1(SnapshotManagement.scala:248)\n\tat org.apache.spark.sql.delta.DeltaLog.lockInterruptibly(DeltaLog.scala:152)\n\tat org.apache.spark.sql.delta.SnapshotManagement.update(SnapshotManagement.scala:248)\n\tat org.apache.spark.sql.delta.SnapshotManagement.update$(SnapshotManagement.scala:244)\n\tat org.apache.spark.sql.delta.DeltaLog.update(DeltaLog.scala:59)\n\tat org.apache.spark.sql.delta.catalog.DeltaTableV2.$anonfun$snapshot$3(DeltaTableV2.scala:100)\n\tat scala.Option.getOrElse(Option.scala:189)\n\tat org.apache.spark.sql.delta.catalog.DeltaTableV2.snapshot$lzycompute(DeltaTableV2.scala:100)\n\tat org.apache.spark.sql.delta.catalog.DeltaTableV2.snapshot(DeltaTableV2.scala:89)\n\tat org.apache.spark.sql.delta.catalog.DeltaTableV2.tableSchema$lzycompute(DeltaTableV2.scala:104)\n\tat org.apache.spark.sql.delta.catalog.DeltaTableV2.tableSchema(DeltaTableV2.scala:103)\n\tat org.apache.spark.sql.delta.catalog.DeltaTableV2.schema(DeltaTableV2.scala:106)\n\tat org.apache.spark.sql.execution.datasources.v2.DataSourceV2Relation$.create(DataSourceV2Relation.scala:176)\n\tat org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$.$anonfun$lookupRelation$1(Analyzer.scala:1211)\n\tat scala.Option.map(Option.scala:230)\n\tat org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$.loaded$lzycompute$1(Analyzer.scala:1183)\n\tat org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$.loaded$1(Analyzer.scala:1183)\n\tat org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$.$anonfun$lookupRelation$3(Analyzer.scala:1221)\n\tat scala.Option.orElse(Option.scala:447)\n\tat org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$.org$apache$spark$sql$catalyst$analysis$Analyzer$ResolveRelations$$lookupRelation(Analyzer.scala:1220)\n\tat org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$$anonfun$apply$10.applyOrElse(Analyzer.scala:1145)\n\tat org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$$anonfun$apply$10.applyOrElse(Analyzer.scala:1112)\n\tat org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUp$3(AnalysisHelper.scala:90)\n\tat org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(TreeNode.scala:74)\n\tat org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUp$1(AnalysisHelper.scala:90)\n\tat org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.allowInvokingTransformsInAnalyzer(AnalysisHelper.scala:221)\n\tat org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp(AnalysisHelper.scala:86)\n\tat org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp$(AnalysisHelper.scala:84)\n\tat org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUp(LogicalPlan.scala:29)\n\tat org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUp$2(AnalysisHelper.scala:87)\n\tat org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$mapChildren$1(TreeNode.scala:408)\n\tat org.apache.spark.sql.catalyst.trees.TreeNode.mapProductIterator(TreeNode.scala:244)\n\tat org.apache.spark.sql.catalyst.trees.TreeNode.mapChildren(TreeNode.scala:406)\n\tat org.apache.spark.sql.catalyst.trees.TreeNode.mapChildren(TreeNode.scala:359)\n\tat org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.$anonfun$resolveOperatorsUp$1(AnalysisHelper.scala:87)\n\tat org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.allowInvokingTransformsInAnalyzer(AnalysisHelper.scala:221)\n\tat org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp(AnalysisHelper.scala:86)\n\tat org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.resolveOperatorsUp$(AnalysisHelper.scala:84)\n\tat org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.resolveOperatorsUp(LogicalPlan.scala:29)\n\tat org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$.apply(Analyzer.scala:1112)\n\tat org.apache.spark.sql.catalyst.analysis.Analyzer$ResolveRelations$.apply(Analyzer.scala:1077)\n\tat org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$2(RuleExecutor.scala:216)\n\tat scala.collection.LinearSeqOptimized.foldLeft(LinearSeqOptimized.scala:126)\n\tat scala.collection.LinearSeqOptimized.foldLeft$(LinearSeqOptimized.scala:122)\n\tat scala.collection.immutable.List.foldLeft(List.scala:89)\n\tat org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1(RuleExecutor.scala:213)\n\tat org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1$adapted(RuleExecutor.scala:205)\n\tat scala.collection.immutable.List.foreach(List.scala:392)\n\tat org.apache.spark.sql.catalyst.rules.RuleExecutor.execute(RuleExecutor.scala:205)\n\tat org.apache.spark.sql.catalyst.analysis.Analyzer.org$apache$spark$sql$catalyst$analysis$Analyzer$$executeSameContext(Analyzer.scala:196)\n\tat org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:190)\n\tat org.apache.spark.sql.catalyst.analysis.Analyzer.execute(Analyzer.scala:155)\n\tat org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$executeAndTrack$1(RuleExecutor.scala:183)\n\tat org.apache.spark.sql.catalyst.QueryPlanningTracker$.withTracker(QueryPlanningTracker.scala:88)\n\tat org.apache.spark.sql.catalyst.rules.RuleExecutor.executeAndTrack(RuleExecutor.scala:183)\n\tat org.apache.spark.sql.catalyst.analysis.Analyzer.$anonfun$executeAndCheck$1(Analyzer.scala:174)\n\tat org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.markInAnalyzer(AnalysisHelper.scala:228)\n\tat org.apache.spark.sql.catalyst.analysis.Analyzer.executeAndCheck(Analyzer.scala:173)\n\tat org.apache.spark.sql.execution.QueryExecution.$anonfun$analyzed$1(QueryExecution.scala:73)\n\tat org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:111)\n\tat org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:143)\n\tat org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:775)\n\tat org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:143)\n\tat org.apache.spark.sql.execution.QueryExecution.analyzed$lzycompute(QueryExecution.scala:73)\n\tat org.apache.spark.sql.execution.QueryExecution.analyzed(QueryExecution.scala:71)\n\tat org.apache.spark.sql.execution.QueryExecution.assertAnalyzed(QueryExecution.scala:63)\n\tat org.apache.spark.sql.Dataset$.$anonfun$ofRows$2(Dataset.scala:98)\n\tat org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:775)\n\tat org.apache.spark.sql.Dataset$.ofRows(Dataset.scala:96)\n\tat org.apache.spark.sql.SparkSession.$anonfun$sql$1(SparkSession.scala:618)\n\tat org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:775)\n\tat org.apache.spark.sql.SparkSession.sql(SparkSession.scala:613)\n\tat org.apache.spark.sql.SQLContext.sql(SQLContext.scala:650)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.apache.zeppelin.spark.SparkSqlInterpreter.internalInterpret(SparkSqlInterpreter.java:106)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:849)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:741)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: java.io.FileNotFoundException: File file:/warehouse/test/test_user/_delta_log/00000000000000000000.json does not exist\nIt is possible the underlying files have been updated. You can explicitly invalidate the cache in Spark by running \u0027REFRESH TABLE tableName\u0027 command in SQL or by recreating the Dataset/DataFrame involved.\n\tat org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.org$apache$spark$sql$execution$datasources$FileScanRDD$$anon$$readCurrentFile(FileScanRDD.scala:124)\n\tat org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.nextIterator(FileScanRDD.scala:169)\n\tat org.apache.spark.sql.execution.datasources.FileScanRDD$$anon$1.hasNext(FileScanRDD.scala:93)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:489)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage1.processNext(Unknown Source)\n\tat org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)\n\tat org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:755)\n\tat scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:458)\n\tat org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:132)\n\tat org.apache.spark.shuffle.ShuffleWriteProcessor.write(ShuffleWriteProcessor.scala:59)\n\tat org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:99)\n\tat org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:52)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:131)\n\tat org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$3(Executor.scala:497)\n\tat org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1439)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:500)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)\n\tat java.lang.Thread.run(Unknown Source)\n"
+          }
+        ]
+      },
       "apps": [],
       "runtimeInfos": {
         "jobUrl": {
@@ -278,12 +348,7 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://10.118.53.39:4040/jobs/job?id=3",
-              "$$hashKey": "object:6746"
-            },
-            {
-              "jobUrl": "http://10.118.53.39:4040/jobs/job?id=4",
-              "$$hashKey": "object:6747"
+              "jobUrl": "http://10.118.52.134:4040/jobs/job?id\u003d13"
             }
           ],
           "interpreterSettingId": "spark"
@@ -292,29 +357,19 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1646027003501_1869483234",
       "id": "paragraph_1646027003501_1869483234",
-      "dateCreated": "2022-02-28T05:43:23+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:5167",
-      "dateFinished": "2022-03-01T07:49:12+0000",
-      "dateStarted": "2022-03-01T07:49:11+0000",
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TABLE",
-            "data": "age\tname\n33\tderrick\n37\tjames\n"
-          }
-        ]
-      }
+      "dateCreated": "2022-02-28 13:43:23.000",
+      "dateStarted": "2022-03-01 18:12:31.239",
+      "dateFinished": "2022-03-01 18:13:03.907",
+      "status": "ERROR"
     },
     {
       "text": "%sql\n",
       "user": "anonymous",
-      "dateUpdated": "2022-03-01T07:49:11+0000",
+      "dateUpdated": "2022-03-01 15:49:11.000",
       "progress": 0,
       "config": {
-        "colWidth": 12,
-        "fontSize": 9,
+        "colWidth": 12.0,
+        "fontSize": 9.0,
         "enabled": true,
         "results": {},
         "editorSetting": {
@@ -334,10 +389,8 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1646120951802_168264208",
       "id": "paragraph_1646120951802_168264208",
-      "dateCreated": "2022-03-01T07:49:11+0000",
-      "status": "READY",
-      "focus": true,
-      "$$hashKey": "object:6259"
+      "dateCreated": "2022-03-01 15:49:11.000",
+      "status": "READY"
     }
   ],
   "name": "init_spark",
@@ -352,8 +405,5 @@
     "looknfeel": "default",
     "personalizedMode": "false"
   },
-  "info": {
-    "isRunning": false
-  },
-  "path": "/spark/init_spark"
+  "info": {}
 }

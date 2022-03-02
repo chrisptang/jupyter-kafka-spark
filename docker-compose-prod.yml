@@ -5,9 +5,9 @@ services:
 # wget -v -O apache-spark.tgz "${SPARK_DOWNLOAD_URL}" && mkdir -p ${SPARK_HOME} && tar -xf apache-spark.tgz \
 # -C ${SPARK_HOME} --strip-components=1 && rm apache-spark.tgz
   zeppelin:
-    image: apache/zeppelin:0.10.0
+    build: ./custom-zeppelin
+    image: chrisptang/zeppelin:0.10.0
     container_name: zeppelin
-    # user: "${UID}:${GID}"
     user: "root"
     environment:
       - TZ=Asia/Shanghai
@@ -21,7 +21,7 @@ services:
       - SPARK_DRIVER_HOST=$HOST_IP
     volumes:
       - ./zeppelin-notebooks:/notebook
-      - ./log-received:/opt/log-received
+      - ./log-received:/log-received
       - ./zeppelin-logs:/logs
       - ./spark:/opt/spark
     ports:

@@ -1,9 +1,9 @@
-﻿{
+{
   "paragraphs": [
     {
       "text": "%sh\n\ndate\n\nls -l /log-received/archived",
       "user": "anonymous",
-      "dateUpdated": "2022-02-27T08:16:15+0000",
+      "dateUpdated": "2022-02-27 16:16:15.000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -12,9 +12,9 @@
           "completionKey": "TAB",
           "completionSupport": false
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/sh",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -36,17 +36,15 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645679728483_207267607",
       "id": "paragraph_1645679728483_207267607",
-      "dateCreated": "2022-02-24T05:15:28+0000",
-      "dateStarted": "2022-02-27T08:16:15+0000",
-      "dateFinished": "2022-02-27T08:16:15+0000",
-      "status": "FINISHED",
-      "focus": true,
-      "$$hashKey": "object:3227"
+      "dateCreated": "2022-02-24 13:15:28.000",
+      "dateStarted": "2022-02-27 16:16:15.000",
+      "dateFinished": "2022-02-27 16:16:15.000",
+      "status": "FINISHED"
     },
     {
       "text": "%spark.conf\n\nspark.jars.packages io.delta:delta-core_2.12:1.0.0\nspark.sql.extensions io.delta.sql.DeltaSparkSessionExtension\nspark.sql.catalog.spark_catalog org.apache.spark.sql.delta.catalog.DeltaCatalog\nspark.sql.warehouse.dir /opt/delta-warehouse\nzeppelin.interpreter.connect.timeout 600000",
       "user": "anonymous",
-      "dateUpdated": "2022-02-24T05:09:59+0000",
+      "dateUpdated": "2022-02-24 13:09:59.000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -55,9 +53,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/text",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -74,16 +72,15 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645679277913_1886155751",
       "id": "paragraph_1645679277913_1886155751",
-      "dateCreated": "2022-02-24T05:07:57+0000",
-      "dateStarted": "2022-02-27T00:20:02+0000",
-      "dateFinished": "2022-02-27T00:20:02+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:3228"
+      "dateCreated": "2022-02-24 13:07:57.000",
+      "dateStarted": "2022-02-27 08:20:02.000",
+      "dateFinished": "2022-02-27 08:20:02.000",
+      "status": "FINISHED"
     },
     {
-      "text": "%pyspark\n\ndef get_day_info(file):\n    pattern_date_time = r'.+([0-9]{4}-[0-9]{2}-[0-9]{2}).+'\n    match = re.match(pattern_date_time, file)\n    if match is not None:\n        return match.group(1)\n    else:\n        return (datetime.now()-timedelta(days = 0)).strftime(\"%Y-%m-%d\")",
+      "text": "%pyspark\n\ndef get_day_info(file):\n    pattern_date_time \u003d r\u0027.+([0-9]{4}-[0-9]{2}-[0-9]{2}).+\u0027\n    match \u003d re.match(pattern_date_time, file)\n    if match is not None:\n        return match.group(1)\n    else:\n        return (datetime.now()-timedelta(days \u003d 0)).strftime(\"%Y-%m-%d\")",
       "user": "anonymous",
-      "dateUpdated": "2022-02-24T05:10:01+0000",
+      "dateUpdated": "2022-02-24 13:10:01.000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -92,9 +89,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/python",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -111,16 +108,15 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645674777530_558063867",
       "id": "paragraph_1645674777530_558063867",
-      "dateCreated": "2022-02-24T03:52:57+0000",
-      "dateStarted": "2022-02-27T00:20:03+0000",
-      "dateFinished": "2022-02-27T00:20:23+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:3229"
+      "dateCreated": "2022-02-24 11:52:57.000",
+      "dateStarted": "2022-02-27 08:20:03.000",
+      "dateFinished": "2022-02-27 08:20:23.000",
+      "status": "FINISHED"
     },
     {
-      "text": "%pyspark\n\nfrom os import walk\nimport re\nimport datetime\nfrom datetime import timedelta\nimport pytz\nimport delta.tables\nimport pyspark.sql.functions as F\nfrom pyspark.sql.types import MapType,StringType,ArrayType\n\ndir='/log-received/archived'\n\nfilenames = next(walk(dir), (None, None, []))[2]\nfilenames = [dir+\"/\"+name for name in filenames]\n\nfrom datetime import datetime,timedelta\n\nday=(datetime.now()-timedelta(days = 0)).strftime(\"%Y-%m-%d\")\n\nspark.conf.set(\"spark.sql.sources.partitionOverwriteMode\",\"dynamic\")\n        \ndef get_df_from_raw_json_file(file):\n    df = spark.read.format(\"json\").load(file)\n    day=get_day_info(file)\n    df = df.withColumn(\"day\",F.lit(day))\n    return df.withColumn(\"item\",F.explode(F.col(\"items\"))).drop(\"items\")\n    \ndef prepare_flatten_df(df):\n    sample=df.withColumn(\"item_basic\",F.to_json(F.col(\"item.item_basic\"))).drop(\"item.item_basic\")\n    \n    sample=sample.selectExpr('day','sink_time','source','total_ads_count','total_count','url','item.item_type','item.itemid','item.shopid',\\\n             'item.item_basic.badge_icon_type as item_basic_badge_icon_type',\\\n             'item.item_basic.brand as item_basic_brand',\\\n             'item.item_basic.can_use_bundle_deal as item_basic_can_use_bundle_deal',\\\n             'item.item_basic.can_use_cod as item_basic_can_use_cod',\\\n             'item.item_basic.can_use_wholesale as item_basic_can_use_wholesale',\\\n             'item.item_basic.catid as item_basic_catid',\\\n             'item.item_basic.cb_option as item_basic_cb_option',\\\n             'item.item_basic.cmt_count as item_basic_cmt_count',\\\n             'item.item_basic.ctime as item_basic_ctime',\\\n             'item.item_basic.currency as item_basic_currency',\\\n             'item.item_basic.discount as item_basic_discount',\\\n             'to_json(item.item_basic.exclusive_price_info) as item_basic_exclusive_price_info',\\\n             'item.item_basic.flag as item_basic_flag',\\\n             'item.item_basic.has_lowest_price_guarantee as item_basic_has_lowest_price_guarantee',\\\n             'item.item_basic.has_model_with_available_shopee_stock as item_basic_has_model_with_available_shopee_stock',\\\n             'item.item_basic.historical_sold as item_basic_historical_sold',\\\n             'item.item_basic.image as item_basic_image',\\\n             'to_json(item.item_basic.images) as item_basic_images',\\\n             'item.item_basic.is_adult as item_basic_is_adult',\\\n             'item.item_basic.is_category_failed as item_basic_is_category_failed',\\\n             'item.item_basic.is_cc_installment_payment_eligible as item_basic_is_cc_installment_payment_eligible',\\\n             'item.item_basic.is_mart as item_basic_is_mart',\\\n             'item.item_basic.is_non_cc_installment_payment_eligible as item_basic_is_non_cc_installment_payment_eligible',\\\n             'item.item_basic.is_official_shop as item_basic_is_official_shop',\\\n             'item.item_basic.is_on_flash_sale as item_basic_is_on_flash_sale',\\\n             'item.item_basic.is_preferred_plus_seller as item_basic_is_preferred_plus_seller',\\\n             'to_json(item.item_basic.item_rating) as item_basic_item_rating',\\\n             'item.item_basic.item_status as item_basic_item_status',\\\n             'item.item_basic.item_type as item_basic_item_type',\\\n             'item.item_basic.itemid as item_basic_itemid',\\\n             'item.item_basic.liked as item_basic_liked',\\\n             'item.item_basic.liked_count as item_basic_liked_count',\\\n             'item.item_basic.name as item_basic_name',\\\n             '\"no-pack-size-for-some-item\" as item_basic_pack_size',\\\n             'item.item_basic.price as item_basic_price',\\\n             'item.item_basic.price_before_discount as item_basic_price_before_discount',\\\n             'item.item_basic.price_max as item_basic_price_max',\\\n             'item.item_basic.price_max_before_discount as item_basic_price_max_before_discount',\\\n             'item.item_basic.price_min as item_basic_price_min',\\\n             'item.item_basic.price_min_before_discount as item_basic_price_min_before_discount',\\\n             'item.item_basic.raw_discount as item_basic_raw_discount',\\\n             'item.item_basic.reference_item_id as item_basic_reference_item_id',\\\n             'item.item_basic.shop_location as item_basic_shop_location',\\\n             'item.item_basic.shopee_verified as item_basic_shopee_verified',\\\n             'item.item_basic.shopid as item_basic_shopid',\\\n             'item.item_basic.show_discount as item_basic_show_discount',\\\n             'item.item_basic.show_free_shipping as item_basic_show_free_shipping',\\\n             'item.item_basic.show_official_shop_label as item_basic_show_official_shop_label',\\\n             'item.item_basic.show_official_shop_label_in_title as item_basic_show_official_shop_label_in_title',\\\n             'item.item_basic.show_shopee_verified_label as item_basic_show_shopee_verified_label',\\\n             'item.item_basic.size_chart as item_basic_size_chart',\\\n             'item.item_basic.sold as item_basic_sold',\\\n             'item.item_basic.status as item_basic_status',\\\n             'item.item_basic.stock as item_basic_stock',\\\n             'to_json(item.item_basic.tier_variations) as item_basic_tier_variations',\\\n             'item.item_basic.transparent_background_image as item_basic_transparent_background_image',\\\n             'to_json(item.item_basic.video_info_list) as item_basic_video_info_list',\\\n             'item.item_basic.view_count as item_basic_view_count',\\\n             'to_json(item.item_basic.voucher_info) as item_basic_voucher_info')\n             \n    return sample",
+      "text": "%pyspark\n\nfrom os import walk\nimport re\nimport datetime\nfrom datetime import timedelta\nimport pytz\nimport delta.tables\nimport pyspark.sql.functions as F\nfrom pyspark.sql.types import MapType,StringType,ArrayType\n\ndir\u003d\u0027/log-received/archived\u0027\n\nfilenames \u003d next(walk(dir), (None, None, []))[2]\nfilenames \u003d [dir+\"/\"+name for name in filenames]\n\nfrom datetime import datetime,timedelta\n\nday\u003d(datetime.now()-timedelta(days \u003d 0)).strftime(\"%Y-%m-%d\")\n\nspark.conf.set(\"spark.sql.sources.partitionOverwriteMode\",\"dynamic\")\n        \ndef get_df_from_raw_json_file(file):\n    df \u003d spark.read.format(\"json\").load(file)\n    day\u003dget_day_info(file)\n    df \u003d df.withColumn(\"day\",F.lit(day))\n    return df.withColumn(\"item\",F.explode(F.col(\"items\"))).drop(\"items\")\n    \ndef prepare_flatten_df(df):\n    sample\u003ddf.withColumn(\"item_basic\",F.to_json(F.col(\"item.item_basic\"))).drop(\"item.item_basic\")\n    \n    sample\u003dsample.selectExpr(\u0027day\u0027,\u0027sink_time\u0027,\u0027source\u0027,\u0027total_ads_count\u0027,\u0027total_count\u0027,\u0027url\u0027,\u0027item.item_type\u0027,\u0027item.itemid\u0027,\u0027item.shopid\u0027,\\\n             \u0027item.item_basic.badge_icon_type as item_basic_badge_icon_type\u0027,\\\n             \u0027item.item_basic.brand as item_basic_brand\u0027,\\\n             \u0027item.item_basic.can_use_bundle_deal as item_basic_can_use_bundle_deal\u0027,\\\n             \u0027item.item_basic.can_use_cod as item_basic_can_use_cod\u0027,\\\n             \u0027item.item_basic.can_use_wholesale as item_basic_can_use_wholesale\u0027,\\\n             \u0027item.item_basic.catid as item_basic_catid\u0027,\\\n             \u0027item.item_basic.cb_option as item_basic_cb_option\u0027,\\\n             \u0027item.item_basic.cmt_count as item_basic_cmt_count\u0027,\\\n             \u0027item.item_basic.ctime as item_basic_ctime\u0027,\\\n             \u0027item.item_basic.currency as item_basic_currency\u0027,\\\n             \u0027item.item_basic.discount as item_basic_discount\u0027,\\\n             \u0027to_json(item.item_basic.exclusive_price_info) as item_basic_exclusive_price_info\u0027,\\\n             \u0027item.item_basic.flag as item_basic_flag\u0027,\\\n             \u0027item.item_basic.has_lowest_price_guarantee as item_basic_has_lowest_price_guarantee\u0027,\\\n             \u0027item.item_basic.has_model_with_available_shopee_stock as item_basic_has_model_with_available_shopee_stock\u0027,\\\n             \u0027item.item_basic.historical_sold as item_basic_historical_sold\u0027,\\\n             \u0027item.item_basic.image as item_basic_image\u0027,\\\n             \u0027to_json(item.item_basic.images) as item_basic_images\u0027,\\\n             \u0027item.item_basic.is_adult as item_basic_is_adult\u0027,\\\n             \u0027item.item_basic.is_category_failed as item_basic_is_category_failed\u0027,\\\n             \u0027item.item_basic.is_cc_installment_payment_eligible as item_basic_is_cc_installment_payment_eligible\u0027,\\\n             \u0027item.item_basic.is_mart as item_basic_is_mart\u0027,\\\n             \u0027item.item_basic.is_non_cc_installment_payment_eligible as item_basic_is_non_cc_installment_payment_eligible\u0027,\\\n             \u0027item.item_basic.is_official_shop as item_basic_is_official_shop\u0027,\\\n             \u0027item.item_basic.is_on_flash_sale as item_basic_is_on_flash_sale\u0027,\\\n             \u0027item.item_basic.is_preferred_plus_seller as item_basic_is_preferred_plus_seller\u0027,\\\n             \u0027to_json(item.item_basic.item_rating) as item_basic_item_rating\u0027,\\\n             \u0027item.item_basic.item_status as item_basic_item_status\u0027,\\\n             \u0027item.item_basic.item_type as item_basic_item_type\u0027,\\\n             \u0027item.item_basic.itemid as item_basic_itemid\u0027,\\\n             \u0027item.item_basic.liked as item_basic_liked\u0027,\\\n             \u0027item.item_basic.liked_count as item_basic_liked_count\u0027,\\\n             \u0027item.item_basic.name as item_basic_name\u0027,\\\n             \u0027\"no-pack-size-for-some-item\" as item_basic_pack_size\u0027,\\\n             \u0027item.item_basic.price as item_basic_price\u0027,\\\n             \u0027item.item_basic.price_before_discount as item_basic_price_before_discount\u0027,\\\n             \u0027item.item_basic.price_max as item_basic_price_max\u0027,\\\n             \u0027item.item_basic.price_max_before_discount as item_basic_price_max_before_discount\u0027,\\\n             \u0027item.item_basic.price_min as item_basic_price_min\u0027,\\\n             \u0027item.item_basic.price_min_before_discount as item_basic_price_min_before_discount\u0027,\\\n             \u0027item.item_basic.raw_discount as item_basic_raw_discount\u0027,\\\n             \u0027item.item_basic.reference_item_id as item_basic_reference_item_id\u0027,\\\n             \u0027item.item_basic.shop_location as item_basic_shop_location\u0027,\\\n             \u0027item.item_basic.shopee_verified as item_basic_shopee_verified\u0027,\\\n             \u0027item.item_basic.shopid as item_basic_shopid\u0027,\\\n             \u0027item.item_basic.show_discount as item_basic_show_discount\u0027,\\\n             \u0027item.item_basic.show_free_shipping as item_basic_show_free_shipping\u0027,\\\n             \u0027item.item_basic.show_official_shop_label as item_basic_show_official_shop_label\u0027,\\\n             \u0027item.item_basic.show_official_shop_label_in_title as item_basic_show_official_shop_label_in_title\u0027,\\\n             \u0027item.item_basic.show_shopee_verified_label as item_basic_show_shopee_verified_label\u0027,\\\n             \u0027item.item_basic.size_chart as item_basic_size_chart\u0027,\\\n             \u0027item.item_basic.sold as item_basic_sold\u0027,\\\n             \u0027item.item_basic.status as item_basic_status\u0027,\\\n             \u0027item.item_basic.stock as item_basic_stock\u0027,\\\n             \u0027to_json(item.item_basic.tier_variations) as item_basic_tier_variations\u0027,\\\n             \u0027item.item_basic.transparent_background_image as item_basic_transparent_background_image\u0027,\\\n             \u0027to_json(item.item_basic.video_info_list) as item_basic_video_info_list\u0027,\\\n             \u0027item.item_basic.view_count as item_basic_view_count\u0027,\\\n             \u0027to_json(item.item_basic.voucher_info) as item_basic_voucher_info\u0027)\n             \n    return sample",
       "user": "anonymous",
-      "dateUpdated": "2022-02-24T05:10:23+0000",
+      "dateUpdated": "2022-02-24 13:10:23.000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -129,9 +125,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/python",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -148,16 +144,15 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645667969506_408840309",
       "id": "paragraph_1645667969506_408840309",
-      "dateCreated": "2022-02-24T01:59:29+0000",
-      "dateStarted": "2022-02-27T00:20:23+0000",
-      "dateFinished": "2022-02-27T00:20:24+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:3230"
+      "dateCreated": "2022-02-24 09:59:29.000",
+      "dateStarted": "2022-02-27 08:20:23.000",
+      "dateFinished": "2022-02-27 08:20:24.000",
+      "status": "FINISHED"
     },
     {
-      "text": "%pyspark\n\n    \ndef insert_overwrite_table(df,table_name=\"delta.`/warehouse/delta/shopee_data/api_search_item_raw_data_da`\",partition_col_name='day'):\n    spark.conf.set(\"spark.sql.sources.partitionOverwriteMode\",\"static\")\n    \n    if df.count() <=0:\n        return\n    \n    columns=spark.table(table_name).schema.names\n    columns.remove(partition_col_name)\n    \n    partition_col_val=df.select(partition_col_name).head(1)[0][partition_col_name]\n    view = \"inserting_into_table_%s\" % table_name.replace(\".\",'_').replace(\"/\",\"_\").replace('`',\"\")\n    print(view)\n    df.createOrReplaceTempView(view)\n    \n    sql=\"\"\"\n    insert overwrite {table_name} partition({partition_col_name}='{partition_col_val}')\n    select {columns} from\n    {view}\n    \"\"\".format(view=view,table_name=table_name,partition_col_name=partition_col_name,partition_col_val=partition_col_val,columns=','.join(columns))\n    \n    spark.sql(sql).show(truncate=False)\n\n# 这段代码用于补历史数据\n\n# for file in filenames:\n#     df=prepare_flatten_df(get_df_from_raw_json_file(file))\n#     insert_overwrite_table(df)\n",
+      "text": "%pyspark\n\n    \ndef insert_overwrite_table(df,table_name\u003d\"delta.`/warehouse/delta/shopee_data/api_search_item_raw_data_da`\",partition_col_name\u003d\u0027day\u0027):\n    spark.conf.set(\"spark.sql.sources.partitionOverwriteMode\",\"static\")\n    \n    if df.count() \u003c\u003d0:\n        return\n    \n    columns\u003dspark.table(table_name).schema.names\n    columns.remove(partition_col_name)\n    \n    partition_col_val\u003ddf.select(partition_col_name).head(1)[0][partition_col_name]\n    view \u003d \"inserting_into_table_%s\" % table_name.replace(\".\",\u0027_\u0027).replace(\"/\",\"_\").replace(\u0027`\u0027,\"\")\n    print(view)\n    df.createOrReplaceTempView(view)\n    \n    sql\u003d\"\"\"\n    insert overwrite {table_name} partition({partition_col_name}\u003d\u0027{partition_col_val}\u0027)\n    select {columns} from\n    {view}\n    \"\"\".format(view\u003dview,table_name\u003dtable_name,partition_col_name\u003dpartition_col_name,partition_col_val\u003dpartition_col_val,columns\u003d\u0027,\u0027.join(columns))\n    \n    spark.sql(sql).show(truncate\u003dFalse)\n\n# 这段代码用于补历史数据\n\n# for file in filenames:\n#     df\u003dprepare_flatten_df(get_df_from_raw_json_file(file))\n#     insert_overwrite_table(df)\n",
       "user": "anonymous",
-      "dateUpdated": "2022-02-24T05:14:13+0000",
+      "dateUpdated": "2022-02-24 13:14:13.000",
       "progress": 52,
       "config": {
         "editorSetting": {
@@ -166,9 +161,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/python",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -185,16 +180,15 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645668079926_1307885979",
       "id": "paragraph_1645668079926_1307885979",
-      "dateCreated": "2022-02-24T02:01:19+0000",
-      "dateStarted": "2022-02-27T00:20:24+0000",
-      "dateFinished": "2022-02-27T00:20:24+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:3231"
+      "dateCreated": "2022-02-24 10:01:19.000",
+      "dateStarted": "2022-02-27 08:20:24.000",
+      "dateFinished": "2022-02-27 08:20:24.000",
+      "status": "FINISHED"
     },
     {
-      "text": "%pyspark\n\ndef extract_today_data():\n    today_df=prepare_flatten_df(get_df_from_raw_json_file(\"/log-received/api_api_v4_search_search_items.json\"))\n    insert_overwrite_table(today_df)\n    \nextract_today_data()",
+      "text": "%pyspark\n\ndef extract_today_data():\n    today_df\u003dprepare_flatten_df(get_df_from_raw_json_file(\"/log-received/api_api_v4_search_search_items.json\"))\n    insert_overwrite_table(today_df)\n    \nextract_today_data()",
       "user": "anonymous",
-      "dateUpdated": "2022-02-24T05:14:16+0000",
+      "dateUpdated": "2022-02-24 13:14:16.000",
       "progress": 78,
       "config": {
         "editorSetting": {
@@ -203,9 +197,9 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/python",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {},
         "enabled": true
       },
@@ -231,35 +225,35 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=0",
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id\u003d0",
               "$$hashKey": "object:3753"
             },
             {
-              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=1",
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id\u003d1",
               "$$hashKey": "object:3754"
             },
             {
-              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=2",
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id\u003d2",
               "$$hashKey": "object:3755"
             },
             {
-              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=3",
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id\u003d3",
               "$$hashKey": "object:3756"
             },
             {
-              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=4",
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id\u003d4",
               "$$hashKey": "object:3757"
             },
             {
-              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=5",
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id\u003d5",
               "$$hashKey": "object:3758"
             },
             {
-              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=6",
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id\u003d6",
               "$$hashKey": "object:3759"
             },
             {
-              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=7",
+              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id\u003d7",
               "$$hashKey": "object:3760"
             }
           ],
@@ -269,17 +263,16 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645679281382_122769375",
       "id": "paragraph_1645679281382_122769375",
-      "dateCreated": "2022-02-24T05:08:01+0000",
-      "dateStarted": "2022-02-27T00:20:24+0000",
-      "dateFinished": "2022-02-27T00:20:43+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:3232"
+      "dateCreated": "2022-02-24 13:08:01.000",
+      "dateStarted": "2022-02-27 08:20:24.000",
+      "dateFinished": "2022-02-27 08:20:43.000",
+      "status": "FINISHED"
     },
     {
       "text": "%sql\n\nselect count(1),day\nfrom delta.`/warehouse/delta/shopee_data/api_search_item_raw_data_da`\ngroup by day order by day",
       "user": "anonymous",
-      "dateUpdated": "2022-02-24T05:14:32+0000",
-      "progress": 64,
+      "dateUpdated": "2022-03-01 18:21:31.174",
+      "progress": 0,
       "config": {
         "editorSetting": {
           "language": "sql",
@@ -287,14 +280,14 @@
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "colWidth": 12,
+        "colWidth": 12.0,
         "editorMode": "ace/mode/sql",
-        "fontSize": 9,
+        "fontSize": 9.0,
         "results": {
           "0": {
             "graph": {
               "mode": "table",
-              "height": 300,
+              "height": 300.0,
               "optionOpen": false,
               "setting": {
                 "table": {
@@ -315,7 +308,7 @@
                         "visible": true,
                         "width": "*",
                         "sort": {
-                          "priority": 0,
+                          "priority": 0.0,
                           "direction": "desc"
                         },
                         "filters": [
@@ -333,8 +326,8 @@
                     },
                     "treeView": {},
                     "pagination": {
-                      "paginationCurrentPage": 1,
-                      "paginationPageSize": 250
+                      "paginationCurrentPage": 1.0,
+                      "paginationPageSize": 250.0
                     }
                   },
                   "tableColumnTypeState": {
@@ -365,51 +358,32 @@
         "forms": {}
       },
       "results": {
-        "code": "SUCCESS",
+        "code": "ERROR",
         "msg": [
           {
-            "type": "TABLE",
-            "data": "count(1)\tday\n16320\t2022-01-25\n16320\t2022-01-27\n16280\t2022-01-29\n16320\t2022-01-31\n8160\t2022-02-16\n16320\t2022-02-17\n8160\t2022-02-18\n8160\t2022-02-19\n8160\t2022-02-20\n8160\t2022-02-21\n8159\t2022-02-22\n8159\t2022-02-23\n8159\t2022-02-24\n8159\t2022-02-25\n8160\t2022-02-26\n8160\t2022-02-27\n"
+            "type": "TEXT",
+            "data": "`/warehouse/delta/shopee_data/api_search_item_raw_data_da` is not a Delta table."
           }
         ]
       },
       "apps": [],
-      "runtimeInfos": {
-        "jobUrl": {
-          "propertyName": "jobUrl",
-          "label": "SPARK JOB",
-          "tooltip": "View in Spark web UI",
-          "group": "spark",
-          "values": [
-            {
-              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=8",
-              "$$hashKey": "object:3886"
-            },
-            {
-              "jobUrl": "http://03137f6da6eb:4041/jobs/job?id=9",
-              "$$hashKey": "object:3887"
-            }
-          ],
-          "interpreterSettingId": "spark"
-        }
-      },
+      "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645668725622_441842136",
       "id": "paragraph_1645668725622_441842136",
-      "dateCreated": "2022-02-24T02:12:05+0000",
-      "dateStarted": "2022-02-27T00:20:44+0000",
-      "dateFinished": "2022-02-27T00:20:45+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:3233"
+      "dateCreated": "2022-02-24 10:12:05.000",
+      "dateStarted": "2022-03-01 18:21:31.234",
+      "dateFinished": "2022-03-01 18:21:32.307",
+      "status": "ERROR"
     },
     {
       "text": "%pyspark\n\nz.z.run(\"2GV9YTGV3\")\n",
       "user": "anonymous",
-      "dateUpdated": "2022-02-24T05:57:50+0000",
+      "dateUpdated": "2022-02-24 13:57:50.000",
       "progress": 0,
       "config": {
-        "colWidth": 12,
-        "fontSize": 9,
+        "colWidth": 12.0,
+        "fontSize": 9.0,
         "enabled": true,
         "results": {},
         "editorSetting": {
@@ -433,18 +407,17 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645677224995_1386527106",
       "id": "paragraph_1645677224995_1386527106",
-      "dateCreated": "2022-02-24T04:33:44+0000",
-      "dateStarted": "2022-02-27T00:20:45+0000",
-      "dateFinished": "2022-02-27T00:20:46+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:3234"
+      "dateCreated": "2022-02-24 12:33:44.000",
+      "dateStarted": "2022-02-27 08:20:45.000",
+      "dateFinished": "2022-02-27 08:20:46.000",
+      "status": "FINISHED"
     },
     {
       "user": "anonymous",
       "progress": 0,
       "config": {
-        "colWidth": 12,
-        "fontSize": 9,
+        "colWidth": 12.0,
+        "fontSize": 9.0,
         "enabled": true,
         "results": {},
         "editorSetting": {
@@ -464,9 +437,8 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645681934067_19599997",
       "id": "paragraph_1645681934067_19599997",
-      "dateCreated": "2022-02-24T05:52:14+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:3235"
+      "dateCreated": "2022-02-24 13:52:14.000",
+      "status": "FINISHED"
     }
   ],
   "name": "shopee_search_item_extract",
@@ -477,7 +449,7 @@
   "noteForms": {},
   "angularObjects": {},
   "config": {
-    "isZeppelinNotebookCronEnable": true,
+    "isZeppelinNotebookCronEnable": false,
     "looknfeel": "default",
     "personalizedMode": "false",
     "cronExecutingUser": "anonymous",
@@ -485,8 +457,6 @@
     "cron": "0 20 0 * * ?"
   },
   "info": {
-    "inIsolatedMode": false,
-    "isRunning": false
-  },
-  "path": "/spark/shopee_search_item_extract"
+    "inIsolatedMode": false
+  }
 }

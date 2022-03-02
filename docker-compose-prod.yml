@@ -23,7 +23,6 @@ services:
       - ./zeppelin-notebooks:/notebook
       - ./log-received:/log-received
       - ./zeppelin-logs:/logs
-      - ./spark:/opt/spark
     ports:
       - 8280:8280
       - 47077:47077

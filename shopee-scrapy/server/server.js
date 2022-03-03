@@ -57,6 +57,119 @@ let ShopeeCates = database.define('shopee_cate_tree', {
     }]
 });
 
+let CatStats = database.define('shopee_cat_stat', {
+    day: Sequelize.DATE,
+    site: Sequelize.STRING,
+    catid: Sequelize.BIGINT,
+    currency: Sequelize.STRING,
+    item_num: Sequelize.BIGINT,
+    shop_num: Sequelize.BIGINT,
+    sold_14d: Sequelize.BIGINT,
+    historical_sold: Sequelize.BIGINT,
+    view_count: Sequelize.BIGINT,
+    liked_count: Sequelize.BIGINT,
+    gmv_min_14d: Sequelize.DOUBLE,
+    gmv_max_historical: Sequelize.DOUBLE,
+    gmv_min_14d_cny: Sequelize.DOUBLE,
+    gmv_max_historical_cny: Sequelize.DOUBLE,
+    avg_price_min: Sequelize.DOUBLE,
+    avg_price_max: Sequelize.DOUBLE,
+    avg_price_min_cny: Sequelize.DOUBLE,
+    avg_price_max_cny: Sequelize.DOUBLE,
+    p50_price_min_cny: Sequelize.DOUBLE,
+    p50_price_max_cny: Sequelize.DOUBLE,
+    date_writen: Sequelize.DATE,
+    cat_path: Sequelize.STRING
+}, {
+    paranoid: true,
+    indexes: [{
+        name: "idx_day_site_cat",
+        unique: true,
+        fields: ["site", "catid", "day"]
+    }]
+});
+
+let ShopStats = database.define('shopee_shop_stat', {
+    day: Sequelize.DATE,
+    site: Sequelize.DOUBLE,
+    shopid: Sequelize.BIGINT,
+    shop_location: Sequelize.STRING,
+    currency: Sequelize.STRING,
+    item_num: Sequelize.BIGINT,
+    sold_14d: Sequelize.BIGINT,
+    historical_sold: Sequelize.BIGINT,
+    view_count: Sequelize.BIGINT,
+    liked_count: Sequelize.BIGINT,
+    gmv_min_14d: Sequelize.DOUBLE,
+    gmv_max_historical: Sequelize.DOUBLE,
+    gmv_min_14d_cny: Sequelize.DOUBLE,
+    gmv_max_historical_cny: Sequelize.DOUBLE,
+    avg_price_min: Sequelize.DOUBLE,
+    avg_price_max: Sequelize.DOUBLE,
+    avg_price_min_cny: Sequelize.DOUBLE,
+    avg_price_max_cny: Sequelize.DOUBLE,
+    date_writen: Sequelize.DATE
+}, {
+    paranoid: true,
+    indexes: [{
+        name: "idx_day_site_shop",
+        unique: true,
+        fields: ["site", "shopid", "day"]
+    }]
+});
+
+let ItemStats = database.define('shopee_item_stat', {
+    day: Sequelize.DATE,
+    site: Sequelize.STRING,
+    itemid: Sequelize.BIGINT,
+    shopid: Sequelize.BIGINT,
+    brand: Sequelize.STRING,
+    catid: Sequelize.BIGINT,
+    comments_count: Sequelize.BIGINT,
+    create_time: Sequelize.TIMESTAMP,
+    currency: Sequelize.STRING,
+    discount: Sequelize.DOUBLE,
+    has_lowest_price_guarantee: Sequelize.BOOLEAN,
+    historical_sold: Sequelize.BIGINT,
+    image: Sequelize.STRING,
+    is_official_shop: Sequelize.BOOLEAN,
+    rating_star: Sequelize.DOUBLE,
+    rating_with_image: Sequelize.STRING,
+    item_status: Sequelize.STRING,
+    item_type: Sequelize.BIGINT,
+    liked: Sequelize.BOOLEAN,
+    liked_count: Sequelize.BIGINT,
+    name: Sequelize.STRING,
+    price: Sequelize.DOUBLE,
+    price_before_discount: Sequelize.DOUBLE,
+    price_max: Sequelize.DOUBLE,
+    price_max_before_discount: Sequelize.DOUBLE,
+    price_min: Sequelize.DOUBLE,
+    price_min_before_discount: Sequelize.DOUBLE,
+    reference_item_id: Sequelize.STRING,
+    shop_location: Sequelize.STRING,
+    sold_14d: Sequelize.BIGINT,
+    status: Sequelize.BIGINT,
+    stock: Sequelize.BIGINT,
+    transparent_background_image: Sequelize.STRING,
+    view_count: Sequelize.BIGINT,
+    date_writen: Sequelize.DATE,
+    cat_path: Sequelize.STRING
+}, {
+    paranoid: true,
+    indexes: [{
+        name: "idx_day_item_site",
+        unique: true,
+        fields: ["site", "itemid", "day"]
+    },{
+        name: "idx_cat_path",
+        fields: ["cat_path"]
+    },{
+        name: "idx_site_day",
+        fields: ["site","day"]
+    }]
+});
+
 // Initialize finale
 finale.initialize({
     app: app,
@@ -72,6 +185,21 @@ let taskResource = finale.resource({
 let shopeeCateResource = finale.resource({
     model: ShopeeCates,
     endpoints: ['/api/shopee-cates', '/api/shopee-cates/:id']
+})
+
+let catStatResource = finale.resource({
+    model: DailyTasks,
+    endpoints: ['/api/stats/cat', '/api/stats/cat/:id']
+})
+
+let shopeeStatsResource = finale.resource({
+    model: ShopeeCates,
+    endpoints: ['/api/stats/shop', '/api/stats/shop/:id']
+})
+
+let itemStatsResource = finale.resource({
+    model: DailyTasks,
+    endpoints: ['/api/stats/item', '/api/stats/item/:id']
 })
 
 app.post('/api/schedule', async (req, res) => {

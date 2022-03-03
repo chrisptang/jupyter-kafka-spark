@@ -8,3 +8,4 @@ package-lock.json
 log-received
 spark-logs
 spark/
+zeppelin-warehouse

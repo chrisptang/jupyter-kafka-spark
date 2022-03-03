@@ -23,6 +23,7 @@ services:
       - ./zeppelin-notebooks:/notebook
       - ./log-received:/log-received
       - ./zeppelin-logs:/logs
+      - ./zeppelin-warehouse:/warehouse
     ports:
       - 8280:8280
       - 47077:47077

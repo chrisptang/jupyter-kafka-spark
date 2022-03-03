@@ -91,7 +91,7 @@ let CatStats = database.define('shopee_cat_stat', {
 
 let ShopStats = database.define('shopee_shop_stat', {
     day: Sequelize.DATE,
-    site: Sequelize.DOUBLE,
+    site: Sequelize.STRING,
     shopid: Sequelize.BIGINT,
     shop_location: Sequelize.STRING,
     currency: Sequelize.STRING,

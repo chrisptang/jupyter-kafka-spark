@@ -126,7 +126,7 @@ let ItemStats = database.define('shopee_item_stat', {
     brand: Sequelize.STRING,
     catid: Sequelize.BIGINT,
     comments_count: Sequelize.BIGINT,
-    create_time: Sequelize.TIMESTAMP,
+    create_time: Sequelize.DATE,
     currency: Sequelize.STRING,
     discount: Sequelize.DOUBLE,
     has_lowest_price_guarantee: Sequelize.BOOLEAN,
@@ -188,17 +188,17 @@ let shopeeCateResource = finale.resource({
 })
 
 let catStatResource = finale.resource({
-    model: DailyTasks,
+    model: CatStats,
     endpoints: ['/api/stats/cat', '/api/stats/cat/:id']
 })
 
 let shopeeStatsResource = finale.resource({
-    model: ShopeeCates,
+    model: ShopStats,
     endpoints: ['/api/stats/shop', '/api/stats/shop/:id']
 })
 
 let itemStatsResource = finale.resource({
-    model: DailyTasks,
+    model: ItemStats,
     endpoints: ['/api/stats/item', '/api/stats/item/:id']
 })
 

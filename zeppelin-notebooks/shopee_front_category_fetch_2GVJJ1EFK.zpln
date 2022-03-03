@@ -1,9 +1,9 @@
 ﻿{
   "paragraphs": [
     {
-      "text": "%sh\n\ndate\nls /warehouse/delta/shopee_data/api_category_path_fulllist_df",
+      "text": "%sh\n\ndate",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03T13:24:56+0800",
+      "dateUpdated": "2022-02-24T09:08:43+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -27,7 +27,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "Thu 03 Mar 2022 05:24:56 AM Asia\n_delta_log\npart-00000-6ce3521b-a454-4541-a3fd-5e2ed1e8089e-c000.snappy.parquet\npart-00001-a2e43876-471d-44f7-a64d-2371ceeee485-c000.snappy.parquet\npart-00002-42716bb5-ccfc-4f12-8a10-02f2c0cee78d-c000.snappy.parquet\npart-00003-05610cc5-978a-4d86-8e90-8845333cf9eb-c000.snappy.parquet\npart-00004-3e428a20-4bff-4d57-af8f-9c9c8ec33e91-c000.snappy.parquet\npart-00005-359659a3-9b95-4327-8f95-b0e29cf35803-c000.snappy.parquet\npart-00006-d48c1c81-798a-4b15-a1bb-a51aa0dec92e-c000.snappy.parquet\npart-00007-0583ff68-312c-4aa2-9a4f-72428d4034a4-c000.snappy.parquet\npart-00008-1de4af63-eb66-46f5-8d7a-98f37488f51f-c000.snappy.parquet\npart-00009-bb50ad24-789c-4e00-894a-1beefe142184-c000.snappy.parquet\npart-00010-4e922cbe-f34c-4ba2-a04f-53850970a9cf-c000.snappy.parquet\npart-00011-b6734f1c-0d99-44e5-96be-64a30af93136-c000.snappy.parquet\npart-00012-fe587b4b-865f-4513-9e03-fbddfa5aea39-c000.snappy.parquet\npart-00013-0c39bbfa-a8e2-4b5a-a185-363d2c8ac40a-c000.snappy.parquet\npart-00014-0447019a-112b-4b59-bd4c-c9d38d9f1fc7-c000.snappy.parquet\npart-00015-203a8e0b-ccfc-4bab-acf9-9685ba52d164-c000.snappy.parquet\npart-00016-5a497d9f-7f8e-4902-91a2-39187854e5ff-c000.snappy.parquet\npart-00017-a30398f2-85f0-4513-8f1b-753908e3bdfa-c000.snappy.parquet\npart-00018-0bc79e2e-1d06-4522-9a91-d7768acfb50c-c000.snappy.parquet\npart-00019-f1ce897d-163a-43db-a520-481187c58c13-c000.snappy.parquet\npart-00020-e00f8980-de5f-4666-b3c8-70142d1448ec-c000.snappy.parquet\npart-00021-02a75684-24a4-4607-a2fe-238e9e1f0639-c000.snappy.parquet\npart-00022-ae9a9019-8855-49ee-894f-81f46726353a-c000.snappy.parquet\npart-00023-9b53dc44-f4b1-4d07-bf73-41fd8422bf30-c000.snappy.parquet\npart-00024-6bddc9b0-5a21-434b-b984-83255e77fceb-c000.snappy.parquet\npart-00025-b16b2cc4-5f53-4428-82a6-713b68652b1b-c000.snappy.parquet\npart-00026-cce7a5ed-8161-48f9-88f8-78a26440a966-c000.snappy.parquet\npart-00027-f6b572bc-956f-404f-9a81-20633bda1c9c-c000.snappy.parquet\npart-00028-9e37c052-707d-4607-a026-ed1a0d287a6a-c000.snappy.parquet\npart-00029-a9a068c4-3081-425a-8897-bda9ed92ae04-c000.snappy.parquet\npart-00030-1773451b-1785-4928-9ec4-ae271f704fa9-c000.snappy.parquet\npart-00031-254d2815-0cbd-441d-b5ba-349f3a286d15-c000.snappy.parquet\npart-00032-8de4d734-13e8-44d7-b639-c3e983f080d1-c000.snappy.parquet\npart-00033-d1ef8859-ed0a-4990-b8e0-872521012282-c000.snappy.parquet\npart-00034-e8c8c906-ed4c-416b-9ed9-8f3d8bd927cb-c000.snappy.parquet\npart-00035-371870a9-9011-4d46-8186-5c270c20b970-c000.snappy.parquet\npart-00036-79d0d6ef-ef18-418c-9531-f06786eca522-c000.snappy.parquet\npart-00037-b95ec166-f517-4a17-8ec9-bf21997034c6-c000.snappy.parquet\n"
+            "data": "Thu 24 Feb 2022 05:59:13 AM UTC\n"
           }
         ]
       },
@@ -36,17 +36,15 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645693723678_1031221168",
       "id": "paragraph_1645681912069_266844619",
-      "dateCreated": "2022-02-24T17:08:43+0800",
-      "dateStarted": "2022-03-03T13:24:56+0800",
-      "dateFinished": "2022-03-03T13:24:56+0800",
-      "status": "FINISHED",
+      "dateCreated": "2022-02-24T09:08:43+0000",
+      "status": "READY",
       "focus": true,
-      "$$hashKey": "object:4733"
+      "$$hashKey": "object:2052390"
     },
     {
       "text": "%md\n\n# Shopee前台类目信息获取并整理\n",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03T13:03:56+0800",
+      "dateUpdated": "2022-02-24T09:09:20+0000",
       "progress": 0,
       "config": {
         "tableHide": false,
@@ -81,53 +79,16 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645693733614_788324199",
       "id": "paragraph_1645693733614_788324199",
-      "dateCreated": "2022-02-24T17:08:53+0800",
-      "dateStarted": "2022-03-03T13:03:56+0800",
-      "dateFinished": "2022-03-03T13:03:58+0800",
+      "dateCreated": "2022-02-24T09:08:53+0000",
+      "dateStarted": "2022-02-24T09:09:20+0000",
+      "dateFinished": "2022-02-24T09:09:22+0000",
       "status": "FINISHED",
-      "$$hashKey": "object:4734"
+      "$$hashKey": "object:2052391"
     },
     {
-      "text": "%spark.conf\n\nspark.jars.packages io.delta:delta-core_2.12:1.0.0\nspark.sql.extensions io.delta.sql.DeltaSparkSessionExtension\nspark.sql.catalog.spark_catalog org.apache.spark.sql.delta.catalog.DeltaCatalog\nspark.sql.warehouse.dir /warehouse\nzeppelin.interpreter.connect.timeout 600000\nspark.master local[*]",
+      "text": "%pyspark\n\nfrom os import walk\nimport re\nfrom datetime import datetime\nfrom datetime import timedelta\nimport pytz\nimport delta.tables\nimport pyspark.sql.functions as F\nfrom pyspark.sql.types import MapType,StringType,ArrayType\n",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03T13:06:21+0800",
-      "progress": 0,
-      "config": {
-        "editorSetting": {
-          "language": "text",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
-        },
-        "colWidth": 12,
-        "editorMode": "ace/mode/text",
-        "fontSize": 9,
-        "results": {},
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "results": {
-        "code": "SUCCESS",
-        "msg": []
-      },
-      "apps": [],
-      "runtimeInfos": {},
-      "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1646283957564_1116773712",
-      "id": "paragraph_1646283957564_1116773712",
-      "dateCreated": "2022-03-03T13:05:57+0800",
-      "dateStarted": "2022-03-03T13:06:21+0800",
-      "dateFinished": "2022-03-03T13:06:21+0800",
-      "status": "FINISHED",
-      "$$hashKey": "object:4735"
-    },
-    {
-      "text": "%pyspark\n\nfrom os import walk\nimport re\nfrom datetime import datetime,timedelta\nimport pytz\nimport delta.tables\nimport pyspark.sql.functions as F\nfrom pyspark.sql.types import MapType,StringType,ArrayType\n\n\nspark.conf.set(\"spark.databricks.delta.schema.autoMerge.enabled\",\"true\")\ndef write_into_or_create_table(df):\n    api_category_fulllist_df_path=\"/warehouse/delta/shopee_data/api_category_fulllist_df\"\n    if not os.path.isdir(api_category_fulllist_df_path):\n        print(\"%s does not exist\" % api_category_fulllist_df_path)\n        df.write.format(\"delta\").mode(\"overwrite\").save(api_category_fulllist_df_path)\n        return \"createed\"\n    else:\n        table = DeltaTable.forPath(spark,api_category_fulllist_df_path)\n        table.alias(\"t\").merge(df.alias(\"s\"),\"t.site=s.site and t.catid=s.catid\").whenNotMatchedInsertAll().whenMatchedUpdateAll().execute()\n        return \"merged\"\n",
-      "user": "anonymous",
-      "dateUpdated": "2022-03-03T13:19:38+0800",
+      "dateUpdated": "2022-02-24T09:09:34+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -155,17 +116,17 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645693723678_1931405225",
       "id": "paragraph_1645682467488_340920473",
-      "dateCreated": "2022-02-24T17:08:43+0800",
-      "dateStarted": "2022-03-03T13:19:38+0800",
-      "dateFinished": "2022-03-03T13:19:38+0800",
+      "dateCreated": "2022-02-24T09:08:43+0000",
+      "dateStarted": "2022-02-24T09:09:34+0000",
+      "dateFinished": "2022-02-24T09:09:34+0000",
       "status": "FINISHED",
-      "$$hashKey": "object:4736"
+      "$$hashKey": "object:2052392"
     },
     {
-      "text": "%pyspark\n\nimport json\nimport requests\nfrom delta.tables import *\n\ndef fetch_full_category_list(site):\n    category_list_url='https://%s/api/v2/category_list/get_all' % site\n    \n    print(\"URL:\",category_list_url)\n    \n    json=requests.get(category_list_url).text\n    df=spark.read.json(sc.parallelize([json])).select(\"data\").withColumn(\"data\",F.explode(F.col(\"data\")))\n    \n    main=df.selectExpr(\"data.main as category_struct\")\n    sub=df.selectExpr(\"data.sub as sub\").withColumn(\"category_struct\",F.explode(F.col(\"sub\"))).drop(\"sub\")\n    \n    sub_sub=sub.selectExpr(\"category_struct.sub_sub as sub_sub\",\"category_struct.catid as parent_category\",\"category_struct.is_adult\",\"category_struct.sort_weight\").withColumn(\"category_struct\",F.explode(F.col(\"sub_sub\"))).drop(\"sub_sub\").withColumn(\"name\",F.col(\"category_struct.display_name\"))\n    \n    sub=sub.drop(\"category_struct.sub_sub\")\n    \n    main=main.select(\n    'category_struct.catid',\\\n    'category_struct.display_name',\\\n    'category_struct.image',\\\n    'category_struct.is_adult',\\\n    'category_struct.name',\\\n    'category_struct.parent_category',\\\n    'category_struct.sort_weight').select('parent_category','is_adult','sort_weight','catid','display_name','image','name').withColumn(\"cat_level\",F.lit(1))\n    \n    \n    sub=sub.select(\n    'category_struct.catid',\\\n    'category_struct.display_name',\\\n    'category_struct.image',\\\n    'category_struct.is_adult',\\\n    'category_struct.name',\\\n    'category_struct.parent_category',\\\n    'category_struct.sort_weight').select('parent_category','is_adult','sort_weight','catid','display_name','image','name').withColumn(\"cat_level\",F.lit(2))\n    \n    sub_sub=sub_sub.select('parent_category',\\\n    'is_adult',\\\n    'sort_weight',\\\n    'category_struct.catid',\\\n    'category_struct.display_name',\\\n    'category_struct.image',\\\n    'name').select('parent_category','is_adult','sort_weight','catid','display_name','image','name').withColumn(\"cat_level\",F.lit(3))\n    \n    \n    all=main.unionAll(sub).unionAll(sub_sub)\n    all=all.withColumn(\"site\",F.lit(site))\n    all=all.withColumn(\"date_writen\",F.lit(datetime.now().strftime(\"%Y-%m-%d\")))\n    \n    write_into_or_create_table(all)\n    \n\nfor site in ['shopee.sg','shopee.com.br','shopee.co.th','shopee.com.my','shopee.co.id','shopee.vn','shopee.ph']:\n    fetch_full_category_list(site)",
+      "text": "%pyspark\n\nimport json\nimport requests\nfrom delta.tables import *\n\ndef fetch_full_category_list(site):\n    category_list_url='https://%s/api/v2/category_list/get_all' % site\n    \n    print(\"URL:\",category_list_url)\n    \n    json=requests.get(category_list_url).text\n    df=spark.read.json(sc.parallelize([json])).select(\"data\").withColumn(\"data\",F.explode(F.col(\"data\")))\n    \n    main=df.selectExpr(\"data.main as category_struct\")\n    sub=df.selectExpr(\"data.sub as sub\").withColumn(\"category_struct\",F.explode(F.col(\"sub\"))).drop(\"sub\")\n    \n    sub_sub=sub.selectExpr(\"category_struct.sub_sub as sub_sub\",\"category_struct.catid as parent_category\",\"category_struct.is_adult\",\"category_struct.sort_weight\").withColumn(\"category_struct\",F.explode(F.col(\"sub_sub\"))).drop(\"sub_sub\").withColumn(\"name\",F.col(\"category_struct.display_name\"))\n    \n    sub=sub.drop(\"category_struct.sub_sub\")\n    \n    main=main.select(\n    'category_struct.catid',\\\n    'category_struct.display_name',\\\n    'category_struct.image',\\\n    'category_struct.is_adult',\\\n    'category_struct.name',\\\n    'category_struct.parent_category',\\\n    'category_struct.sort_weight').select('parent_category','is_adult','sort_weight','catid','display_name','image','name').withColumn(\"cat_level\",F.lit(1))\n    \n    \n    sub=sub.select(\n    'category_struct.catid',\\\n    'category_struct.display_name',\\\n    'category_struct.image',\\\n    'category_struct.is_adult',\\\n    'category_struct.name',\\\n    'category_struct.parent_category',\\\n    'category_struct.sort_weight').select('parent_category','is_adult','sort_weight','catid','display_name','image','name').withColumn(\"cat_level\",F.lit(2))\n    \n    sub_sub=sub_sub.select('parent_category',\\\n    'is_adult',\\\n    'sort_weight',\\\n    'category_struct.catid',\\\n    'category_struct.display_name',\\\n    'category_struct.image',\\\n    'name').select('parent_category','is_adult','sort_weight','catid','display_name','image','name').withColumn(\"cat_level\",F.lit(3))\n    \n    \n    all=main.unionAll(sub).unionAll(sub_sub)\n    all=all.withColumn(\"site\",F.lit(site))\n    all=all.withColumn(\"date_writen\",F.lit(datetime.now().strftime(\"%Y-%m-%d\")))\n    \n    table = DeltaTable.forPath(spark,\"/warehouse/delta/shopee_data/api_category_fulllist_df\")\n    spark.conf.set(\"spark.databricks.delta.schema.autoMerge.enabled\",\"true\")\n    table.alias(\"t\").merge(all.alias(\"s\"),\"t.site=s.site and t.catid=s.catid\").whenNotMatchedInsertAll().whenMatchedUpdateAll().execute()\n    \n\nfor site in ['shopee.sg','shopee.com.br','shopee.co.th','shopee.com.my','shopee.co.id','shopee.vn','shopee.ph']:\n    fetch_full_category_list(site)",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03T13:21:09+0800",
-      "progress": 31,
+      "dateUpdated": "2022-03-03T06:53:59+0000",
+      "progress": 75,
       "config": {
         "editorSetting": {
           "language": "python",
@@ -188,7 +149,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "URL: https://shopee.sg/api/v2/category_list/get_all\n/warehouse/delta/shopee_data/api_category_fulllist_df does not exist\nURL: https://shopee.com.br/api/v2/category_list/get_all\nURL: https://shopee.co.th/api/v2/category_list/get_all\nURL: https://shopee.com.my/api/v2/category_list/get_all\nURL: https://shopee.co.id/api/v2/category_list/get_all\nURL: https://shopee.vn/api/v2/category_list/get_all\nURL: https://shopee.ph/api/v2/category_list/get_all\n"
+            "data": "URL: https://shopee.sg/api/v2/category_list/get_all\nURL: https://shopee.com.br/api/v2/category_list/get_all\nURL: https://shopee.co.th/api/v2/category_list/get_all\nURL: https://shopee.com.my/api/v2/category_list/get_all\nURL: https://shopee.co.id/api/v2/category_list/get_all\nURL: https://shopee.vn/api/v2/category_list/get_all\nURL: https://shopee.ph/api/v2/category_list/get_all\n"
           }
         ]
       },
@@ -201,140 +162,148 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=0",
-              "$$hashKey": "object:5166"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1782",
+              "$$hashKey": "object:2052869"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=1",
-              "$$hashKey": "object:5167"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1783",
+              "$$hashKey": "object:2052870"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=2",
-              "$$hashKey": "object:5168"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1785",
+              "$$hashKey": "object:2052871"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=3",
-              "$$hashKey": "object:5169"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1786",
+              "$$hashKey": "object:2052872"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=4",
-              "$$hashKey": "object:5170"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1787",
+              "$$hashKey": "object:2052873"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=5",
-              "$$hashKey": "object:5171"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1788",
+              "$$hashKey": "object:2052874"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=7",
-              "$$hashKey": "object:5172"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1789",
+              "$$hashKey": "object:2052875"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=8",
-              "$$hashKey": "object:5173"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1791",
+              "$$hashKey": "object:2052876"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=9",
-              "$$hashKey": "object:5174"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1792",
+              "$$hashKey": "object:2052877"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=10",
-              "$$hashKey": "object:5175"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1793",
+              "$$hashKey": "object:2052878"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=11",
-              "$$hashKey": "object:5176"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1794",
+              "$$hashKey": "object:2052879"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=13",
-              "$$hashKey": "object:5177"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1795",
+              "$$hashKey": "object:2052880"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=14",
-              "$$hashKey": "object:5178"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1797",
+              "$$hashKey": "object:2052881"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=15",
-              "$$hashKey": "object:5179"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1798",
+              "$$hashKey": "object:2052882"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=16",
-              "$$hashKey": "object:5180"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1799",
+              "$$hashKey": "object:2052883"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=17",
-              "$$hashKey": "object:5181"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1800",
+              "$$hashKey": "object:2052884"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=19",
-              "$$hashKey": "object:5182"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1801",
+              "$$hashKey": "object:2052885"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=20",
-              "$$hashKey": "object:5183"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1803",
+              "$$hashKey": "object:2052886"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=21",
-              "$$hashKey": "object:5184"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1804",
+              "$$hashKey": "object:2052887"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=22",
-              "$$hashKey": "object:5185"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1805",
+              "$$hashKey": "object:2052888"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=23",
-              "$$hashKey": "object:5186"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1806",
+              "$$hashKey": "object:2052889"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=25",
-              "$$hashKey": "object:5187"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1807",
+              "$$hashKey": "object:2052890"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=26",
-              "$$hashKey": "object:5188"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1809",
+              "$$hashKey": "object:2052891"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=27",
-              "$$hashKey": "object:5189"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1810",
+              "$$hashKey": "object:2052892"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=28",
-              "$$hashKey": "object:5190"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1811",
+              "$$hashKey": "object:2052893"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=29",
-              "$$hashKey": "object:5191"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1812",
+              "$$hashKey": "object:2052894"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=31",
-              "$$hashKey": "object:5192"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1813",
+              "$$hashKey": "object:2052895"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=32",
-              "$$hashKey": "object:5193"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1815",
+              "$$hashKey": "object:2052896"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=33",
-              "$$hashKey": "object:5194"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1816",
+              "$$hashKey": "object:2052897"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=34",
-              "$$hashKey": "object:5195"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1817",
+              "$$hashKey": "object:2052898"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=35",
-              "$$hashKey": "object:5196"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1818",
+              "$$hashKey": "object:2052899"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=37",
-              "$$hashKey": "object:5197"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1819",
+              "$$hashKey": "object:2052900"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=38",
-              "$$hashKey": "object:5198"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1820",
+              "$$hashKey": "object:2052901"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=39",
-              "$$hashKey": "object:5199"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1822",
+              "$$hashKey": "object:2052902"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1823",
+              "$$hashKey": "object:2052903"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1824",
+              "$$hashKey": "object:2052904"
             }
           ],
           "interpreterSettingId": "spark"
@@ -343,17 +312,17 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645693723679_1978784146",
       "id": "paragraph_1645688105092_969823798",
-      "dateCreated": "2022-02-24T17:08:43+0800",
-      "dateStarted": "2022-03-03T13:21:09+0800",
-      "dateFinished": "2022-03-03T13:22:19+0800",
+      "dateCreated": "2022-02-24T09:08:43+0000",
+      "dateStarted": "2022-03-03T06:53:59+0000",
+      "dateFinished": "2022-03-03T06:55:07+0000",
       "status": "FINISHED",
-      "$$hashKey": "object:4737"
+      "$$hashKey": "object:2052393"
     },
     {
       "text": "%pyspark\n\nsql=\"\"\"\nselect site,upper(substring(site,-2,2)) as country,name,cat_level,image,catid,parent_category as parent_catid,case when cat_level=1 then name\n    when cat_level=2 then b_name ||\" > \"||name\n    when cat_level=3 then c_name ||\" > \"||b_name ||\" > \"||name end as cat_path\nfrom(\n    select a.site,a.cat_level,a.name,a.catid,b.name as b_name,c.name as c_name,a.image,a.parent_category\n    from delta.`/warehouse/delta/shopee_data/api_category_fulllist_df` a\n    left join delta.`/warehouse/delta/shopee_data/api_category_fulllist_df` b on a.site=b.site and a.parent_category=b.catid\n    left join delta.`/warehouse/delta/shopee_data/api_category_fulllist_df` c on c.site=b.site and b.parent_category=c.catid\n)t\"\"\"\n\nall_cat=spark.sql(sql)\nall_cat.write.mode(\"overwrite\").format(\"delta\").save(\"/warehouse/delta/shopee_data/api_category_path_fulllist_df\")",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03T13:38:31+0800",
-      "progress": 100,
+      "dateUpdated": "2022-03-03T06:55:12+0000",
+      "progress": 62,
       "config": {
         "editorSetting": {
           "language": "python",
@@ -456,20 +425,46 @@
         "msg": []
       },
       "apps": [],
-      "runtimeInfos": {},
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1829",
+              "$$hashKey": "object:2053092"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1830",
+              "$$hashKey": "object:2053093"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1831",
+              "$$hashKey": "object:2053094"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1832",
+              "$$hashKey": "object:2053095"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645693723679_1767647752",
       "id": "paragraph_1645691991018_1944379792",
-      "dateCreated": "2022-02-24T17:08:43+0800",
-      "dateStarted": "2022-03-03T13:38:31+0800",
-      "dateFinished": "2022-03-03T13:38:35+0800",
+      "dateCreated": "2022-02-24T09:08:43+0000",
+      "dateStarted": "2022-03-03T06:55:12+0000",
+      "dateFinished": "2022-03-03T06:55:19+0000",
       "status": "FINISHED",
-      "$$hashKey": "object:4738"
+      "$$hashKey": "object:2052394"
     },
     {
-      "text": "%sql\n\nSELECT site,country,count(0) from delta.`/warehouse/delta/shopee_data/api_category_path_fulllist_df` group by site,country",
+      "text": "%sql\n\nselect count(1),country \nfrom delta.`/warehouse/delta/shopee_data/api_category_path_fulllist_df` group by country\n",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03T13:38:42+0800",
+      "dateUpdated": "2022-03-03T06:55:19+0000",
       "progress": 0,
       "config": {
         "colWidth": 12,
@@ -486,9 +481,8 @@
                   "tableGridState": {},
                   "tableColumnTypeState": {
                     "names": {
-                      "site": "string",
-                      "country": "string",
-                      "count(0)": "string"
+                      "count(1)": "string",
+                      "country": "string"
                     },
                     "updated": false
                   },
@@ -523,7 +517,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "site\tcountry\tcount(0)\nshopee.com.br\tBR\t1388\nshopee.ph\tPH\t1556\nshopee.sg\tSG\t1663\nshopee.vn\tVN\t1684\nshopee.co.th\tTH\t1592\nshopee.co.id\tID\t2035\nshopee.com.my\tMY\t1667\n"
+            "data": "count(1)\tcountry\n2035\tID\n1388\tBR\n1667\tMY\n1663\tSG\n1556\tPH\n1592\tTH\n1684\tVN\n"
           }
         ]
       },
@@ -536,28 +530,28 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=76",
-              "$$hashKey": "object:5471"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1833",
+              "$$hashKey": "object:2053205"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=77",
-              "$$hashKey": "object:5472"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1834",
+              "$$hashKey": "object:2053206"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=78",
-              "$$hashKey": "object:5473"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1835",
+              "$$hashKey": "object:2053207"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=79",
-              "$$hashKey": "object:5474"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1836",
+              "$$hashKey": "object:2053208"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=80",
-              "$$hashKey": "object:5475"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1837",
+              "$$hashKey": "object:2053209"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id=81",
-              "$$hashKey": "object:5476"
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1838",
+              "$$hashKey": "object:2053210"
             }
           ],
           "interpreterSettingId": "spark"
@@ -566,16 +560,157 @@
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1645693723679_1108346120",
       "id": "paragraph_1645692670135_124655478",
-      "dateCreated": "2022-02-24T17:08:43+0800",
-      "dateStarted": "2022-03-03T13:38:42+0800",
-      "dateFinished": "2022-03-03T13:38:43+0800",
+      "dateCreated": "2022-02-24T09:08:43+0000",
+      "dateStarted": "2022-03-03T06:55:19+0000",
+      "dateFinished": "2022-03-03T06:55:20+0000",
       "status": "FINISHED",
-      "$$hashKey": "object:4739"
+      "$$hashKey": "object:2052395"
     },
     {
-      "text": "%sql\n",
+      "text": "%md \n\n## 写入到数据库",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03T13:25:40+0800",
+      "dateUpdated": "2022-03-03T06:43:58+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h2>写入到数据库</h2>\n\n</div>"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646289777445_848789890",
+      "id": "paragraph_1646289777445_848789890",
+      "dateCreated": "2022-03-03T06:42:57+0000",
+      "dateStarted": "2022-03-03T06:43:58+0000",
+      "dateFinished": "2022-03-03T06:44:01+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2052396"
+    },
+    {
+      "text": "%pyspark\n\ndef insert_batch(insert_sql):\n    conn = psycopg2.connect(database=\"warehouse\", user='postgres', \\\n                            password='postgres-local', host='172.16.38.180', port= '5432')\n    cursor = conn.cursor()\n    cursor.execute(insert_sql)\n    conn.commit()\n    conn.close()\n\ndef remove_quote_from_dic_batch(dic, col_names=[\"item_name\"]):\n    if dic is None:\n        return dic\n    for col in col_names:\n        try:\n            dic=remove_quote_from_dic(dic,col)\n        except:\n            print(dic, col)\n    return dic\n    \ndef to_int_field(dic,fields=[\"catid\",'view_count','liked_count']):\n    for field in fields:\n        if field in dic:\n            if dic[field] is None:\n                dic[field]=0\n            else:\n                dic[field]=int(dic[field])\n    return dic\n    \n    \ndef remove_quote_from_dic(dic, col_name=\"item_name\"):\n    if dic is None:\n        return dic\n    if col_name in dic and dic[col_name] is not None and \"'\" in dic[col_name]:\n        dic[col_name]=dic[col_name].replace(\"'\",\"''\")\n    return dic\n\ndef insert_for_df(df,insert_sql_tpl=item_insert_sql_tpl,value_tpl=item_value_tpl):\n    values_list=[]\n    for index,row in df.iterrows():\n        dic=row.to_dict()\n        dic=to_int_field(dic)\n        dic=remove_quote_from_dic_batch(dic,['item_name','cat_path','name','brand'])\n\n        values_list.append(value_tpl.format(**dic))\n        if len(values_list) >=2000:\n            print(\"about to insert 2000 rows...\")\n            insert_batch(insert_sql_tpl.format(values=\",\".join(values_list)))\n            values_list=[]\n\n    if len(values_list)>0:\n        print(\"about to insert final batch rows:\", len(values_list))\n        insert_batch(insert_sql_tpl.format(values=\",\".join(values_list)))\n        values_list=[]\n\n    print(\"done\")",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-03T06:55:27+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646290141246_1575339311",
+      "id": "paragraph_1646290141246_1575339311",
+      "dateCreated": "2022-03-03T06:49:01+0000",
+      "dateStarted": "2022-03-03T06:55:27+0000",
+      "dateFinished": "2022-03-03T06:55:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2052397"
+    },
+    {
+      "text": "%pyspark\n\nimport psycopg2\n\nitem_insert_sql_tpl=\"\"\"\ninsert into shopee_cate_trees(country,cat_path,image,catid,parent_catid)\nvalues {values}\nON CONFLICT (cat_path,country) DO NOTHING;\n\"\"\"\n\nitem_value_tpl=\"\"\"('{country}','{cat_path}','{image}','{catid}','{parent_catid}')\"\"\"\n\ncat_tree=spark.sql(\"select country,cat_path,image,catid,parent_catid from delta.`/warehouse/delta/shopee_data/api_category_path_fulllist_df`\").toPandas().fillna(0)\ninsert_for_df(cat_tree,item_insert_sql_tpl,item_value_tpl)",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-03T06:55:31+0000",
+      "progress": 100,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "about to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert final batch rows: 1585\ndone\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1839",
+              "$$hashKey": "object:2053376"
+            },
+            {
+              "jobUrl": "http://03137f6da6eb:4040/jobs/job?id=1840",
+              "$$hashKey": "object:2053377"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646289838988_440851220",
+      "id": "paragraph_1646289838988_440851220",
+      "dateCreated": "2022-03-03T06:43:58+0000",
+      "dateStarted": "2022-03-03T06:55:31+0000",
+      "dateFinished": "2022-03-03T06:55:40+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:2052398"
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-03T06:44:45+0000",
       "progress": 0,
       "config": {
         "colWidth": 12,
@@ -583,12 +718,12 @@
         "enabled": true,
         "results": {},
         "editorSetting": {
-          "language": "sql",
+          "language": "python",
           "editOnDblClick": false,
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "editorMode": "ace/mode/sql"
+        "editorMode": "ace/mode/python"
       },
       "settings": {
         "params": {},
@@ -597,11 +732,11 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1646285140387_1910500676",
-      "id": "paragraph_1646285140387_1910500676",
-      "dateCreated": "2022-03-03T13:25:40+0800",
+      "jobName": "paragraph_1646289885864_244485761",
+      "id": "paragraph_1646289885864_244485761",
+      "dateCreated": "2022-03-03T06:44:45+0000",
       "status": "READY",
-      "$$hashKey": "object:4740"
+      "$$hashKey": "object:2052399"
     }
   ],
   "name": "shopee_front_category_fetch",
@@ -619,5 +754,5 @@
     "cronExecutingRoles": ""
   },
   "info": {},
-  "path": "/shopee_front_category_fetch"
+  "path": "/spark/shopee_front_category_fetch"
 }

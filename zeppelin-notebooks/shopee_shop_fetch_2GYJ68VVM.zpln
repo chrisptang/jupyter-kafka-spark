@@ -116,7 +116,7 @@
     {
       "text": "%pyspark\n\nfrom os import walk\nimport re\nfrom datetime import datetime\nfrom datetime import timedelta\nfrom delta.tables import *\nimport pytz\nimport delta.tables\nimport pyspark.sql.functions as F\nfrom pyspark.sql.types import MapType,StringType,ArrayType\n\nnew_shops_df\u003dspark.sql(\"\"\"\nselect a.shopid,a.site\nfrom\n(select shopid,site,count(0) cnt \nfrom delta.`/warehouse/delta/shopee_data/api_search_item_shop_data_df`\ngroup by shopid,site)a\nleft join delta.`/warehouse/delta/shopee_data/api_shop_info` s on a.shopid\u003ds.shopid\nwhere s.name is null\n\"\"\")\nprint(new_shops_df.count())\ndf\u003dnew_shops_df.toPandas()",
       "user": "anonymous",
-      "dateUpdated": "2022-03-04 14:49:15.910",
+      "dateUpdated": "2022-03-04 16:16:11.528",
       "progress": 3,
       "config": {
         "editorSetting": {
@@ -136,50 +136,28 @@
         "forms": {}
       },
       "results": {
-        "code": "SUCCESS",
+        "code": "ERROR",
         "msg": [
           {
             "type": "TEXT",
-            "data": "21\n"
+            "data": "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m\n\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)\n\u001b[0;32m/tmp/ipykernel_3852/3303290636.py\u001b[0m in \u001b[0;36m\u003cmodule\u003e\u001b[0;34m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mdatetime\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mdatetime\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mdatetime\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mtimedelta\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----\u003e 5\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0mdelta\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtables\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0;34m*\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      6\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mpytz\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      7\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mdelta\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtables\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\n\u001b[0;31mModuleNotFoundError\u001b[0m: No module named \u0027delta\u0027"
           }
         ]
       },
       "apps": [],
-      "runtimeInfos": {
-        "jobUrl": {
-          "propertyName": "jobUrl",
-          "label": "SPARK JOB",
-          "tooltip": "View in Spark web UI",
-          "group": "spark",
-          "values": [
-            {
-              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d12"
-            },
-            {
-              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d13"
-            },
-            {
-              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d16"
-            },
-            {
-              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d17"
-            }
-          ],
-          "interpreterSettingId": "spark"
-        }
-      },
+      "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1646218462874_1587968162",
       "id": "paragraph_1646218462874_1587968162",
       "dateCreated": "2022-03-02 18:54:22.000",
-      "dateStarted": "2022-03-04 14:49:15.932",
-      "dateFinished": "2022-03-04 14:49:24.297",
-      "status": "FINISHED"
+      "dateStarted": "2022-03-04 16:16:11.533",
+      "dateFinished": "2022-03-04 16:16:11.831",
+      "status": "ERROR"
     },
     {
-      "text": "%pyspark\nimport requests\nimport random\nfrom os import path\n\nshop_api_tpl\u003d\"https://{site}/api/v4/product/get_shop_info?shopid\u003d{shopid}\"\nspark.conf.set(\"spark.databricks.delta.schema.autoMerge.enabled\",\"true\")\n\ndef merge_or_create_table(df, table_path\u003d\"/warehouse/delta/shopee_data/api_shop_info\", condition\u003d\u0027t.shopid\u003ds.shopid\u0027):\n    if not path.isdir(table_path):\n        df.write.format(\"delta\").save(table_path)\n        return \"created\"\n    else:\n        table \u003d DeltaTable.forPath(spark, \"/warehouse/delta/shopee_data/api_shop_info\")\n        table.alias(\"t\").merge(df.alias(\"s\"), condition).whenMatchedUpdateAll().whenNotMatchedInsertAll().execute()\n        return \"merged\"\n\ndef fetch_single_shop(site,shopid):\n    url\u003dshop_api_tpl.format(shopid\u003dshopid, site\u003dsite)\n    json\u003drequests.get(url).text\n    shop_df\u003dspark.read.json(sc.parallelize([json])).select(\"data.*\")\n    if random.randint(0, 20) \u003d\u003d 1:\n        print(\"fetching:\",url)\n    shop_df\u003dshop_df.withColumn(\"site\",F.lit(site))\n    merge_or_create_table(shop_df)\n\n    \nfor index, row in df.iterrows():\n    try:\n        fetch_single_shop(site\u003drow[\u0027site\u0027],shopid\u003drow[\u0027shopid\u0027])\n    except Exception as e:\n        print(\"unable to fetch shop:\", row, \"error:\", e)",
+      "text": "%pyspark\nimport requests\nimport random\nfrom os import path\n\nshop_api_tpl\u003d\"https://{site}/api/v4/product/get_shop_info?shopid\u003d{shopid}\"\nspark.conf.set(\"spark.databricks.delta.schema.autoMerge.enabled\",\"true\")\n\ndef merge_or_create_table(df, table_path\u003d\"/warehouse/delta/shopee_data/api_shop_info\", condition\u003d\u0027t.shopid\u003ds.shopid\u0027):\n    if not path.isdir(table_path):\n        df.write.format(\"delta\").save(table_path)\n        return \"created\"\n    else:\n        table \u003d DeltaTable.forPath(spark, \"/warehouse/delta/shopee_data/api_shop_info\")\n        table.alias(\"t\").merge(df.alias(\"s\"), condition).whenMatchedUpdateAll().whenNotMatchedInsertAll().execute()\n        return \"merged\"\n\ndef fetch_single_shop(site,shopid):\n    url\u003dshop_api_tpl.format(shopid\u003dshopid, site\u003dsite)\n    json\u003drequests.get(url).text\n    shop_df\u003dspark.read.json(sc.parallelize([json])).select(\"data.*\")\n    if random.randint(0, 20) \u003d\u003d 1:\n        print(\"fetching:\",url)\n    shop_df\u003dshop_df.withColumn(\"site\",F.lit(site))\n    shop_df\u003dshop_df.withColumn(\"session_info\",F.lit(\u0027-\u0027))\n    shop_df\u003dshop_df.withColumn(\"session_infos\",F.lit(\u0027-\u0027))\n    merge_or_create_table(shop_df)\n\n    \nfor index, row in df.iterrows():\n    try:\n        fetch_single_shop(site\u003drow[\u0027site\u0027],shopid\u003drow[\u0027shopid\u0027])\n    except Exception as e:\n        print(\"unable to fetch shop:\", row, \"error:\", e)",
       "user": "anonymous",
-      "dateUpdated": "2022-03-04 14:49:29.429",
+      "dateUpdated": "2022-03-04 16:16:05.443",
       "progress": 96,
       "config": {
         "editorSetting": {

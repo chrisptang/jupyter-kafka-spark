@@ -24,6 +24,8 @@ services:
       - ./log-received:/log-received
       - ./zeppelin-logs:/logs
       - ./zeppelin-warehouse:/warehouse
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 8280:8280
       - 47077:47077
@@ -50,6 +52,9 @@ services:
       - TZ=Asia/Shanghai
     links:
       - "db-postgres:db-postgres"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - "8088:8088"
 
@@ -70,6 +75,8 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - ./log-received:/data/logs/received
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     depends_on: 
       - db-postgres
     ports:
@@ -83,6 +90,9 @@ services:
       - TASK_SOURCE=database
       - JOB_SCHEDULE=5 0 * * *
       - TZ=Asia/Shanghai
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     depends_on:
       - sourcing-search
       - db-postgres

@@ -39,14 +39,14 @@
       "jobName": "paragraph_1645700611080_937861716",
       "id": "paragraph_1645700611080_937861716",
       "dateCreated": "2022-02-24 19:03:31.000",
-      "dateStarted": "2022-02-27 08:50:00.000",
-      "dateFinished": "2022-02-27 08:50:02.000",
+      "dateStarted": "2022-03-04 00:50:00.009",
+      "dateFinished": "2022-03-04 00:50:02.548",
       "status": "FINISHED"
     },
     {
       "text": "%sh\n\necho \"running at:`date`\"\nls /warehouse/delta/shopee_data/",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03 16:27:47.579",
+      "dateUpdated": "2022-03-04 10:52:48.782",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -70,7 +70,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "running at:Thu 03 Mar 2022 08:27:47 AM Asia\napi_category_fulllist_df\napi_category_path_fulllist_df\napi_search_item_raw_data_da\n"
+            "data": "running at:Fri 04 Mar 2022 02:52:48 AM Asia\napi_category_fulllist_df\napi_category_path_fulllist_df\napi_search_item_cat_data_df\napi_search_item_normalized_data_df\napi_search_item_raw_data_da\napi_search_item_shop_data_df\napi_shop_info\n"
           }
         ]
       },
@@ -80,8 +80,8 @@
       "jobName": "paragraph_1645681912069_266844619",
       "id": "paragraph_1645681912069_266844619",
       "dateCreated": "2022-02-24 13:51:52.000",
-      "dateStarted": "2022-03-03 16:27:47.583",
-      "dateFinished": "2022-03-03 16:27:47.596",
+      "dateStarted": "2022-03-04 10:52:48.792",
+      "dateFinished": "2022-03-04 10:52:48.809",
       "status": "FINISHED"
     },
     {
@@ -118,8 +118,8 @@
       "jobName": "paragraph_1645765653823_357355571",
       "id": "paragraph_1645765653823_357355571",
       "dateCreated": "2022-02-25 13:07:33.000",
-      "dateStarted": "2022-03-03 16:42:31.653",
-      "dateFinished": "2022-03-03 16:42:31.658",
+      "dateStarted": "2022-03-04 00:50:04.718",
+      "dateFinished": "2022-03-04 00:50:04.722",
       "status": "FINISHED"
     },
     {
@@ -154,8 +154,8 @@
       "jobName": "paragraph_1645682467488_340920473",
       "id": "paragraph_1645682467488_340920473",
       "dateCreated": "2022-02-24 14:01:07.000",
-      "dateStarted": "2022-03-03 16:42:35.189",
-      "dateFinished": "2022-03-03 16:42:52.383",
+      "dateStarted": "2022-03-04 00:50:04.819",
+      "dateFinished": "2022-03-04 00:50:23.520",
       "status": "FINISHED"
     },
     {
@@ -249,7 +249,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "merge or create table: /warehouse/delta/shopee_data/api_search_item_normalized_data_df\n\u0027created\u0027"
+            "data": "ANTLR Tool version 4.7 used for code generation does not match the current runtime version 4.8ANTLR Tool version 4.7 used for code generation does not match the current runtime version 4.8merge or create table: /warehouse/delta/shopee_data/api_search_item_normalized_data_df\n\u0027merged\u0027"
           }
         ]
       },
@@ -262,16 +262,31 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d102"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d0"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d105"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d1"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d106"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d2"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d107"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d3"
+            },
+            {
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d7"
+            },
+            {
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d8"
+            },
+            {
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d11"
+            },
+            {
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d12"
+            },
+            {
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d13"
             }
           ],
           "interpreterSettingId": "spark"
@@ -281,8 +296,8 @@
       "jobName": "paragraph_1645681926541_250684976",
       "id": "paragraph_1645681926541_250684976",
       "dateCreated": "2022-02-24 13:52:06.000",
-      "dateStarted": "2022-03-03 16:34:06.895",
-      "dateFinished": "2022-03-03 16:34:14.533",
+      "dateStarted": "2022-03-04 00:50:23.539",
+      "dateFinished": "2022-03-04 00:50:59.642",
       "status": "FINISHED"
     },
     {
@@ -483,16 +498,19 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d123"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d14"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d124"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d15"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d125"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d16"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d126"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d17"
+            },
+            {
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d18"
             }
           ],
           "interpreterSettingId": "spark"
@@ -502,8 +520,8 @@
       "jobName": "paragraph_1645682364975_1735703272",
       "id": "paragraph_1645682364975_1735703272",
       "dateCreated": "2022-02-24 13:59:24.000",
-      "dateStarted": "2022-03-03 16:38:45.357",
-      "dateFinished": "2022-03-03 16:38:49.105",
+      "dateStarted": "2022-03-04 00:50:59.722",
+      "dateFinished": "2022-03-04 00:51:06.890",
       "status": "FINISHED"
     },
     {
@@ -576,22 +594,25 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d132"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d19"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d136"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d20"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d137"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d24"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d140"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d25"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d141"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d28"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d142"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d29"
+            },
+            {
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d30"
             }
           ],
           "interpreterSettingId": "spark"
@@ -601,8 +622,8 @@
       "jobName": "paragraph_1645685740211_802479778",
       "id": "paragraph_1645685740211_802479778",
       "dateCreated": "2022-02-24 14:55:40.000",
-      "dateStarted": "2022-03-03 16:39:15.933",
-      "dateFinished": "2022-03-03 16:39:26.281",
+      "dateStarted": "2022-03-04 00:51:06.957",
+      "dateFinished": "2022-03-04 00:51:21.083",
       "status": "FINISHED"
     },
     {
@@ -908,7 +929,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "day\tsite\tcat_path\tcatid\titem_num\tshop_num\tsold_14d\tgmv_min_14d_cny\tp50_price_max_cny\n2022-03-03\tshopee.co.th\tFashion Accessories \u003e Others\t11045028\t1329\t634\t578616\t6504.92\t0.01\n2022-03-03\tshopee.co.th\tFashion Accessories \u003e Rings\t11045141\t1460\t444\t108399\t6566.09\t0.01\n2022-03-03\tshopee.co.th\tFashion Accessories \u003e Necklaces\t11045143\t1317\t393\t180301\t6808.17\t0.01\n2022-03-03\tshopee.co.th\tFashion Accessories \u003e Additional accessories\t11045151\t1520\t442\t74256\t4776.76\t0.01\n2022-03-03\tshopee.co.th\tFashion Accessories \u003e Hair Accessories\t11045152\t1381\t434\t1406875\t3809.25\t0.01\n2022-03-03\tshopee.co.th\tFashion Accessories \u003e Anklets\t11045155\t1200\t475\t5711\t169.53\t0.01\n2022-03-03\tshopee.co.th\tFashion Accessories \u003e Bangles\t11045156\t1360\t484\t150225\t9811.14\t0.02\n"
+            "data": "day\tsite\tcat_path\tcatid\titem_num\tshop_num\tsold_14d\tgmv_min_14d_cny\tp50_price_max_cny\n2022-03-03\tshopee.co.th\tFashion Accessories \u003e Others\t11045028\t1341\t640\t580181\t6597.37\t0.01\n2022-03-03\tshopee.co.th\tFashion Accessories \u003e Rings\t11045141\t1464\t446\t108525\t6562.15\t0.01\n2022-03-03\tshopee.co.th\tFashion Accessories \u003e Necklaces\t11045143\t1320\t394\t180503\t6797.66\t0.01\n2022-03-03\tshopee.co.th\tFashion Accessories \u003e Additional accessories\t11045151\t1541\t447\t75295\t4811.7\t0.01\n2022-03-03\tshopee.co.th\tFashion Accessories \u003e Hair Accessories\t11045152\t1387\t437\t1413574\t3859.38\t0.01\n2022-03-03\tshopee.co.th\tFashion Accessories \u003e Anklets\t11045155\t1203\t477\t5715\t170.49\t0.01\n2022-03-03\tshopee.co.th\tFashion Accessories \u003e Bangles\t11045156\t1362\t486\t150288\t9812.46\t0.02\n"
           }
         ]
       },
@@ -921,10 +942,10 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d145"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d31"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d146"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d32"
             }
           ],
           "interpreterSettingId": "spark"
@@ -934,8 +955,8 @@
       "jobName": "paragraph_1645765812191_508695117",
       "id": "paragraph_1645765812191_508695117",
       "dateCreated": "2022-02-25 13:10:12.000",
-      "dateStarted": "2022-03-03 16:39:50.872",
-      "dateFinished": "2022-03-03 16:39:51.089",
+      "dateStarted": "2022-03-04 00:51:21.178",
+      "dateFinished": "2022-03-04 00:51:21.870",
       "status": "FINISHED"
     },
     {
@@ -1011,7 +1032,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "day\tsite\tshopid\tshop_location\tcurrency\titem_num\tsold_14d\thistorical_sold\tview_count\tliked_count\tgmv_min_14d\tgmv_max_historical\tgmv_min_14d_cny\tgmv_max_historical_cny\tavg_price_min\tavg_price_max\tavg_price_min_cny\tavg_price_max_cny\tdate_writen\n2022-03-03\tshopee.co.th\t13307\tจังหวัดกรุงเทพมหานคร\tTHB\t1\t26\t25\t3024\t178\t7540.0\t7540.0\t3.32\t3.32\t290.0\t290.0\t0.13\t0.13\t2022-03-03\n2022-03-03\tshopee.co.th\t18738\tจังหวัดกรุงเทพมหานคร\tTHB\t33\t1493\t10020\t11767\t3653\t46922.0\t79702.0\t20.65\t35.07\t50.12\t87.39\t0.02\t0.04\t2022-03-03\n2022-03-03\tshopee.co.th\t20856\tจังหวัดกรุงเทพมหานคร\tTHB\t1\t20\t609\t776\t353\t1980.0\t3180.0\t0.87\t1.4\t99.0\t159.0\t0.04\t0.07\t2022-03-03\n2022-03-03\tshopee.co.th\t30884\tจังหวัดชลบุรี\tTHB\t1\t87\t157\t5041\t356\t14616.0\t14616.0\t6.43\t6.43\t168.0\t168.0\t0.07\t0.07\t2022-03-03\n2022-03-03\tshopee.co.th\t35574\tจังหวัดเชียงราย\tTHB\t21\t9\t278\t939\t464\t1437.0\t1437.0\t0.63\t0.63\t174.0\t174.0\t0.08\t0.08\t2022-03-03\n"
+            "data": "day\tsite\tshopid\tshop_location\tcurrency\titem_num\tsold_14d\thistorical_sold\tview_count\tliked_count\tgmv_min_14d\tgmv_max_historical\tgmv_min_14d_cny\tgmv_max_historical_cny\tavg_price_min\tavg_price_max\tavg_price_min_cny\tavg_price_max_cny\tdate_writen\n2022-03-03\tshopee.co.th\t13307\tจังหวัดกรุงเทพมหานคร\tTHB\t1\t26\t26\t3090\t181\t7540.0\t7540.0\t3.32\t3.32\t290.0\t290.0\t0.13\t0.13\t2022-03-04\n2022-03-03\tshopee.co.th\t18738\tจังหวัดกรุงเทพมหานคร\tTHB\t34\t1508\t10080\t12047\t3687\t47691.0\t83272.0\t20.98\t36.64\t50.56\t91.82\t0.02\t0.04\t2022-03-04\n2022-03-03\tshopee.co.th\t20856\tจังหวัดกรุงเทพมหานคร\tTHB\t1\t20\t609\t776\t353\t1980.0\t3180.0\t0.87\t1.4\t99.0\t159.0\t0.04\t0.07\t2022-03-04\n2022-03-03\tshopee.co.th\t30884\tจังหวัดชลบุรี\tTHB\t1\t87\t158\t5129\t359\t14616.0\t14616.0\t6.43\t6.43\t168.0\t168.0\t0.07\t0.07\t2022-03-04\n2022-03-03\tshopee.co.th\t35574\tจังหวัดเชียงราย\tTHB\t21\t9\t278\t953\t464\t1437.0\t1437.0\t0.63\t0.63\t174.0\t174.0\t0.08\t0.08\t2022-03-04\n"
           }
         ]
       },
@@ -1024,10 +1045,10 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d8"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d33"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d9"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d34"
             }
           ],
           "interpreterSettingId": "spark"
@@ -1037,8 +1058,8 @@
       "jobName": "paragraph_1645687772993_254409404",
       "id": "paragraph_1645687772993_254409404",
       "dateCreated": "2022-02-24 15:29:32.000",
-      "dateStarted": "2022-03-03 16:48:40.479",
-      "dateFinished": "2022-03-03 16:48:41.510",
+      "dateStarted": "2022-03-04 00:51:21.960",
+      "dateFinished": "2022-03-04 00:51:22.527",
       "status": "FINISHED"
     },
     {
@@ -1080,8 +1101,8 @@
       "jobName": "paragraph_1645700685739_1293469706",
       "id": "paragraph_1645700685739_1293469706",
       "dateCreated": "2022-02-24 19:04:45.000",
-      "dateStarted": "2022-02-27 08:52:06.000",
-      "dateFinished": "2022-02-27 08:52:06.000",
+      "dateStarted": "2022-03-04 00:51:22.565",
+      "dateFinished": "2022-03-04 00:51:22.577",
       "status": "FINISHED"
     },
     {
@@ -1118,8 +1139,8 @@
       "jobName": "paragraph_1645769579408_1233337171",
       "id": "paragraph_1645769579408_1233337171",
       "dateCreated": "2022-02-25 14:12:59.000",
-      "dateStarted": "2022-03-03 16:53:42.053",
-      "dateFinished": "2022-03-03 16:53:42.267",
+      "dateStarted": "2022-03-04 00:51:22.663",
+      "dateFinished": "2022-03-04 00:51:22.878",
       "status": "FINISHED"
     },
     {
@@ -1181,7 +1202,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "about to insert final batch rows: 7\ndone\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert final batch rows: 8\ndone\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert final batch rows: 7\ndone\ndone with day: 2022-03-03\ndone\ndone\ndone\ndone with day: 2022-03-02\ndone\ndone\ndone\ndone with day: 2022-03-01\n"
+            "data": "about to insert final batch rows: 7\ndone\nabout to insert 2000 rows...\nabout to insert final batch rows: 346\ndone\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert 2000 rows...\nabout to insert final batch rows: 1618\ndone\ndone with day: 2022-03-03\ndone\ndone\ndone\ndone with day: 2022-03-02\ndone\ndone\ndone\ndone with day: 2022-03-01\n"
           }
         ]
       },
@@ -1194,58 +1215,58 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d33"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d35"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d34"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d36"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d35"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d37"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d36"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d38"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d37"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d39"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d38"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d40"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d39"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d41"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d40"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d42"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d41"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d43"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d42"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d44"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d43"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d45"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d44"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d46"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d45"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d47"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d46"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d48"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d47"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d49"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d48"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d50"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d49"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d51"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d50"
+              "jobUrl": "http://954e81287f5f:4041/jobs/job?id\u003d52"
             }
           ],
           "interpreterSettingId": "spark"
@@ -1255,8 +1276,8 @@
       "jobName": "paragraph_1645692670135_124655478",
       "id": "paragraph_1645692670135_124655478",
       "dateCreated": "2022-02-24 16:51:10.000",
-      "dateStarted": "2022-03-03 16:53:23.148",
-      "dateFinished": "2022-03-03 16:53:32.098",
+      "dateStarted": "2022-03-04 00:51:22.962",
+      "dateFinished": "2022-03-04 00:51:30.023",
       "status": "FINISHED"
     },
     {
@@ -1291,8 +1312,8 @@
       "jobName": "paragraph_1645771130797_1520740827",
       "id": "paragraph_1645771130797_1520740827",
       "dateCreated": "2022-02-25 14:38:50.000",
-      "dateStarted": "2022-02-27 08:52:21.000",
-      "dateFinished": "2022-02-27 08:52:22.000",
+      "dateStarted": "2022-03-04 00:51:30.078",
+      "dateFinished": "2022-03-04 00:51:30.293",
       "status": "FINISHED"
     }
   ],

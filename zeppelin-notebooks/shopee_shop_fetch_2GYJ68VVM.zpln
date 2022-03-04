@@ -3,7 +3,7 @@
     {
       "text": "%sh\n\nls /warehouse/delta/shopee_data/api_search_item_shop_data_df",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03 16:59:51.841",
+      "dateUpdated": "2022-03-04 15:02:56.916",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -27,7 +27,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "date_writen\u003d2022-03-03\n_delta_log\n"
+            "data": "date_writen\u003d2022-03-03\ndate_writen\u003d2022-03-04\n_delta_log\n"
           }
         ]
       },
@@ -37,14 +37,50 @@
       "jobName": "paragraph_1646218471596_1110911105",
       "id": "paragraph_1646218471596_1110911105",
       "dateCreated": "2022-03-02 18:54:31.000",
-      "dateStarted": "2022-03-03 16:59:51.844",
-      "dateFinished": "2022-03-03 16:59:51.856",
+      "dateStarted": "2022-03-04 15:02:56.920",
+      "dateFinished": "2022-03-04 15:02:56.930",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%spark.conf\n\nspark.jars.packages io.delta:delta-core_2.12:1.0.0\nspark.sql.extensions io.delta.sql.DeltaSparkSessionExtension\nspark.sql.catalog.spark_catalog org.apache.spark.sql.delta.catalog.DeltaCatalog\nspark.sql.warehouse.dir /warehouse\nzeppelin.interpreter.connect.timeout 600000\nspark.jars /opt/spark/jars/postgresql-42.3.3.jar\nspark.master local[*]",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-04 15:02:58.770",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/text",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646376384129_2067383218",
+      "id": "paragraph_1646376384129_2067383218",
+      "dateCreated": "2022-03-04 14:46:24.129",
+      "dateStarted": "2022-03-04 15:02:58.778",
+      "dateFinished": "2022-03-04 15:02:58.784",
       "status": "FINISHED"
     },
     {
       "text": "%pyspark\n\nshop_api_tpl\u003d\"https://{site}/api/v4/product/get_shop_info?shopid\u003d{shopid}\"\nspark.conf.set(\"spark.databricks.delta.schema.autoMerge.enabled\",\"true\")",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03 16:59:57.391",
+      "dateUpdated": "2022-03-04 15:03:01.705",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -73,14 +109,14 @@
       "jobName": "paragraph_1646218435528_282289601",
       "id": "paragraph_1646218435528_282289601",
       "dateCreated": "2022-03-02 18:53:55.000",
-      "dateStarted": "2022-03-03 16:59:57.395",
-      "dateFinished": "2022-03-03 16:59:57.621",
+      "dateStarted": "2022-03-04 15:03:01.710",
+      "dateFinished": "2022-03-04 15:03:17.771",
       "status": "FINISHED"
     },
     {
-      "text": "%pyspark\n\nfrom os import walk\nimport re\nfrom datetime import datetime\nfrom datetime import timedelta\nfrom delta.tables import *\nimport pytz\nimport delta.tables\nimport pyspark.sql.functions as F\nfrom pyspark.sql.types import MapType,StringType,ArrayType\n\ndf\u003dspark.table(\"delta.`/warehouse/delta/shopee_data/api_search_item_shop_data_df`\").groupBy(\"shopid\",\"site\").agg(F.count(\"day\").alias(\"cnt\"))\nprint(df.count())\ndf\u003ddf.toPandas()",
+      "text": "%pyspark\n\nfrom os import walk\nimport re\nfrom datetime import datetime\nfrom datetime import timedelta\nfrom delta.tables import *\nimport pytz\nimport delta.tables\nimport pyspark.sql.functions as F\nfrom pyspark.sql.types import MapType,StringType,ArrayType\n\nnew_shops_df\u003dspark.sql(\"\"\"\nselect a.shopid,a.site\nfrom\n(select shopid,site,count(0) cnt \nfrom delta.`/warehouse/delta/shopee_data/api_search_item_shop_data_df`\ngroup by shopid,site)a\nleft join delta.`/warehouse/delta/shopee_data/api_shop_info` s on a.shopid\u003ds.shopid\nwhere s.name is null\n\"\"\")\nprint(new_shops_df.count())\ndf\u003dnew_shops_df.toPandas()",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03 17:00:00.360",
+      "dateUpdated": "2022-03-04 14:49:15.910",
       "progress": 3,
       "config": {
         "editorSetting": {
@@ -104,7 +140,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "2327\n"
+            "data": "21\n"
           }
         ]
       },
@@ -117,16 +153,16 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d51"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d12"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d52"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d13"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d53"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d16"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d54"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d17"
             }
           ],
           "interpreterSettingId": "spark"
@@ -136,15 +172,15 @@
       "jobName": "paragraph_1646218462874_1587968162",
       "id": "paragraph_1646218462874_1587968162",
       "dateCreated": "2022-03-02 18:54:22.000",
-      "dateStarted": "2022-03-03 17:00:00.365",
-      "dateFinished": "2022-03-03 17:00:03.762",
+      "dateStarted": "2022-03-04 14:49:15.932",
+      "dateFinished": "2022-03-04 14:49:24.297",
       "status": "FINISHED"
     },
     {
-      "text": "%pyspark\nimport requests\nimport random\nfrom os import path\n\nshop_api_tpl\u003d\"https://{site}/api/v4/product/get_shop_info?shopid\u003d{shopid}\"\nspark.conf.set(\"spark.databricks.delta.schema.autoMerge.enabled\",\"true\")\n\ndef merge_or_create_table(df, table_path\u003d\"/warehouse/delta/shopee_data/api_shop_info\", condition\u003d\u0027t.shopid\u003ds.shopid\u0027):\n    if not path.isdir(table_path):\n        df.write.format(\"delta\").save(table_path)\n        return \"created\"\n    else:\n        table \u003d DeltaTable.forPath(spark, \"/warehouse/delta/shopee_data/api_shop_info\")\n        table.alias(\"t\").merge(df.alias(\"s\"), condition).whenMatchedUpdateAll().whenNotMatchedInsertAll().execute()\n        return \"merged\"\n\ndef fetch_single_shop(site,shopid):\n    url\u003dshop_api_tpl.format(shopid\u003dshopid, site\u003dsite)\n    json\u003drequests.get(url).text\n    shop_df\u003dspark.read.json(sc.parallelize([json])).select(\"data.*\")\n    if random.randint(0, 20) \u003d\u003d 1:\n        print(url)\n        shop_df.printSchema()\n    shop_df\u003dshop_df.withColumn(\"site\",F.lit(site))\n    merge_or_create_table(shop_df)\n\n    \nfor index, row in df.iterrows():\n    try:\n        fetch_single_shop(site\u003drow[\u0027site\u0027],shopid\u003drow[\u0027shopid\u0027])\n    except Exception as e:\n        print(\"unable to fetch shop:\", row, \"error:\", e)",
+      "text": "%pyspark\nimport requests\nimport random\nfrom os import path\n\nshop_api_tpl\u003d\"https://{site}/api/v4/product/get_shop_info?shopid\u003d{shopid}\"\nspark.conf.set(\"spark.databricks.delta.schema.autoMerge.enabled\",\"true\")\n\ndef merge_or_create_table(df, table_path\u003d\"/warehouse/delta/shopee_data/api_shop_info\", condition\u003d\u0027t.shopid\u003ds.shopid\u0027):\n    if not path.isdir(table_path):\n        df.write.format(\"delta\").save(table_path)\n        return \"created\"\n    else:\n        table \u003d DeltaTable.forPath(spark, \"/warehouse/delta/shopee_data/api_shop_info\")\n        table.alias(\"t\").merge(df.alias(\"s\"), condition).whenMatchedUpdateAll().whenNotMatchedInsertAll().execute()\n        return \"merged\"\n\ndef fetch_single_shop(site,shopid):\n    url\u003dshop_api_tpl.format(shopid\u003dshopid, site\u003dsite)\n    json\u003drequests.get(url).text\n    shop_df\u003dspark.read.json(sc.parallelize([json])).select(\"data.*\")\n    if random.randint(0, 20) \u003d\u003d 1:\n        print(\"fetching:\",url)\n    shop_df\u003dshop_df.withColumn(\"site\",F.lit(site))\n    merge_or_create_table(shop_df)\n\n    \nfor index, row in df.iterrows():\n    try:\n        fetch_single_shop(site\u003drow[\u0027site\u0027],shopid\u003drow[\u0027shopid\u0027])\n    except Exception as e:\n        print(\"unable to fetch shop:\", row, \"error:\", e)",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03 17:00:11.553",
-      "progress": 100,
+      "dateUpdated": "2022-03-04 14:49:29.429",
+      "progress": 96,
       "config": {
         "editorSetting": {
           "language": "python",
@@ -162,6 +198,15 @@
         "params": {},
         "forms": {}
       },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "fetching: https://shopee.co.th/api/v4/product/get_shop_info?shopid\u003d336504090\n"
+          }
+        ]
+      },
       "apps": [],
       "runtimeInfos": {
         "jobUrl": {
@@ -171,529 +216,325 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d55"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d18"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d56"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d19"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d57"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d21"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d58"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d22"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d59"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d23"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d61"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d24"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d62"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d25"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d63"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d27"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d64"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d28"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d65"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d31"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d67"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d32"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d68"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d33"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d72"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d35"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d73"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d36"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d74"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d37"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d76"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d38"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d77"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d39"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d78"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d41"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d79"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d42"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d80"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d43"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d82"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d44"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d83"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d45"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d84"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d47"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d85"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d48"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d86"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d49"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d88"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d50"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d89"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d51"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d90"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d53"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d91"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d54"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d92"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d55"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d94"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d56"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d95"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d57"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d96"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d59"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d97"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d60"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d98"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d61"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d100"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d62"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d101"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d63"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d102"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d64"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d103"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d66"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d104"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d67"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d106"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d68"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d107"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d69"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d108"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d70"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d109"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d72"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d110"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d73"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d112"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d74"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d113"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d75"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d114"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d76"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d115"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d78"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d116"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d79"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d118"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d80"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d119"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d81"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d120"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d82"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d123"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d84"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d129"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d85"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d130"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d86"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d132"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d87"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d133"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d88"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d134"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d90"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d135"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d91"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d136"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d92"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d138"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d93"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d139"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d94"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d145"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d96"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d146"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d97"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d147"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d98"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d149"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d99"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d150"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d100"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d151"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d102"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d152"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d103"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d153"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d104"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d155"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d105"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d156"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d106"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d157"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d108"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d158"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d109"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d159"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d110"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d161"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d111"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d162"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d112"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d163"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d114"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d164"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d115"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d165"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d116"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d167"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d117"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d168"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d118"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d169"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d120"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d170"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d121"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d171"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d122"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d173"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d123"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d174"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d124"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d175"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d125"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d176"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d127"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d177"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d128"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d179"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d129"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d180"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d130"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d181"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d131"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d182"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d133"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d183"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d134"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d185"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d135"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d186"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d136"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d187"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d137"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d188"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d139"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d189"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d140"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d191"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d141"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d192"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d142"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d193"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d143"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d194"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d145"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d195"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d146"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d196"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d198"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d199"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d200"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d201"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d202"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d204"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d205"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d206"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d207"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d208"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d210"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d211"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d212"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d213"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d214"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d216"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d217"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d218"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d219"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d220"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d222"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d223"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d224"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d225"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d226"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d228"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d229"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d230"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d231"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d232"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d234"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d235"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d236"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d237"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d238"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d240"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d241"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d242"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d243"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d244"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d246"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d247"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d248"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d249"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d250"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d252"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d253"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d254"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d255"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d256"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d257"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d259"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d260"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d261"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d262"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d263"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d265"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d266"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d267"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d268"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d269"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d271"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d272"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d273"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d274"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d275"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d277"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d278"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d147"
             }
           ],
           "interpreterSettingId": "spark"
@@ -703,14 +544,15 @@
       "jobName": "paragraph_1646272862075_1333211591",
       "id": "paragraph_1646272862075_1333211591",
       "dateCreated": "2022-03-03 10:01:02.000",
-      "dateStarted": "2022-03-03 17:00:11.558",
-      "status": "RUNNING"
+      "dateStarted": "2022-03-04 14:49:29.450",
+      "dateFinished": "2022-03-04 14:51:48.628",
+      "status": "FINISHED"
     },
     {
-      "text": "%sql\n\nselect name,shop_location,shopid,userid,is_official_shop,follower_count,item_count,\n    to_date(to_timestamp(ctime*1)) as shop_open_date,\n    int(((bigint(current_timestamp)) - (bigint(to_timestamp(ctime))))/(60*60*24*30)) as opened_monthes_since_now\nfrom delta.`/warehouse/delta/shopee_data/api_shop_info`",
+      "text": "%sql\n\nselect site,name,shop_location,shopid,userid,is_official_shop,follower_count,item_count,\n    to_date(to_timestamp(ctime*1)) as shop_open_date,\n    int(((bigint(current_timestamp)) - (bigint(to_timestamp(ctime))))/(60*60*24*30)) as opened_monthes,\n    rating_good,rating_normal,rating_bad\nfrom delta.`/warehouse/delta/shopee_data/api_shop_info`\nlimit 5",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03 17:00:25.864",
-      "progress": 0,
+      "dateUpdated": "2022-03-04 14:49:48.757",
+      "progress": 23,
       "config": {
         "editorSetting": {
           "language": "sql",
@@ -732,6 +574,7 @@
                   "tableGridState": {},
                   "tableColumnTypeState": {
                     "names": {
+                      "site": "string",
                       "name": "string",
                       "shop_location": "string",
                       "shopid": "string",
@@ -740,7 +583,10 @@
                       "follower_count": "string",
                       "item_count": "string",
                       "shop_open_date": "string",
-                      "opened_monthes_since_now": "string"
+                      "opened_monthes": "string",
+                      "rating_good": "string",
+                      "rating_normal": "string",
+                      "rating_bad": "string"
                     },
                     "updated": false
                   },
@@ -769,7 +615,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "name\tshop_location\tshopid\tuserid\tis_official_shop\tfollower_count\titem_count\tshop_open_date\topened_monthes_since_now\nTheKobshine\tจังหวัดกรุงเทพมหานคร\t82578330\t82579807\tfalse\t1722\t38\t2018-08-03\t43\nAll happy TH\tจังหวัดนนทบุรี\t32449054\t32450438\tfalse\t20850\t113\t2017-08-29\t54\n"
+            "data": "site\tname\tshop_location\tshopid\tuserid\tis_official_shop\tfollower_count\titem_count\tshop_open_date\topened_monthes\trating_good\trating_normal\trating_bad\nshopee.co.th\tศูนย์รวมขายส่ง กิ๊ฟช็อป เครื่องประดับ เครื่องเขียน ราคาสำเพ็ง เริ่มต้น 10 บาท\tจังหวัดกรุงเทพมหานคร\t56344138\t56345562\tfalse\t30629\t208\t2018-02-11\t49\t31047\t2214\t568\nshopee.co.th\tMano Silver Gold เครื่องประดับกับความเฮง\tจังหวัดประจวบคีรีขันธ์\t6817493\t6818808\tfalse\t21418\t1789\t2016-06-14\t69\t19910\t968\t214\nshopee.co.th\tเอกลักษณ์ วัตถุมงคล สร้อยพระ กำไลหินมงคล\tจังหวัดพระนครศรีอยุธยา\t261866421\t261868466\tfalse\t1270\t133\t2020-05-14\t21\t4583\t180\t23\nshopee.co.th\tชุดไทยเด็กบ้านแม่เนยน้องปลื้ม\tจังหวัดพระนครศรีอยุธยา\t30919156\t30920540\tfalse\t4379\t77\t2017-08-15\t55\t4786\t235\t28\nshopee.co.th\tบจก.ห้างทองทองแท้เยาวราช(สำนักงานใหญ่)\tจังหวัดมหาสารคาม\t62707486\t62708928\tfalse\t608\t77\t2018-03-28\t47\t33\t0\t0\n"
           }
         ]
       },
@@ -782,13 +628,10 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d69"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d29"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d70"
-            },
-            {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d71"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d30"
             }
           ],
           "interpreterSettingId": "spark"
@@ -798,56 +641,27 @@
       "jobName": "paragraph_1646218804544_14921422",
       "id": "paragraph_1646218804544_14921422",
       "dateCreated": "2022-03-02 19:00:04.000",
-      "dateStarted": "2022-03-03 17:00:25.883",
-      "dateFinished": "2022-03-03 17:00:27.600",
+      "dateStarted": "2022-03-04 14:49:44.904",
+      "dateFinished": "2022-03-04 14:49:48.682",
       "status": "FINISHED"
     },
     {
-      "text": "%sql\n\nselect a.shopid,a.site\nfrom\n(select shopid,site,count(0) cnt \nfrom delta.`/warehouse/delta/shopee_data/api_search_item_shop_data_df`\ngroup by shopid,site)a\nleft join delta.`/warehouse/delta/shopee_data/api_shop_info` s on a.shopid\u003ds.shopid\nwhere s.name is null\nlimit 5",
+      "text": "%pyspark\n\nshop_df\u003dspark.sql(\"\"\"\nselect site,name,shop_location,shopid,userid,is_official_shop,follower_count,item_count,\n    to_date(to_timestamp(ctime*1)) as shop_open_date,\n    int(((bigint(current_timestamp)) - (bigint(to_timestamp(ctime))))/(60*60*24*30)) as opened_monthes,\n    rating_good,rating_normal,rating_bad\nfrom delta.`/warehouse/delta/shopee_data/api_shop_info`\n\"\"\")\n\nshop_df.write.format(\"jdbc\")\\\n    .option(\"url\", \"jdbc:postgresql://10.118.53.39:5432/warehouse\") \\\n    .option(\"driver\", \"org.postgresql.Driver\").option(\"dbtable\", \"shopee_shop_infos\") \\\n    .option(\"user\", \"postgres\").option(\"password\", \"postgres-local\").save()",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03 17:01:16.979",
-      "progress": 68,
+      "dateUpdated": "2022-03-04 15:04:00.863",
+      "progress": 100,
       "config": {
         "colWidth": 12.0,
         "fontSize": 9.0,
         "enabled": true,
-        "results": {
-          "0": {
-            "graph": {
-              "mode": "table",
-              "height": 300.0,
-              "optionOpen": false,
-              "setting": {
-                "table": {
-                  "tableGridState": {},
-                  "tableColumnTypeState": {
-                    "names": {
-                      "shopid": "string",
-                      "site": "string"
-                    },
-                    "updated": false
-                  },
-                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
-                  "tableOptionValue": {
-                    "useFilter": false,
-                    "showPagination": false,
-                    "showAggregationFooter": false
-                  },
-                  "updated": false,
-                  "initialized": false
-                }
-              },
-              "commonSetting": {}
-            }
-          }
-        },
+        "results": {},
         "editorSetting": {
-          "language": "sql",
+          "language": "python",
           "editOnDblClick": false,
           "completionKey": "TAB",
           "completionSupport": true
         },
-        "editorMode": "ace/mode/sql"
+        "editorMode": "ace/mode/python"
       },
       "settings": {
         "params": {},
@@ -857,8 +671,8 @@
         "code": "SUCCESS",
         "msg": [
           {
-            "type": "TABLE",
-            "data": "shopid\tsite\n159643190\tshopee.co.th\n321360462\tshopee.co.th\n160597411\tshopee.co.th\n452462714\tshopee.co.th\n141112\tshopee.co.th\n"
+            "type": "TEXT",
+            "data": "ANTLR Tool version 4.7 used for code generation does not match the current runtime version 4.8ANTLR Tool version 4.7 used for code generation does not match the current runtime version 4.8"
           }
         ]
       },
@@ -871,30 +685,30 @@
           "group": "spark",
           "values": [
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d142"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d0"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d143"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d1"
             },
             {
-              "jobUrl": "http://954e81287f5f:4040/jobs/job?id\u003d144"
+              "jobUrl": "http://219a7987b0c8:4040/jobs/job?id\u003d2"
             }
           ],
           "interpreterSettingId": "spark"
         }
       },
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1646272705949_138283845",
-      "id": "paragraph_1646272705949_138283845",
-      "dateCreated": "2022-03-03 09:58:25.000",
-      "dateStarted": "2022-03-03 17:01:17.005",
-      "dateFinished": "2022-03-03 17:01:18.389",
+      "jobName": "paragraph_1646298039985_930078405",
+      "id": "paragraph_1646298039985_930078405",
+      "dateCreated": "2022-03-03 17:00:39.985",
+      "dateStarted": "2022-03-04 15:04:00.867",
+      "dateFinished": "2022-03-04 15:04:17.952",
       "status": "FINISHED"
     },
     {
-      "text": "%sql\n",
+      "text": "%sh\n",
       "user": "anonymous",
-      "dateUpdated": "2022-03-03 17:00:39.985",
+      "dateUpdated": "2022-03-04 14:57:23.955",
       "progress": 0,
       "config": {},
       "settings": {
@@ -904,9 +718,9 @@
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1646298039985_930078405",
-      "id": "paragraph_1646298039985_930078405",
-      "dateCreated": "2022-03-03 17:00:39.985",
+      "jobName": "paragraph_1646377043955_820343684",
+      "id": "paragraph_1646377043955_820343684",
+      "dateCreated": "2022-03-04 14:57:23.955",
       "status": "READY"
     }
   ],
@@ -920,7 +734,13 @@
   "config": {
     "isZeppelinNotebookCronEnable": true,
     "looknfeel": "default",
-    "personalizedMode": "false"
+    "personalizedMode": "false",
+    "cronExecutingUser": "anonymous",
+    "cronExecutingRoles": "[]",
+    "cron": "0 10 12 * * ?"
   },
-  "info": {}
+  "info": {
+    "inIsolatedMode": false,
+    "isRunning": false
+  }
 }

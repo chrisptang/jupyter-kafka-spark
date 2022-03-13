@@ -3,7 +3,7 @@
     {
       "text": "%sh\n\necho $SPARK_DRIVER_HOST\n\n# ps aux|grep \"spark-shared_process\"\n\nls /log-received\n\n# export SPARK_DOWNLOAD_URL\u003dhttps://dlcdn.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz\n# export SPARK_HOME\u003d/opt/spark\n\n# wget --no-verbose -O apache-spark.tgz ${SPARK_DOWNLOAD_URL} \\\n# \u0026\u0026 mkdir -p ${SPARK_HOME} \\\n# \u0026\u0026 tar -xf apache-spark.tgz -C ${SPARK_HOME} --strip-components\u003d1 \\\n# \u0026\u0026 rm apache-spark.tgz \\\n# \u0026\u0026 apt update \u0026\u0026 apt -y install telnet net-tools iputils-ping",
       "user": "anonymous",
-      "dateUpdated": "2022-03-02 12:58:26.962",
+      "dateUpdated": "2022-03-11 15:35:17.130",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -53,8 +53,8 @@
       "jobName": "paragraph_1646026623088_1785783138",
       "id": "paragraph_1646026623088_1785783138",
       "dateCreated": "2022-02-28 13:37:03.000",
-      "dateStarted": "2022-03-02 12:58:27.123",
-      "dateFinished": "2022-03-02 12:58:36.553",
+      "dateStarted": "2022-03-11 15:35:17.271",
+      "dateFinished": "2022-03-11 15:35:26.890",
       "status": "FINISHED"
     },
     {
@@ -88,9 +88,9 @@
       "status": "READY"
     },
     {
-      "text": "%spark.conf\n\nspark.jars.packages io.delta:delta-core_2.12:1.0.0\nspark.sql.extensions io.delta.sql.DeltaSparkSessionExtension\nspark.sql.catalog.spark_catalog org.apache.spark.sql.delta.catalog.DeltaCatalog\nspark.sql.warehouse.dir /warehouse\nzeppelin.interpreter.connect.timeout 600000\nspark.master local[*]",
+      "text": "%spark.conf\n\nspark.sql.warehouse.dir /warehouse\nzeppelin.interpreter.connect.timeout 600000\nspark.master spark://spark-master:7077\nspark.blockManager.port 39194\nspark.driver.bindAddress 0.0.0.0\nspark.driver.host 10.118.55.233\nspark.driver.port 47077\nspark.driver.log.dfsDir /logs/\nspark.driver.log.persistToDfs.enabled true",
       "user": "anonymous",
-      "dateUpdated": "2022-03-02 13:17:11.111",
+      "dateUpdated": "2022-03-11 16:30:01.924",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -119,14 +119,46 @@
       "jobName": "paragraph_1646026680533_1360288098",
       "id": "paragraph_1646026680533_1360288098",
       "dateCreated": "2022-02-28 13:38:00.000",
-      "dateStarted": "2022-03-02 13:17:11.223",
-      "dateFinished": "2022-03-02 13:17:11.323",
+      "dateStarted": "2022-03-11 16:30:02.006",
+      "dateFinished": "2022-03-11 16:30:02.067",
       "status": "FINISHED"
     },
     {
       "text": "%pyspark\n\nprint(spark.sparkContext.getConf().getAll())",
       "user": "anonymous",
-      "dateUpdated": "2022-03-02 13:17:22.397",
+      "dateUpdated": "2022-03-11 16:30:05.035",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1646026748786_930123663",
+      "id": "paragraph_1646026748786_930123663",
+      "dateCreated": "2022-02-28 13:39:08.000",
+      "dateStarted": "2022-03-11 16:30:05.093",
+      "dateFinished": "2022-03-11 16:23:55.455",
+      "status": "RUNNING"
+    },
+    {
+      "text": "%pyspark\n\n\ndata\u003d[{\"name\":\"derrick\",\"age\":33},{\"name\":\"james\",\"age\":37}]\ndf\u003dspark.sparkContext.parallelize(data).toDF()\ndf.show(truncate\u003dFalse)\n\ndf.createOrReplaceTempView(\"v_test_user\")",
+      "user": "anonymous",
+      "dateUpdated": "2022-03-11 16:20:53.229",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -150,64 +182,19 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "org.apache.zeppelin.interpreter.InterpreterException: java.io.IOException: Interpreter Process creation is time out in 600 seconds\nYou can increase timeout threshold via setting zeppelin.interpreter.connect.timeout of this interpreter.\nInterpreter download command: /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dfile.encoding\u003dUTF-8 -Dlog4j.configuration\u003dfile:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile\u003dfile:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file\u003d/logs/zeppelin-interpreter-spark-shared_process--4dc3004a3fa7.log -cp :/opt/zeppelin/interpreter/spark/*:::/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar org.apache.zeppelin.interpreter.remote.RemoteInterpreterDownloader 172.18.0.6 41765 spark /opt/zeppelin/local-repo/spark\n INFO [2022-03-02 13:10:36,924] ({main} RemoteInterpreterDownloader.java[syncAllLibraries]:73) - Loading all libraries for interpreter spark to /opt/zeppelin/local-repo/spark\n[INFO] Interpreter launch command: /opt/spark/bin/spark-submit --class org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer --driver-class-path :/opt/zeppelin/local-repo/spark/*:/opt/zeppelin/interpreter/spark/*:::/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar --driver-java-options  -Dfile.encoding\u003dUTF-8 -Dlog4j.configuration\u003dfile:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile\u003dfile:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file\u003d/logs/zeppelin-interpreter-spark-shared_process--4dc3004a3fa7.log --conf spark.driver.host\u003d10.118.52.134 --conf spark.sql.extensions\u003dio.delta.sql.DeltaSparkSessionExtension --conf spark.executor.instances\u003d2 --conf spark.app.name\u003dspark-shared_process --conf spark.webui.yarn.useProxy\u003dfalse --conf spark.driver.cores\u003d1 --conf spark.driver.port\u003d47077 --conf spark.sql.warehouse.dir\u003d/warehouse --conf spark.executor.memory\u003d1g --conf spark.master\u003dspark://10.118.52.134:7077 --conf spark.driver.bindAddress\u003d0.0.0.0 --conf spark.sql.catalog.spark_catalog\u003dorg.apache.spark.sql.delta.catalog.DeltaCatalog --conf spark.blockManager.port\u003d39194 --conf spark.jars.packages\u003dio.delta:delta-core_2.12:1.0.0 --conf spark.driver.memory\u003d1g --conf spark.executor.cores\u003d1 /opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar 172.18.0.6 41765 spark-shared_process :\nSLF4J: Class path contains multiple SLF4J bindings.\nSLF4J: Found binding in [jar:file:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]\nSLF4J: Found binding in [jar:file:/opt/spark/jars/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]\nSLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.\nSLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]\n:: loading settings :: url \u003d jar:file:/opt/spark/jars/ivy-2.4.0.jar!/org/apache/ivy/core/settings/ivysettings.xml\nIvy Default Cache set to: /root/.ivy2/cache\nThe jars for the packages stored in: /root/.ivy2/jars\nio.delta#delta-core_2.12 added as a dependency\n:: resolving dependencies :: org.apache.spark#spark-submit-parent-4bb83b63-1b2a-4521-8d10-76948235d9ca;1.0\n\tconfs: [default]\n\tfound io.delta#delta-core_2.12;1.0.0 in central\n\tfound org.antlr#antlr4;4.7 in central\n\tfound org.antlr#antlr4-runtime;4.7 in central\n\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.open(RemoteInterpreter.java:129)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.getFormType(RemoteInterpreter.java:271)\n\tat org.apache.zeppelin.notebook.Paragraph.jobRun(Paragraph.java:440)\n\tat org.apache.zeppelin.notebook.Paragraph.jobRun(Paragraph.java:71)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.RemoteScheduler$JobRunner.run(RemoteScheduler.java:182)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: java.io.IOException: Interpreter Process creation is time out in 600 seconds\nYou can increase timeout threshold via setting zeppelin.interpreter.connect.timeout of this interpreter.\nInterpreter download command: /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dfile.encoding\u003dUTF-8 -Dlog4j.configuration\u003dfile:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile\u003dfile:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file\u003d/logs/zeppelin-interpreter-spark-shared_process--4dc3004a3fa7.log -cp :/opt/zeppelin/interpreter/spark/*:::/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar org.apache.zeppelin.interpreter.remote.RemoteInterpreterDownloader 172.18.0.6 41765 spark /opt/zeppelin/local-repo/spark\n INFO [2022-03-02 13:10:36,924] ({main} RemoteInterpreterDownloader.java[syncAllLibraries]:73) - Loading all libraries for interpreter spark to /opt/zeppelin/local-repo/spark\n[INFO] Interpreter launch command: /opt/spark/bin/spark-submit --class org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer --driver-class-path :/opt/zeppelin/local-repo/spark/*:/opt/zeppelin/interpreter/spark/*:::/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar --driver-java-options  -Dfile.encoding\u003dUTF-8 -Dlog4j.configuration\u003dfile:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile\u003dfile:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file\u003d/logs/zeppelin-interpreter-spark-shared_process--4dc3004a3fa7.log --conf spark.driver.host\u003d10.118.52.134 --conf spark.sql.extensions\u003dio.delta.sql.DeltaSparkSessionExtension --conf spark.executor.instances\u003d2 --conf spark.app.name\u003dspark-shared_process --conf spark.webui.yarn.useProxy\u003dfalse --conf spark.driver.cores\u003d1 --conf spark.driver.port\u003d47077 --conf spark.sql.warehouse.dir\u003d/warehouse --conf spark.executor.memory\u003d1g --conf spark.master\u003dspark://10.118.52.134:7077 --conf spark.driver.bindAddress\u003d0.0.0.0 --conf spark.sql.catalog.spark_catalog\u003dorg.apache.spark.sql.delta.catalog.DeltaCatalog --conf spark.blockManager.port\u003d39194 --conf spark.jars.packages\u003dio.delta:delta-core_2.12:1.0.0 --conf spark.driver.memory\u003d1g --conf spark.executor.cores\u003d1 /opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar 172.18.0.6 41765 spark-shared_process :\nSLF4J: Class path contains multiple SLF4J bindings.\nSLF4J: Found binding in [jar:file:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]\nSLF4J: Found binding in [jar:file:/opt/spark/jars/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]\nSLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.\nSLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]\n:: loading settings :: url \u003d jar:file:/opt/spark/jars/ivy-2.4.0.jar!/org/apache/ivy/core/settings/ivysettings.xml\nIvy Default Cache set to: /root/.ivy2/cache\nThe jars for the packages stored in: /root/.ivy2/jars\nio.delta#delta-core_2.12 added as a dependency\n:: resolving dependencies :: org.apache.spark#spark-submit-parent-4bb83b63-1b2a-4521-8d10-76948235d9ca;1.0\n\tconfs: [default]\n\tfound io.delta#delta-core_2.12;1.0.0 in central\n\tfound org.antlr#antlr4;4.7 in central\n\tfound org.antlr#antlr4-runtime;4.7 in central\n\n\tat org.apache.zeppelin.interpreter.remote.ExecRemoteInterpreterProcess.start(ExecRemoteInterpreterProcess.java:93)\n\tat org.apache.zeppelin.interpreter.ManagedInterpreterGroup.getOrCreateInterpreterProcess(ManagedInterpreterGroup.java:68)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.getOrCreateInterpreterProcess(RemoteInterpreter.java:104)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.internal_create(RemoteInterpreter.java:154)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.open(RemoteInterpreter.java:126)\n\t... 13 more\n"
+            "data": "Interpreter process is not running\nInterpreter download command: /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dfile.encoding\u003dUTF-8 -Dlog4j.configuration\u003dfile:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile\u003dfile:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file\u003d/logs/zeppelin-interpreter-spark-shared_process--4dc3004a3fa7.log -cp :/opt/zeppelin/interpreter/spark/*:::/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar org.apache.zeppelin.interpreter.remote.RemoteInterpreterDownloader 172.18.0.5 46309 spark /opt/zeppelin/local-repo/spark\n INFO [2022-03-11 16:13:43,592] ({main} RemoteInterpreterDownloader.java[syncAllLibraries]:73) - Loading all libraries for interpreter spark to /opt/zeppelin/local-repo/spark\n[INFO] Interpreter launch command: /opt/spark/bin/spark-submit --class org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer --driver-class-path :/opt/zeppelin/local-repo/spark/*:/opt/zeppelin/interpreter/spark/*:::/opt/zeppelin/interpreter/zeppelin-interpreter-shaded-0.10.0.jar:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar --driver-java-options  -Dfile.encoding\u003dUTF-8 -Dlog4j.configuration\u003dfile:///opt/zeppelin/conf/log4j.properties -Dlog4j.configurationFile\u003dfile:///opt/zeppelin/conf/log4j2.properties -Dzeppelin.log.file\u003d/logs/zeppelin-interpreter-spark-shared_process--4dc3004a3fa7.log --conf spark.driver.host\u003d10.118.55.233 --conf spark.executor.instances\u003d2 --conf spark.app.name\u003dspark-shared_process --conf spark.webui.yarn.useProxy\u003dfalse --conf spark.driver.cores\u003d1 --conf spark.driver.port\u003d47077 --conf spark.sql.warehouse.dir\u003d/warehouse --conf spark.executor.memory\u003d1g --conf spark.driver.bindAddress\u003d0.0.0.0 --conf spark.master\u003dspark://spark-master:7077 --conf spark.blockManager.port\u003d39194 --conf spark.driver.memory\u003d1g --conf spark.executor.cores\u003d1 /opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar 172.18.0.5 46309 spark-shared_process :\nSLF4J: Class path contains multiple SLF4J bindings.\nSLF4J: Found binding in [jar:file:/opt/zeppelin/interpreter/spark/spark-interpreter-0.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]\nSLF4J: Found binding in [jar:file:/opt/spark/jars/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]\nSLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.\nSLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]\n WARN [2022-03-11 16:13:51,139] ({main} NativeCodeLoader.java[\u003cclinit\u003e]:60) - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable\n INFO [2022-03-11 16:13:52,051] ({RegisterThread} RemoteInterpreterServer.java[run]:592) - Start registration\n INFO [2022-03-11 16:13:52,057] ({RemoteInterpreterServer-Thread} RemoteInterpreterServer.java[run]:194) - Launching ThriftServer at 172.18.0.5:36961\n INFO [2022-03-11 16:13:53,472] ({RegisterThread} RemoteInterpreterServer.java[run]:606) - Registering interpreter process\n"
           }
         ]
       },
       "apps": [],
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1646026748786_930123663",
-      "id": "paragraph_1646026748786_930123663",
-      "dateCreated": "2022-02-28 13:39:08.000",
-      "dateStarted": "2022-03-02 13:17:22.457",
-      "dateFinished": "2022-03-02 13:20:34.071",
-      "status": "ERROR"
-    },
-    {
-      "text": "%pyspark\n\n\ndata\u003d[{\"name\":\"derrick\",\"age\":33},{\"name\":\"james\",\"age\":37}]\ndf\u003dspark.sparkContext.parallelize(data).toDF()\ndf.show(truncate\u003dFalse)\n\ndf.createOrReplaceTempView(\"v_test_user\")",
-      "user": "anonymous",
-      "dateUpdated": "2022-03-02 13:18:30.018",
-      "progress": 0,
-      "config": {
-        "editorSetting": {
-          "language": "python",
-          "editOnDblClick": false,
-          "completionKey": "TAB",
-          "completionSupport": true
-        },
-        "colWidth": 12.0,
-        "editorMode": "ace/mode/python",
-        "fontSize": 9.0,
-        "results": {},
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "runtimeInfos": {
-        "jobUrl": {
-          "propertyName": "jobUrl",
-          "label": "SPARK JOB",
-          "tooltip": "View in Spark web UI",
-          "group": "spark",
-          "values": [
-            {
-              "jobUrl": "http://4dc3004a3fa7:4040/jobs/job?id\u003d0"
-            }
-          ],
-          "interpreterSettingId": "spark"
-        }
-      },
-      "progressUpdateIntervalMs": 500,
       "jobName": "paragraph_1646026807786_1026636964",
       "id": "paragraph_1646026807786_1026636964",
       "dateCreated": "2022-02-28 13:40:07.000",
-      "dateStarted": "2022-03-02 13:18:30.142",
-      "dateFinished": "2022-03-01 18:12:52.652",
-      "status": "RUNNING"
+      "dateStarted": "2022-03-11 16:20:53.290",
+      "dateFinished": "2022-03-11 16:20:53.321",
+      "status": "ERROR"
     },
     {
       "text": "%pyspark\n\ndf.write.format(\"delta\").save(\"/warehouse/test/test_user\")",
@@ -239,7 +226,7 @@
       "dateCreated": "2022-03-01 18:13:38.493",
       "dateStarted": "2022-03-02 13:19:50.091",
       "dateFinished": "2022-03-01 18:24:03.341",
-      "status": "PENDING"
+      "status": "ABORT"
     },
     {
       "text": "%sql\n\nselect * from delta.`/warehouse/test/test_user`;",
@@ -300,7 +287,7 @@
       "dateCreated": "2022-02-28 13:43:23.000",
       "dateStarted": "2022-03-01 18:12:31.239",
       "dateFinished": "2022-03-01 18:13:03.907",
-      "status": "PENDING"
+      "status": "ABORT"
     },
     {
       "text": "%sql\n",

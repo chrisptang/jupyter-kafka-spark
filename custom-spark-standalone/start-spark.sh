@@ -4,7 +4,7 @@
 
 export SPARK_HOST=`hostname`
 
-echo "spark.blockManager.port=${SPARK_BLOCK_MANAGER_PORT=39191}" > /opt/spark/conf/spark-defaults.conf
+echo "spark.blockManager.port=${SPARK_BLOCK_MANAGER_PORT=39191}" >> /opt/spark/conf/spark-defaults.conf
 
 if [ "$SPARK_WORKLOAD" == "master" ];
 then

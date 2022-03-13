@@ -3,7 +3,7 @@ version: '2'
 services:
   spark-master:
     build: ./custom-spark-standalone
-    image: chrisptang/cluster-apache-spark:3.1.2
+    image: chrisptang/spark:3.1.2
     container_name: spark-master
     hostname: spark-master
     ports:
@@ -22,7 +22,7 @@ services:
       - SPARK_BLOCK_MANAGER_PORT=39191
 
   spark-worker-a:
-    image: chrisptang/cluster-apache-spark:3.1.2
+    image: chrisptang/spark:3.1.2
     container_name: spark-worker-a
     ports:
       - "9091:9091"
@@ -49,7 +49,7 @@ services:
        - ./spark-logs:/spark-logs
        
   spark-worker-b:
-    image: chrisptang/cluster-apache-spark:3.1.2
+    image: chrisptang/spark:3.1.2
     container_name: spark-worker-b
     hostname: spark-worker-a
     ports:

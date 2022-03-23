@@ -55,6 +55,7 @@ services:
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
+      - custom-superset/init_superset_user.sh:/init_superset_user.sh
     ports:
       - "8088:8088"
 

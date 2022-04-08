@@ -9,3 +9,4 @@ log-received
 spark-logs
 spark/
 zeppelin-warehouse
+custom-zeppelin/spark-setting.conf

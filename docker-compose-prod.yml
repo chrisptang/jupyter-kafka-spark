@@ -25,7 +25,7 @@ services:
       - ./custom-zeppelin/spark-setting.conf:/opt/zeppelin/interpreter/spark/interpreter-setting.json 
     ports:
       - 8280:8280
-      - 19500-19599:19500-19599
+      - 29500-29599:29500-29599
 
   db-postgres:
     container_name: db-postgres-prod

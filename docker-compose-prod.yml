@@ -16,22 +16,16 @@ services:
       - ZEPPELIN_LOG_DIR=/logs
       - ZEPPELIN_NOTEBOOK_DIR=/notebook
       - ZEPPELIN_PORT=8280
-      - SPARK_DRIVER_PORT=47077
-      - SPARK_DRIVER_BINDADDR=0.0.0.0
-      - SPARK_DRIVER_HOST=$HOST_IP
     volumes:
       - ./zeppelin-notebooks:/notebook
       - ./log-received:/log-received
       - ./zeppelin-logs:/logs
       - ./zeppelin-warehouse:/warehouse
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
       - ./custom-zeppelin/shiro.ini:/opt/zeppelin/conf/shiro.ini
       - ./custom-zeppelin/spark-setting.conf:/opt/zeppelin/interpreter/spark/interpreter-setting.json 
     ports:
       - 8280:8280
-      - 47077:47077
-      - 39194:39194
+      - 19500-19599:19500-19599
 
   db-postgres:
     container_name: db-postgres-prod

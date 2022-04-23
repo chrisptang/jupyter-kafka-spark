@@ -4,7 +4,7 @@ import { Pool } from 'node-postgres';
 const result_sink_url = process.env.SINK_URL || 'http://localhost:1688/api/1688search/sink';
 
 const tasks = [];
-let started_at = new Date(), no_task_wait = 5;
+let started_at = new Date(), no_task_wait = 60;
 
 function getRandomTimeout() {
     return 30 * (100 + 1 * parseInt(100 * Math.random()))
@@ -152,7 +152,7 @@ const br_cates = [22134, 22244, 22418, 22393, 22406, 22360, 22413, 27201, 27203,
 
 const id_cates = [...accessories_cate, ...home_cates];
 
-const by = ["sales", "pop"];
+const by = ["sales"];
 
 const country_host_mapping = {
     "id": "shopee.co.id",
@@ -173,18 +173,34 @@ const pg_connection = {
 
 async function addAllTasksFromPG() {
     let pool = new Pool(pg_connection);
-    let response = await pool.query('select * FROM daily_tasks where "deletedAt" is null');
-    let rows = response.rows;
-    console.log(rows);
+    let offset = 0, batch_site = 20;
+    let query_tpl = 'select * FROM daily_tasks where "deletedAt" is null ' +
+        "order by id ";
 
-    by.forEach(sort => {
-        for (let i = 0; i * 60 < 1000; i++) {
-            rows.forEach(row => {
-                let cb = cate_callback.bind(this, i, row.catid, sort, country_host_mapping[row.country.toLowerCase()]);
-                tasks.push(cb);
+    do {
+        let query = query_tpl + `limit ${batch_site} offset ${offset};`
+        console.log("query:", query);
+        let response = await pool.query(query);
+        let rows = response.rows;
+        if (rows.length > 0) {
+            console.log(rows);
+
+            by.forEach(sort => {
+                for (let i = 0; i * 60 < 1000; i++) {
+                    rows.forEach(row => {
+                        let cb = cate_callback.bind(this, i, row.catid, sort, country_host_mapping[row.country.toLowerCase()]);
+                        tasks.push(cb);
+                    });
+                }
             });
+        } else {
+            break;
         }
-    });
+
+        if (rows.length < batch_site) {
+            break;
+        }
+    } while ((offset += batch_site) <= 5000)
 
     return "PG";
 }

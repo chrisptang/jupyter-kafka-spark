@@ -155,6 +155,7 @@ export default {
         catid: catid,
         cat_name_en: cat_path,
         cat_description: cat_path,
+        type: "shop",
         createdAt: new Date(),
         updatedAt: new Date(),
       });

@@ -11,7 +11,13 @@
           v-model="model.country"
           @change="refresh()"
         >
-          <option v-for="country in countryList" :key="country.contry" :value="country.country">{{country.country}}</option>
+          <option
+            v-for="country in countryList"
+            :key="country.contry"
+            :value="country.country"
+          >
+            {{ country.country }}
+          </option>
         </select>
       </b-col>
       <b-col>
@@ -26,8 +32,9 @@
             <tr>
               <th>ID</th>
               <th>Country</th>
-              <th>CatId</th>
-              <th>Cat Name</th>
+              <th>CatId or ShopId</th>
+              <th>Cat or Shop Name</th>
+              <th>Type</th>
             </tr>
           </thead>
           <tbody>
@@ -36,6 +43,7 @@
               <td>{{ task.country }}</td>
               <td>{{ task.catid }}</td>
               <td>{{ task.cat_name_en }}</td>
+              <td>{{ task.type }}</td>
               <td class="text-right">
                 <a href="#" @click.prevent="deleteTask(task.id)">Delete</a>
               </td>
@@ -86,6 +94,7 @@ export default {
     },
     async listCountrys() {
       this.countryList = await api.getAllCountry();
+      this.countryList.push(await api.getAllSites());
     },
   },
 };

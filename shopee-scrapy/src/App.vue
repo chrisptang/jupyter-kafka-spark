@@ -8,6 +8,7 @@
           <b-nav-item to="/">Home</b-nav-item>
           <b-nav-item to="/tasks">Tasks</b-nav-item>
           <b-nav-item to="/cates">Shopee Cate</b-nav-item>
+          <b-nav-item to="/shops">Shops</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

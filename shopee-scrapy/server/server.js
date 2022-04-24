@@ -32,7 +32,8 @@ let DailyTasks = database.define('daily_task', {
     country: Sequelize.STRING,
     cat_name_en: Sequelize.STRING,
     cat_description: Sequelize.STRING,
-    catid: Sequelize.BIGINT
+    catid: Sequelize.BIGINT,
+    type: Sequelize.STRING
 }, {
     paranoid: true,
     indexes: [{
@@ -54,6 +55,29 @@ let ShopeeCates = database.define('shopee_cate_tree', {
         name: "idx_country_name",
         unique: true,
         fields: ["country", "cat_path"]
+    }]
+});
+
+let ShopeeShopInfos = database.define('shopee_shop_info', {
+    site: Sequelize.STRING,
+    name: Sequelize.STRING,
+    shop_location: Sequelize.STRING,
+    shopid: Sequelize.BIGINT,
+    userid: Sequelize.BIGINT,
+    is_official_shop: Sequelize.BOOLEAN,
+    follower_count: Sequelize.BIGINT,
+    item_count: Sequelize.BIGINT,
+    shop_open_date: Sequelize.DATE,
+    opened_monthes: Sequelize.BIGINT,
+    rating_good: Sequelize.BIGINT,
+    rating_normal: Sequelize.BIGINT,
+    rating_bad: Sequelize.BIGINT
+}, {
+    paranoid: true,
+    indexes: [{
+        name: "idx_shop_id",
+        unique: true,
+        fields: ["shopid"]
     }]
 });
 
@@ -161,12 +185,12 @@ let ItemStats = database.define('shopee_item_stat', {
         name: "idx_day_item_site",
         unique: true,
         fields: ["site", "itemid", "day"]
-    },{
+    }, {
         name: "idx_cat_path",
         fields: ["cat_path"]
-    },{
+    }, {
         name: "idx_site_day",
-        fields: ["site","day"]
+        fields: ["site", "day"]
     }]
 });
 
@@ -180,6 +204,11 @@ finale.initialize({
 let taskResource = finale.resource({
     model: DailyTasks,
     endpoints: ['/api/tasks', '/api/tasks/:id']
+})
+
+let shopsResource = finale.resource({
+    model: ShopeeShopInfos,
+    endpoints: ['/api/shops', '/api/shops/:id']
 })
 
 let shopeeCateResource = finale.resource({
@@ -211,6 +240,16 @@ app.get('/api/country/list', async (req, res) => {
     let conutryList = await ShopeeCates.findAll({
         attributes: [
             [Sequelize.fn('DISTINCT', Sequelize.col('country')), 'country'],
+        ]
+    })
+    res.write(JSON.stringify(conutryList));
+    res.end();
+});
+
+app.get('/api/site/list', async (req, res) => {
+    let conutryList = await ShopeeShopInfos.findAll({
+        attributes: [
+            [Sequelize.fn('DISTINCT', Sequelize.col('site')), 'site'],
         ]
     })
     res.write(JSON.stringify(conutryList));

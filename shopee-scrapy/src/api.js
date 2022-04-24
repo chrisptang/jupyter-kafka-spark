@@ -40,6 +40,9 @@ export default {
     getAllCountry() {
         return this.execute('get', '/country/list')
     },
+    getAllSites() {
+        return this.execute('get', '/site/list')
+    },
     listRootCates(country) {
         return this.execute('get', `/cates/root?country=${country}`)
     },

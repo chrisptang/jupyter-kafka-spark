@@ -46,15 +46,27 @@ function executeTask(is_new_start = true) {
     } else {
         console.warn("has no task, no_task_wait:", no_task_wait);
         if (no_task_wait-- <= 0) {
-            console.log("\n\nAll tasks finished at:", new Date, "started at:", started_at);
+            const msg = "Scrapy tasks finished at:" + new Date() + ", tasks were started at:" + started_at;
+            console.log(msg);
             no_task_wait = max_no_task_wait;
-            return;
+            return sendFeishuBot(msg);
         }
     }
     setTimeout(executeTask.bind(this, false), getRandomTimeout());
 }
 
-
+async function sendFeishuBot(msg = "tasks finished", bot_url = scrapy_config.feishu_bot) {
+    let body_to_send = { "msg_type": "text", "content": { "text": msg } };
+    let response = await fetch(bot_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        body: JSON.stringify(body_to_send)
+    });
+    return response.json();
+}
 
 async function getShopeeData(url = '', retry = 1) {
     if (retry < 0) {
@@ -204,7 +216,7 @@ async function addShopAllTasksFromPG() {
             by.forEach(sort => {
                 for (let i = 0; i * 60 < search_item_api_max_result; i++) {
                     rows.forEach(row => {
-                        let cb = cate_callback.bind(this, i, row.catid, sort, country_host_mapping[row.country.toLowerCase()]);
+                        let cb = shop_callback.bind(this, i, row.catid, sort, country_host_mapping[row.country.toLowerCase()]);
                         tasks.push(cb);
                     });
                 }

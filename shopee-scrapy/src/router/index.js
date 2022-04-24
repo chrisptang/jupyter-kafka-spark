@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import ShopeeCateList from '@/components/ShopeeCateList'
 import TaskList from '@/components/TaskList'
+import ShopeeShopList from '@/components/ShopeeShopList'
 
 Vue.use(Router)
 
@@ -16,15 +17,18 @@ let router = new Router({
     },
     {
       path: '/tasks',
+      name: "Tasks",
       component: TaskList
     },
     {
       path: '/cates',
       name: 'ShopeeCateList',
-      component: ShopeeCateList,
-      meta: {
-        requiresAuth: true
-      }
+      component: ShopeeCateList
+    },
+    {
+      path: '/shops',
+      name: 'ShopeeShopList',
+      component: ShopeeShopList
     }
   ]
 })

@@ -1,10 +1,11 @@
 import fetch from "node-fetch";
 import { Pool } from 'node-postgres';
+import { scrapy_config } from "./scrapy-config"
 
 const result_sink_url = process.env.SINK_URL || 'http://localhost:1688/api/1688search/sink';
 
-const tasks = [];
-let started_at = new Date(), no_task_wait = 60;
+const tasks = [], max_no_task_wait = 60;
+let started_at = new Date(), no_task_wait = max_no_task_wait;
 
 function getRandomTimeout() {
     return 30 * (100 + 1 * parseInt(100 * Math.random()))
@@ -46,12 +47,14 @@ function executeTask(is_new_start = true) {
         console.warn("has no task, no_task_wait:", no_task_wait);
         if (no_task_wait-- <= 0) {
             console.log("\n\nAll tasks finished at:", new Date, "started at:", started_at);
-            no_task_wait = 5;
+            no_task_wait = max_no_task_wait;
             return;
         }
     }
     setTimeout(executeTask.bind(this, false), getRandomTimeout());
 }
+
+
 
 async function getShopeeData(url = '', retry = 1) {
     if (retry < 0) {
@@ -93,13 +96,13 @@ async function sendResult(json = {}, url = '') {
     return response.json();
 }
 
-const page_size = 60;
+const page_size = 60, search_item_api_max_result = scrapy_config.search_item_api_max_result;
 
 // Shopee Singapore
 // https://shopee.sg/api/v4/search/search_items?by=sales&limit=20&match_id=11027812&newest=0&order=desc&page_type=search&scenario=PAGE_OTHERS&version=2
 
 async function cate_callback(i = 0, cate_id = 11042921, by = "sales", site = "shopee.co.id") {
-    if (i * page_size > 1000) {
+    if (i * page_size > search_item_api_max_result) {
         console.warn("stopped at:", i * 60, cate_id, by);
         return;
     }
@@ -107,7 +110,7 @@ async function cate_callback(i = 0, cate_id = 11042921, by = "sales", site = "sh
 
     try {
         let json = await getShopeeData(url);
-        if (!json || !json.items || json.items.length <= 0) {
+        if (!json || !json.items || json.items.length <= 0 || json.nomore) {
             console.warn("url has no items:", url);
             return
         }
@@ -119,49 +122,29 @@ async function cate_callback(i = 0, cate_id = 11042921, by = "sales", site = "sh
     }
 }
 
-async function collection_callback(i, collection_id, by) {
-    if (i * page_size > 1000) {
-        console.warn("stopped at:", i * 60, collection_id, by);
+async function shop_callback(i = 0, shopid = 11042921, by = "sales", site = "shopee.co.id") {
+    if (i * page_size > search_item_api_max_result) {
+        console.warn("stopped at:", i * 60, cate_id, by);
         return;
     }
-    by = by || "sales"
-    collection_id = collection_id || 889750;
-    let url = `https://shopee.co.id/api/v4/search/search_items?by=${by}&limit=${page_size}&match_id=${collection_id}&newest=${i * page_size}&order=desc&page_type=collection&scenario=PAGE_COLLECTION_SEARCH&version=2`;
-    let json = await getShopeeData(url);
-    if (!json || !json.items || json.items.length <= 0) {
-        console.warn("url has no items:", url);
-        return
+    // https://shopee.co.id/api/v4/search/search_items?by=sales&limit=30&match_id=64474495&newest=0&order=desc&page_type=shop&scenario=PAGE_OTHERS&version=2
+    let url = `https://${site}/api/v4/search/search_items?by=${by}&limit=${page_size}&match_id=${shopid}&newest=${i * 60}&order=desc&page_type=shop&scenario=PAGE_OTHERS&version=2`;
+
+    try {
+        let json = await getShopeeData(url);
+        if (!json || !json.items || json.items.length <= 0 || json.nomore) {
+            console.warn("url has no items:", url);
+            return
+        }
+        json.url = url;
+        let response = await sendResult(json);
+        console.log("sink resule:", response);
+    } catch (error) {
+        console.warn("url:", url, "\nerror:", error);
     }
-    json.url = url;
-    let response = await sendResult(json);
-    console.log("sink resule:", response);
-    mySetTimeout(collection_callback.bind(this, ++i, collection_id, by), parseInt(6000 + 5000 * Math.random()));
 }
-
-
-let accessories_cate = [11042921, 11042947, 11042938, 11042923, 11042922, 11042937, 11042978];
-let home_cates = [11044346, 11044344, 11043849, 11043875, 11043886, 11043939, 11043779, 11043783, 11043797, 11043952, 11043951, 11043807]
-// let collections = [889750, 889749, 889751, 889754, 889753, 960104, 960105, 960106];
-
-
-// singapore
-const singapore_cates = [11013080, 11027777, 11013109, 11013128, 11013142, 11013157, 11027792, 11013167, 11013171, 11027812, 11027822, 11013196]
-const my_cates = [11000691, 11000692, 11000693, 11000699, 11000700, 11000701, 11000709]
-const th_cates = [11045141, 11045142, 11045143, 11045144, 11045145, 11045146, 11045147, 11045149, 11045150, 11045151, 11045152, 11045153, 11045154, 11045155, 11045156, 11045157, 11045028, 11045175, 11045177]
-const br_cates = [22134, 22244, 22418, 22393, 22406, 22360, 22413, 27201, 27203, 22366]
-
-const id_cates = [...accessories_cate, ...home_cates];
 
 const by = ["sales"];
-
-const country_host_mapping = {
-    "id": "shopee.co.id",
-    "th": "shopee.co.th",
-    "br": "shopee.com.br",
-    "sg": "shopee.sg",
-    "my": "shopee.com.my",
-}
-
 
 const pg_connection = {
     user: process.env.PG_USER || 'postgres',
@@ -171,10 +154,11 @@ const pg_connection = {
     port: process.env.PG_PORT || 5432,
 };
 
-async function addAllTasksFromPG() {
-    let pool = new Pool(pg_connection);
-    let offset = 0, batch_site = 20;
-    let query_tpl = 'select * FROM daily_tasks where "deletedAt" is null ' +
+const pool = new Pool(pg_connection), batch_site = 20;
+
+async function addCategoryAllTasksFromPG() {
+    let offset = 0;
+    let query_tpl = 'select * FROM daily_tasks where "deletedAt" is null and type="cat" ' +
         "order by id ";
 
     do {
@@ -186,7 +170,39 @@ async function addAllTasksFromPG() {
             console.log(rows);
 
             by.forEach(sort => {
-                for (let i = 0; i * 60 < 1000; i++) {
+                for (let i = 0; i * 60 < search_item_api_max_result; i++) {
+                    rows.forEach(row => {
+                        let cb = cate_callback.bind(this, i, row.catid, sort, country_host_mapping[row.country.toLowerCase()]);
+                        tasks.push(cb);
+                    });
+                }
+            });
+        } else {
+            break;
+        }
+
+        if (rows.length < batch_site) {
+            break;
+        }
+    } while ((offset += batch_site) <= 5000)
+
+    return "category";
+}
+
+async function addShopAllTasksFromPG() {
+    let offset = 0;
+    let query_tpl = 'select * FROM daily_tasks where "deletedAt" is null and type="shop" ' +
+        "order by id ";
+    do {
+        let query = query_tpl + `limit ${batch_site} offset ${offset};`
+        console.log("query:", query);
+        let response = await pool.query(query);
+        let rows = response.rows;
+        if (rows.length > 0) {
+            console.log(rows);
+
+            by.forEach(sort => {
+                for (let i = 0; i * 60 < search_item_api_max_result; i++) {
                     rows.forEach(row => {
                         let cb = cate_callback.bind(this, i, row.catid, sort, country_host_mapping[row.country.toLowerCase()]);
                         tasks.push(cb);
@@ -207,40 +223,10 @@ async function addAllTasksFromPG() {
 
 async function addAllTasks(task_source) {
     let taskSource = task_source || process.env.TASK_SOURCE;
-    if (taskSource === "database") {
-        return addAllTasksFromPG();
-    } else {
-        by.forEach(sort => {
-            for (let i = 0; i * 60 < 1000; i++) {
-                singapore_cates.forEach(cate => {
-                    let cb = cate_callback.bind(this, i, cate, sort, country_host_mapping.sg);
-                    tasks.push(cb);
-                });
+    addCategoryAllTasksFromPG();
+    addShopAllTasksFromPG();
 
-                br_cates.forEach(cate => {
-                    let cb = cate_callback.bind(this, i, cate, sort, country_host_mapping.br);
-                    tasks.push(cb);
-                });
-
-                my_cates.forEach(cate => {
-                    let cb = cate_callback.bind(this, i, cate, sort, country_host_mapping.my);
-                    tasks.push(cb);
-                });
-
-                th_cates.forEach(cate => {
-                    let cb = cate_callback.bind(this, i, cate, sort, country_host_mapping.th);
-                    tasks.push(cb);
-                });
-
-                id_cates.forEach(cate => {
-                    let cb = cate_callback.bind(this, i, cate, sort, country_host_mapping.id);
-                    tasks.push(cb);
-                });
-            }
-        });
-
-        return "default";
-    }
+    return "done";
 }
 
 export { addAllTasks, executeTask }

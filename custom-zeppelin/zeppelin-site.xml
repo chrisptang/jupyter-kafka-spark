@@ -12,4 +12,20 @@
         <value>/</value>
         <description>Notebook cron folders</description>
     </property>
+    <property>
+        <name>zeppelin.interpreter.lifecyclemanager.class</name>
+        <value>org.apache.zeppelin.interpreter.lifecycle.TimeoutLifecycleManager</value>
+        <description>LifecycleManager class for managing the lifecycle of interpreters, by default interpreter will
+  be closed after timeout</description>
+    </property>
+    <property>
+        <name>zeppelin.interpreter.lifecyclemanager.timeout.checkinterval</name>
+        <value>60000</value>
+        <description>milliseconds of the interval to checking whether interpreter is time out</description>
+    </property>
+    <property>
+        <name>zeppelin.interpreter.lifecyclemanager.timeout.threshold</name>
+        <value>300000</value>
+        <description>milliseconds of the interpreter timeout threshold, by default it is 1 hour</description>
+    </property>
 </configuration>

@@ -21,6 +21,18 @@
         </select>
       </b-col>
       <b-col>
+        <label for="countrySelector">Type:</label>
+        <select
+          id="typeSelector"
+          class="type-selector"
+          v-model="model.type"
+          @change="refresh()"
+        >
+          <option value="cat">cat</option>
+          <option value="shop">shop</option>
+        </select>
+      </b-col>
+      <b-col>
         <label for="cateQuerry">Category filter:</label>
         <input type="text" v-model="model.q" @change="refresh()" />
       </b-col>
@@ -64,7 +76,7 @@ export default {
       msg: "This is Task list",
       tasks: [],
       countryList: [],
-      model: { country: "ID", q: null },
+      model: { country: "ID", q: null, type: null },
       loading: false,
     };
   },
@@ -75,7 +87,11 @@ export default {
   methods: {
     async refresh() {
       this.loading = true;
-      this.tasks = await api.getTasks(this.model.country, this.model.q);
+      this.tasks = await api.getTasks(
+        this.model.country,
+        this.model.q,
+        this.model.type
+      );
       this.loading = false;
     },
     async deleteTask(id) {
@@ -94,7 +110,11 @@ export default {
     },
     async listCountrys() {
       this.countryList = await api.getAllCountry();
-      this.countryList.push(await api.getAllSites());
+      this.countryList.push(
+        (await api.getAllSites()).map((site) => {
+          return { country: site.site };
+        })
+      );
     },
   },
 };

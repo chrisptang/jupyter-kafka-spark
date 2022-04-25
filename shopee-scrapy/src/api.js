@@ -17,8 +17,8 @@ export default {
             return req.data
         })
     },
-    getTasks(country, q = null) {
-        return this.execute('get', `/tasks?country=${country}${q != null ? '&q=' + q : ""}`)
+    getTasks(country, q = null, type = null) {
+        return this.execute('get', `/tasks?country=${country}${q != null ? '&q=' + q : ""}${type != null ? '&type=' + type : ""}`)
     },
     getCates(country, q = null) {
         return this.execute('get', `/shopee-cates?country=${country}${q != null ? '&q=' + q : ""}`)

@@ -161,7 +161,13 @@ async function shop_callback(i = 0, shopid = 11042921, by = "sales", site = "sho
     }
 }
 
-const by = ["sales"];
+const by = ["sales"], country_host_mapping = {
+    "id": "shopee.co.id",
+    "th": "shopee.co.th",
+    "br": "shopee.com.br",
+    "sg": "shopee.sg",
+    "my": "shopee.com.my",
+};
 
 const pg_connection = {
     user: process.env.PG_USER || 'postgres',
@@ -175,7 +181,7 @@ const pool = new Pool(pg_connection), batch_site = 20;
 
 async function addCategoryAllTasksFromPG() {
     let offset = 0;
-    let query_tpl = 'select * FROM daily_tasks where "deletedAt" is null and type="cat" ' +
+    let query_tpl = 'select * FROM daily_tasks where "deletedAt" is null and type=\'cat\' ' +
         "order by id ";
 
     do {
@@ -208,7 +214,7 @@ async function addCategoryAllTasksFromPG() {
 
 async function addShopAllTasksFromPG() {
     let offset = 0;
-    let query_tpl = 'select * FROM daily_tasks where "deletedAt" is null and type="shop" ' +
+    let query_tpl = 'select * FROM daily_tasks where "deletedAt" is null and type=\'shop\' ' +
         "order by id ";
     do {
         let query = query_tpl + `limit ${batch_site} offset ${offset};`
@@ -221,7 +227,7 @@ async function addShopAllTasksFromPG() {
             by.forEach(sort => {
                 for (let i = 0; i * 60 < search_item_api_max_result; i++) {
                     rows.forEach(row => {
-                        let cb = shop_callback.bind(this, i, row.catid, sort, country_host_mapping[row.country.toLowerCase()]);
+                        let cb = shop_callback.bind(this, i, row.catid, sort, row.country);
                         tasks.push(cb);
                     });
                 }

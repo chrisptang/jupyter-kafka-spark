@@ -1,6 +1,11 @@
 import fetch from "node-fetch";
 import { Pool } from 'node-postgres';
-import { scrapy_config } from "./scrapy-config"
+import { scrapy_config } from "./scrapy-config.js"
+
+// const scrapy_config = {
+//     "search_item_api_max_result": 1200,
+//     "feishu_bot": "https://open.feishu.cn/open-apis/bot/v2/hook/dc02ccbd-d1ce-402e-a2f5-52341d5f6508"
+// };
 
 const result_sink_url = process.env.SINK_URL || 'http://localhost:1688/api/1688search/sink';
 

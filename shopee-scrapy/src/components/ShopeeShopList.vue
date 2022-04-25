@@ -12,10 +12,10 @@
         >
           <option
             v-for="country in countryList"
-            :key="country.contry"
-            :value="country.country"
+            :key="country.site"
+            :value="country.site"
           >
-            {{ country.country }}
+            {{ country.site }}
           </option>
         </select>
       </b-col>
@@ -126,12 +126,11 @@ export default {
     async refresh() {
       this.loading = true;
       let options = {
-        root: this.model.root,
         offset: (this.model.page - 1) * this.model.pageSize,
         limit: this.model.pageSize,
         q: this.model.q,
       };
-      this.shops = await api.getCatesPage(this.model.country, options);
+      this.shops = await api.getShopsPage(this.model.country, options);
       this.loading = false;
       this.isPagingAvailable();
     },

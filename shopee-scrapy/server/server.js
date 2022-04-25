@@ -292,6 +292,26 @@ app.get('/api/cates/page', async (req, res) => {
     res.end();
 });
 
+app.get('/api/shops/page', async (req, res) => {
+    let country = req.query.site || "shopee.co.id",
+        name = req.query.q || "";
+    let offset = req.query.offset || 0, limit = req.query.limit || 20;
+    let option = {
+        where: {
+            site: country,
+            name: {
+                [Op.like]: `${name}%`,
+            }
+        },
+        limit: limit,
+        offset: offset
+    };
+    console.log(option);
+    let rootList = await ShopeeShopInfos.findAndCountAll(option);
+    res.write(JSON.stringify(rootList));
+    res.end();
+});
+
 async function triggerScrapy() {
     console.log("about to start job.", new Date());
     let source = await addAllTasks();

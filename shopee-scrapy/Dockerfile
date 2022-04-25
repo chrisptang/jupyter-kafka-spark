@@ -20,6 +20,8 @@ ADD server/server.js /app/server/server.js
 WORKDIR /app/server
 RUN npm install
 
+ADD server/scrapy-config.js /app/server/scrapy-config.js
+
 ENV SINK_URL "http://10.118.53.79:1688/api/1688search/sink"
 ENV PORT "5000"
 ENV SERVER_STATIC_PATH "/app/frontend"

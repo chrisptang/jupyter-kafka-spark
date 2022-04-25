@@ -21,7 +21,7 @@
       </b-col>
       <b-col>
         <label for="cateQuerry">Shop Name Filter:</label>
-        <input type="text" v-model="model.q" @change="refresh()" />
+        <input name="cateQuerry" type="text" v-model="model.q" @change="refresh()" />
       </b-col>
     </b-row>
     <b-row>
@@ -45,14 +45,6 @@
               <td>{{ shop.name }}</td>
               <td>{{ shop.shop_location }}</td>
               <td>{{ shop.follower_count }}</td>
-              <td>
-                <img
-                  :src="`https://cf.shopee.sg/file/${cat.image}`"
-                  class="cat-image"
-                  loading="lazy"
-                  :alt="`No image for ${cat.catid}`"
-                />
-              </td>
               <td class="text-right">
                 <a href="#" @click.prevent="addToDailyTask(shop)"
                   >Add to tasks</a
@@ -187,11 +179,6 @@ li {
 
 a {
   color: #35495e;
-}
-
-.cat-image {
-  width: 100px;
-  height: 100px;
 }
 
 .country-selector {

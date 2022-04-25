@@ -25,13 +25,11 @@ export default {
     },
     getCatesPage(country, options) {
         let queryString = stringify(options);
-        // options:{root:'cat-root',q:'any-query',offset:10,limit:20}
         return this.execute('get', `/cates/page?country=${country}${queryString != null ? '&' + queryString : ""}`);
     },
     getShopsPage(country, options) {
         let queryString = stringify(options);
-        // options:{root:'cat-root',q:'any-query',offset:10,limit:20}
-        return this.execute('get', `/shops/page?site=${country}${queryString != null ? '&' + queryString : ""}`);
+        return this.execute('get', `/shops-page?site=${country}${queryString != null ? '&' + queryString : ""}`);
     },
     addTask(data) {
         return this.execute('post', '/tasks', data)

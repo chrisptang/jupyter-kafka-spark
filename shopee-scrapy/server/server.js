@@ -286,27 +286,28 @@ app.get('/api/cates/page', async (req, res) => {
         limit: limit,
         offset: offset
     };
-    console.log(option);
     let rootList = await ShopeeCates.findAndCountAll(option);
     res.write(JSON.stringify(rootList));
     res.end();
 });
 
-app.get('/api/shops/page', async (req, res) => {
+app.get('/api/shops-page', async (req, res) => {
     let country = req.query.site || "shopee.co.id",
         name = req.query.q || "";
     let offset = req.query.offset || 0, limit = req.query.limit || 20;
     let option = {
         where: {
-            site: country,
-            name: {
-                [Op.like]: `${name}%`,
-            }
+            site: country
         },
         limit: limit,
         offset: offset
     };
-    console.log(option);
+    if (name) {
+        option.where.name = {
+            [Op.like]: `${name}%`,
+        }
+    }
+    console.log("\nquerying shop list:\n\n\n",JSON.stringify(option));
     let rootList = await ShopeeShopInfos.findAndCountAll(option);
     res.write(JSON.stringify(rootList));
     res.end();

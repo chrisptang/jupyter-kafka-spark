@@ -111,7 +111,7 @@ export default {
     async listCountrys() {
       this.countryList = await api.getAllCountry();
       this.countryList.push(
-        (await api.getAllSites()).map((site) => {
+        ...(await api.getAllSites()).map((site) => {
           return { country: site.site };
         })
       );

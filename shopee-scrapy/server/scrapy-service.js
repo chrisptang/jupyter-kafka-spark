@@ -9,7 +9,7 @@ import { scrapy_config } from "./scrapy-config.js"
 
 const result_sink_url = process.env.SINK_URL || 'http://localhost:1688/api/1688search/sink';
 
-const tasks = [], max_no_task_wait = 60;
+const tasks = [], max_no_task_wait = 10;
 let started_at = new Date(), no_task_wait = max_no_task_wait;
 
 function getRandomTimeout() {
@@ -190,15 +190,9 @@ async function addCategoryAllTasksFromPG() {
         let response = await pool.query(query);
         let rows = response.rows;
         if (rows.length > 0) {
-            console.log(rows);
-
-            by.forEach(sort => {
-                for (let i = 0; i * 60 < search_item_api_max_result; i++) {
-                    rows.forEach(row => {
-                        let cb = cate_callback.bind(this, i, row.catid, sort, country_host_mapping[row.country.toLowerCase()]);
-                        tasks.push(cb);
-                    });
-                }
+            console.log("all cat tasks:", rows);
+            rows.forEach(row => {
+                addSingleCatTask(row);
             });
         } else {
             break;
@@ -222,15 +216,9 @@ async function addShopAllTasksFromPG() {
         let response = await pool.query(query);
         let rows = response.rows;
         if (rows.length > 0) {
-            console.log(rows);
-
-            by.forEach(sort => {
-                for (let i = 0; i * 60 < search_item_api_max_result; i++) {
-                    rows.forEach(row => {
-                        let cb = shop_callback.bind(this, i, row.catid, sort, row.country);
-                        tasks.push(cb);
-                    });
-                }
+            console.log("all shop tasks:", rows);
+            rows.forEach(row => {
+                addSingleShopTask(row);
             });
         } else {
             break;
@@ -244,6 +232,26 @@ async function addShopAllTasksFromPG() {
     return "PG";
 }
 
+async function addSingleShopTask(shop) {
+    for (let i = 0; i * 60 < search_item_api_max_result; i++) {
+        by.forEach(sort => {
+            let cb = shop_callback.bind(this, i, shop.catid, sort, shop.country);
+            tasks.push(cb);
+        });
+    }
+    return shop.catid;
+}
+
+async function addSingleCatTask(row) {
+    for (let i = 0; i * 60 < search_item_api_max_result; i++) {
+        by.forEach(sort => {
+            let cb = cate_callback.bind(this, i, row.catid, sort, country_host_mapping[row.country.toLowerCase()]);
+            tasks.push(cb);
+        });
+    }
+    return row.catid;
+}
+
 async function addAllTasks(task_source) {
     let taskSource = task_source || process.env.TASK_SOURCE;
     addCategoryAllTasksFromPG();
@@ -252,4 +260,4 @@ async function addAllTasks(task_source) {
     return "done";
 }
 
-export { addAllTasks, executeTask }
+export { addAllTasks, executeTask, addSingleCatTask, addSingleShopTask }

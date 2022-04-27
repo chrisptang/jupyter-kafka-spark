@@ -21,6 +21,7 @@ WORKDIR /app/server
 RUN npm install
 
 ADD server/scrapy-config.js /app/server/scrapy-config.js
+ADD server/http-proxy.js /app/server/http-proxy.js
 
 ENV SINK_URL "http://10.118.53.79:1688/api/1688search/sink"
 ENV PORT "5000"
@@ -29,6 +30,7 @@ ENV NODE_ENV "production"
 ENV PG_HOST "db-postgres"
 ENV PG_USER "postgres"
 ENV PG_PASSWORD "postgres-local"
+ENV PROXY_SECRET "please_set_PROXY_SECRET_env"
 
 # default: hard_coded categories for each country;
 # database: fetch categories from database;

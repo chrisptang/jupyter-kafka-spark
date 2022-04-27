@@ -22,7 +22,7 @@ const agent_list = [
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'
 ];
 
-function get_random_agent() {
+function getRandomAgent() {
     return agent_list[Math.min(parseInt(agent_list.length * Math.random()), agent_list.length)];
 }
 
@@ -102,8 +102,7 @@ async function fetchWithProxy(url, options = {
         port: parseInt(proxy[1])
     };
     options.headers = options.headers || {};
-    options.headers['User-Agent'] = get_random_agent();
-    console.log(options);
+    options.headers['User-Agent'] = getRandomAgent();
     const response = await axios.get(url, options);
     return response.data;
 }
@@ -117,8 +116,6 @@ console.log('testing...md5:\n', md5_string("1234567890"), '\n');
 const testing1 = "https://httpbin.org/get",
     testing2 = "https://shopee.co.id/api/v4/search/search_items?by=sales&limit=60&match_id=11043849&newest=1020&order=desc&page_type=search&scenario=PAGE_OTHERS&version=2";
 
-
-console.log("tesing result:", await fetchWithProxy(testing1));
 console.log("testing shopee:\n", await fetchWithProxy(testing2));
 
 export { fetchWithProxy }

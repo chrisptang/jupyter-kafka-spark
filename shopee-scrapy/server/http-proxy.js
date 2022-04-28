@@ -108,7 +108,7 @@ function getRandomAgent() {
     return agent_list[Math.floor(Math.random() * agent_list.length)];
 }
 
-const proxies = ["47.242.25.66:15550", "8.210.2.122:12087", "47.242.25.66:14470", "47.242.25.66:16825", "47.242.25.66:15724", "47.242.25.66:16756", "8.210.2.122:12534", "149.129.100.105:11544", "149.129.100.105:18663", "149.129.100.105:11814", "47.242.25.66:19442", "149.129.100.105:11161", "8.210.2.122:12159", "47.242.25.66:15764", "47.240.11.53:16096", "149.129.100.105:18164", "47.240.11.53:15786", "149.129.100.105:11526", "8.210.2.122:12309", "47.242.25.66:15898", "149.129.100.105:18850", "8.210.2.122:19044", "47.242.25.66:16047", "149.129.100.105:19915", "149.129.100.105:18362", "149.129.100.105:11221", "47.240.11.53:15567", "47.240.11.53:11264", "47.242.25.66:16606", "47.242.25.66:16066", "149.129.100.105:11673", "47.240.11.53:17045", "47.240.11.53:15080", "8.210.2.122:12061", "47.242.25.66:11818", "47.240.11.53:15205", "149.129.100.105:19103", "8.210.2.122:14509", "8.210.2.122:10195", "149.129.100.105:16066", "47.240.11.53:11498", "149.129.100.105:14451", "47.242.25.66:12832", "149.129.100.105:16194", "47.240.11.53:19593", "8.210.2.122:19181", "47.240.11.53:16701", "149.129.100.105:11954", "47.242.25.66:16093", "149.129.100.105:12667"];
+const proxies = { "47.242.25.66:15550": 1, "8.210.2.122:12087": 1, "47.242.25.66:14470": 1, "47.242.25.66:16825": 1, "47.242.25.66:15724": 1, "47.242.25.66:16756": 1, "8.210.2.122:12534": 1, "149.129.100.105:11544": 1, "149.129.100.105:18663": 1, "149.129.100.105:11814": 1, "47.242.25.66:19442": 1, "149.129.100.105:11161": 1, "8.210.2.122:12159": 1, "47.242.25.66:15764": 1, "47.240.11.53:16096": 1, "149.129.100.105:18164": 1, "47.240.11.53:15786": 1, "149.129.100.105:11526": 1, "8.210.2.122:12309": 1, "47.242.25.66:15898": 1, "149.129.100.105:18850": 1, "8.210.2.122:19044": 1, "47.242.25.66:16047": 1, "149.129.100.105:19915": 1, "149.129.100.105:18362": 1, "149.129.100.105:11221": 1, "47.240.11.53:15567": 1, "47.240.11.53:11264": 1, "47.242.25.66:16606": 1, "47.242.25.66:16066": 1, "149.129.100.105:11673": 1, "47.240.11.53:17045": 1, "47.240.11.53:15080": 1, "8.210.2.122:12061": 1, "47.242.25.66:11818": 1, "47.240.11.53:15205": 1, "149.129.100.105:19103": 1, "8.210.2.122:14509": 1, "8.210.2.122:10195": 1, "149.129.100.105:16066": 1, "47.240.11.53:11498": 1, "149.129.100.105:14451": 1, "47.242.25.66:12832": 1, "149.129.100.105:16194": 1, "47.240.11.53:19593": 1, "8.210.2.122:19181": 1, "47.240.11.53:16701": 1, "149.129.100.105:11954": 1, "47.242.25.66:16093": 1, "149.129.100.105:12667": 1 };
 
 const secret = process.env.PROXY_SECRET || 'you-secret',
     license = process.env.PROXY_LICENSE || "P62EF6DF7659806F3";
@@ -139,31 +139,47 @@ async function fetchLatestAvailableProxies() {
 
     let new_proxies = response.data.data.proxies;
     if (new_proxies && new_proxies.length > 0) {
-        proxies.splice(0, proxies.length);
-        proxies.push(...new_proxies);
+        new_proxies.forEach(element => {
+            proxies[element] = 1;
+        });
+        let all_keys = Object.keys(json);
+        if (all_keys.length > 500) {
+            // 如果本地内存太大了，就删除一些
+            all_keys.forEach(ele => {
+                // 随机删除30%；
+                if (Math.random() < 0.3) {
+                    delete proxies[ele];
+                }
+            });
+        }
     }
     console.log("new proxies:", new_proxies);
 
     // adding current ip to whitelist;
-    const ip = await (await axios.get('https://ifconfig.co/ip')).data;
-    console.log("adding current ip:", ip);
+    // const ip = await (await axios.get('https://ifconfig.co/ip')).data;
+    // console.log("adding current ip:", ip);
 
-    let whitelist_options = getProxyReuqestOptins();
-    whitelist_options.ip = ip.trim();
-    console.log("whitelist_options", whitelist_options)
-    const result = await (await axios.get('https://api.ttproxy.com/v1/whitelist/add', {
-        params: whitelist_options
-    })).data;
+    // let whitelist_options = getProxyReuqestOptins();
+    // whitelist_options.ip = ip.trim();
+    // console.log("whitelist_options", whitelist_options)
+    // const result = await (await axios.get('https://api.ttproxy.com/v1/whitelist/add', {
+    //     params: whitelist_options
+    // })).data;
 
-    console.log("whilelist result:", result);
+    // console.log("whilelist result:", result);
 
     return new_proxies;
 }
 
 function getRandomProxy() {
-    let proxy_selected = proxies[Math.floor(Math.random() * proxies.length)];
+    let keys = Object.keys(proxies);
+    let proxy_selected = keys[Math.floor(Math.random() * keys.length)];
     console.log("using proxy:", proxy_selected)
     return proxy_selected;
+}
+
+function deleteUnavailableProxy(proxy) {
+    delete proxies[proxy];
 }
 
 let proxy_usage = 0;
@@ -183,10 +199,11 @@ async function fetchWithProxy(url, options = {
     if (proxy_usage++ % 20 == 0) {
         let new_proxies = await fetchLatestAvailableProxies();
     }
-    let proxy = getRandomProxy().split(":");
+    let proxy = getRandomProxy();
+    let proxy_pair = proxy.split(":");
     options.proxy = {
-        host: proxy[0],
-        port: parseInt(proxy[1])
+        host: proxy_pair[0],
+        port: parseInt(proxy_pair[1])
     };
     options.headers = options.headers || {};
     options.headers['User-Agent'] = getRandomAgent();
@@ -195,6 +212,8 @@ async function fetchWithProxy(url, options = {
         return response.data;
     } catch (error) {
         console.error("url:", url, "options:", options, "\nerror:", error);
+
+        deleteUnavailableProxy(proxy);
 
         // 300ms 后重试一次
         await new Promise(resolve => setTimeout(resolve, 300));

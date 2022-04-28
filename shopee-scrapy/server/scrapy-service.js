@@ -53,14 +53,14 @@ async function getShopeeData(url = '', retry = 1) {
     console.log("requesting:", url);
     // Default options are marked with *
     try {
-        const response = await fetchWithProxy(url, {
+        const result = await fetchWithProxy(url, {
             headers: {
                 "x-api-source": "rweb",
                 "x-requested-with": "XMLHttpRequest",
                 "x-shopee-language": "en"
             }
         });
-        return response.json(); // parses JSON response into native JavaScript objects
+        return result;
     } catch (error) {
         console.error("error while calling:" + url, error);
         return await getShopeeData(url, --retry);
@@ -99,8 +99,8 @@ async function cate_callback(i = 0, cate_id = 11042921, by = "sales", site = "sh
     try {
         let json = await getShopeeData(url);
         if (!json || !json.items || json.items.length <= 0 || json.nomore) {
-            console.warn("url has no items:", url);
-            return
+            console.warn("url has no items:", url, " returned json:", json);
+            return;
         }
         json.url = url;
         let response = await sendResult(json);

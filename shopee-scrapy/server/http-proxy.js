@@ -107,6 +107,7 @@ async function fetchWithProxy(url, options = {
         return response.data;
     } catch (error) {
         console.error("url:", url, "options:", options, "\nerror:", error);
+        return null;
     }
 }
 

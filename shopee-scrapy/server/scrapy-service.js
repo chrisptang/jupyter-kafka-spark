@@ -9,7 +9,7 @@ const tasks = [], max_no_task_wait = 10;
 let started_at = new Date(), no_task_wait = max_no_task_wait;
 
 function getRandomTimeout() {
-    return 30 * (100 + 1 * parseInt(100 * Math.random()))
+    return (100 + parseInt(100 * Math.random()))
 }
 
 function executeTask(is_new_start = true) {

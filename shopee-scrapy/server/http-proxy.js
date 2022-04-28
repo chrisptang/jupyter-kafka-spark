@@ -1,4 +1,3 @@
-import fetch from "node-fetch";
 import crypto from "crypto";
 import axios from 'axios-proxy-fix';
 
@@ -23,7 +22,7 @@ const agent_list = [
 ];
 
 function getRandomAgent() {
-    return agent_list[Math.min(parseInt(agent_list.length * Math.random()), agent_list.length)];
+    return agent_list[Math.floor(Math.random() * agent_list.length)];
 }
 
 const proxies = ["47.240.11.53:16067", "47.242.25.66:12103", "149.129.100.105:11759", "8.210.2.122:11256", "149.129.100.105:17782", "8.210.2.122:19051", "47.242.25.66:16875", "149.129.100.105:11599", "8.210.2.122:11346", "149.129.100.105:11973"];
@@ -78,7 +77,7 @@ async function fetchLatestAvailableProxies() {
 }
 
 function getRandomProxy() {
-    let proxy_selected = proxies[parseInt(proxies.length * Math.random())];
+    let proxy_selected = proxies[Math.floor(Math.random() * proxies.length)];
     console.log("using proxy:", proxy_selected)
     return proxy_selected;
 }
@@ -93,7 +92,7 @@ async function fetchWithProxy(url, options = {
         'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh-TW;q=0.7,zh;q=0.6'
     }
 }) {
-    if (proxy_usage++ % 50 == 0) {
+    if (proxy_usage++ % 20 == 0) {
         let new_proxies = await fetchLatestAvailableProxies();
     }
     let proxy = getRandomProxy().split(":");
@@ -103,8 +102,12 @@ async function fetchWithProxy(url, options = {
     };
     options.headers = options.headers || {};
     options.headers['User-Agent'] = getRandomAgent();
-    const response = await axios.get(url, options);
-    return response.data;
+    try {
+        const response = await axios.get(url, options);
+        return response.data;
+    } catch (error) {
+        console.error("url:", url, "options:", options, "\nerror:", error);
+    }
 }
 
 function md5_string(str) {

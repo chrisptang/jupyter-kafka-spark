@@ -142,7 +142,7 @@ async function fetchLatestAvailableProxies() {
         new_proxies.forEach(element => {
             proxies[element] = 1;
         });
-        let all_keys = Object.keys(json);
+        let all_keys = Object.keys(proxies);
         if (all_keys.length > 500) {
             // 如果本地内存太大了，就删除一些
             all_keys.forEach(ele => {

@@ -25,7 +25,7 @@ function getRandomAgent() {
     return agent_list[Math.floor(Math.random() * agent_list.length)];
 }
 
-const proxies = ["47.240.11.53:16067", "47.242.25.66:12103", "149.129.100.105:11759", "8.210.2.122:11256", "149.129.100.105:17782", "8.210.2.122:19051", "47.242.25.66:16875", "149.129.100.105:11599", "8.210.2.122:11346", "149.129.100.105:11973"];
+const proxies = ["47.242.25.66:15550", "8.210.2.122:12087", "47.242.25.66:14470", "47.242.25.66:16825", "47.242.25.66:15724", "47.242.25.66:16756", "8.210.2.122:12534", "149.129.100.105:11544", "149.129.100.105:18663", "149.129.100.105:11814", "47.242.25.66:19442", "149.129.100.105:11161", "8.210.2.122:12159", "47.242.25.66:15764", "47.240.11.53:16096", "149.129.100.105:18164", "47.240.11.53:15786", "149.129.100.105:11526", "8.210.2.122:12309", "47.242.25.66:15898", "149.129.100.105:18850", "8.210.2.122:19044", "47.242.25.66:16047", "149.129.100.105:19915", "149.129.100.105:18362", "149.129.100.105:11221", "47.240.11.53:15567", "47.240.11.53:11264", "47.242.25.66:16606", "47.242.25.66:16066", "149.129.100.105:11673", "47.240.11.53:17045", "47.240.11.53:15080", "8.210.2.122:12061", "47.242.25.66:11818", "47.240.11.53:15205", "149.129.100.105:19103", "8.210.2.122:14509", "8.210.2.122:10195", "149.129.100.105:16066", "47.240.11.53:11498", "149.129.100.105:14451", "47.242.25.66:12832", "149.129.100.105:16194", "47.240.11.53:19593", "8.210.2.122:19181", "47.240.11.53:16701", "149.129.100.105:11954", "47.242.25.66:16093", "149.129.100.105:12667"];
 
 const secret = process.env.PROXY_SECRET || 'you-secret',
     license = process.env.PROXY_LICENSE || "P62EF6DF7659806F3";
@@ -33,7 +33,8 @@ const secret = process.env.PROXY_SECRET || 'you-secret',
 function getProxyReuqestOptins() {
     let params = {
         "license": license,
-        "time": parseInt(new Date().getTime() / 1000)
+        "time": parseInt(new Date().getTime() / 1000),
+        "cnt": 50
     }
 
     params.sign = md5_string(license + params.time + secret);
@@ -91,7 +92,11 @@ async function fetchWithProxy(url, options = {
         'Accept-Encoding': 'gzip, deflate, br',
         'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh-TW;q=0.7,zh;q=0.6'
     }
-}) {
+}, retry = 2) {
+    if (retry < 0) {
+        console.warn("stopped retry.");
+        return null;
+    }
     if (proxy_usage++ % 20 == 0) {
         let new_proxies = await fetchLatestAvailableProxies();
     }
@@ -107,7 +112,7 @@ async function fetchWithProxy(url, options = {
         return response.data;
     } catch (error) {
         console.error("url:", url, "options:", options, "\nerror:", error);
-        return null;
+        return await fetchWithProxy(url, options, --retry);
     }
 }
 

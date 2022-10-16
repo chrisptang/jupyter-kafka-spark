@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  jupyter:
+    container_name: jupyter
+    image: jupyter/pyspark-notebook:latest
+    restart: always
+    environment:
+      - THIS_HOST_IP=$HOST_IP
+      - PASSWORD=ptang4312
+      - SPARK_OPTS=--master=local[2] --driver-memory=2g --executor-memory=2g
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./jupyter-work:/home/jovyan/work
+
+  nsfw:
+    container_name: yahoo-nsfw
+    image: eugencepoi/nsfw_api:latest
+    environment:
+      - PORT=5000
+    ports:
+      - "5001:5000"

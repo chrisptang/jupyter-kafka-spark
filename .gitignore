@@ -1,5 +1,4 @@
 .env
-jupyter-work/
 postgresql-42.2.24.jar
 jupyter-pg-data/
 node_modules/
@@ -10,3 +9,6 @@ spark-logs
 spark/
 zeppelin-warehouse
 custom-zeppelin/spark-setting.conf
+jupyter-work/spark-warehouse
+*/.ipynb_checkpoints/
+*/*/.ipynb_checkpoints/

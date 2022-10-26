@@ -12,3 +12,5 @@ custom-zeppelin/spark-setting.conf
 jupyter-work/spark-warehouse
 */.ipynb_checkpoints/
 */*/.ipynb_checkpoints/
+jupyter-work/metastore_db/
+jupyter-work/derby.log
